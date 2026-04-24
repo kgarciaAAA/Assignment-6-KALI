@@ -9,7 +9,7 @@ public class StudentUser extends User{ //implement cloneable?
     private Major major;
     private final List<Course> completedCourses;
     private final List<Course> enrolledCourses;
-    private final List<Course> plannedCourses; 
+    // private final List<Course> plannedCourses; 
     private double balance;
 
 
@@ -18,7 +18,7 @@ public class StudentUser extends User{ //implement cloneable?
         this.major = major;
         this.completedCourses = new ArrayList<>();
         this.enrolledCourses = new ArrayList<>();
-        this.plannedCourses = new ArrayList<>();
+        // this.plannedCourses = new ArrayList<>();
         this.balance = balance;
         
     }
@@ -31,38 +31,38 @@ public class StudentUser extends User{ //implement cloneable?
         return List.copyOf(completedCourses); 
     }
 
-    public List<Course> getEnrolledCourse() { 
+    public List<Course> getEnrolledCourses() { 
         return List.copyOf(enrolledCourses); 
     }
 
-    public List<Course> getPlannedCourse(){
-        return List.copyOf(plannedCourses);
-    }
+    // public List<Course> getPlannedCourses(){
+    //     return List.copyOf(plannedCourses);
+    // }
 
     public double getBalance(){
         return balance;
     }
 
     // controlled updates
-    public void addCompletedCourses(Course course) {
+    public void addCompletedCourse(Course course) {
         completedCourses.add(course);
     }
 
-    public void addEnrolledCourses(Course course) {
+    public void addEnrolledCourse(Course course) {
         enrolledCourses.add(course);
     }
 
-    public void addPlannedCourses(Course course) {
-        plannedCourses.add(course);
-    }
+    // public void addPlannedCourse(Course course) {
+    //     plannedCourses.add(course);
+    // }
 
-    public boolean removeEnrolledCourses(Course course) {
+    public boolean removeEnrolledCourse(Course course) {
         return enrolledCourses.remove(course);
     }
 
-    public boolean removePlannedCourses(Course course) {
-        return plannedCourses.remove(course);
-    }
+    // public boolean removePlannedCourse(Course course) {
+    //     return plannedCourses.remove(course);
+    // }
 
     public void adjustBalance(double amount) {
         this.balance += amount;

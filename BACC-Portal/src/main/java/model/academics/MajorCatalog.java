@@ -36,4 +36,20 @@ public class MajorCatalog {
     public void addElectiveCourses(Course elective) {
         electiveCourses.add(elective);
     }
+
+    public Course getCourseByID(String courseID) {
+        for (Course reqCourse : requiredCourses) {
+            if (reqCourse.getCourseID().equals(courseID)){
+                return reqCourse;
+            }
+        }
+
+        for (Course elective : electiveCourses) {
+            if (elective.getCourseID().equals(courseID)){
+                return elective;
+            }
+        }
+
+        return null;
+    }
 }
