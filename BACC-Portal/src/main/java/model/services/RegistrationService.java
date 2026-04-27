@@ -12,6 +12,7 @@ public class RegistrationService {
             return false;
         }
         user.addEnrolledCourse(course);
+        user.adjustBalance(course.getPrice());
         return true;
     }
 
