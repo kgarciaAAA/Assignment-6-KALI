@@ -2,7 +2,7 @@ package services;
 
 import academics.Course;
 import java.util.List;
-import users.*;
+import users.StudentUser;
 
 public class RegistrationService {
 
@@ -12,7 +12,6 @@ public class RegistrationService {
             return false;
         }
         user.addEnrolledCourse(course);
-        user.adjustBalance(course.getPrice());
         return true;
     }
 

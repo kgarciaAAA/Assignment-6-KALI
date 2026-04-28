@@ -1,8 +1,8 @@
 package academics;
 
 public class Major {
-    private String majorName;
-    private String department;
+    private final String majorName;
+    private final String department;
 
     //default constructor
     public Major(String majorName, String department) {

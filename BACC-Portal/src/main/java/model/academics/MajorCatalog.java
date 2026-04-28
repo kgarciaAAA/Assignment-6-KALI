@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MajorCatalog {
-    private Major major;
-    private List<Course> requiredCourses;
-    private List<Course> electiveCourses;
+    private final Major major;
+    private final List<Course> requiredCourses;
+    private final List<Course> electiveCourses;
 
     //default constructor
     public MajorCatalog (Major major){
@@ -39,13 +39,13 @@ public class MajorCatalog {
 
     public Course getCourseByID(String courseID) {
         for (Course reqCourse : requiredCourses) {
-            if (reqCourse.getCourseID().equals(courseID)){
+            if (reqCourse.getCourseId().equals(courseID)){
                 return reqCourse;
             }
         }
 
         for (Course elective : electiveCourses) {
-            if (elective.getCourseID().equals(courseID)){
+            if (elective.getCourseId().equals(courseID)){
                 return elective;
             }
         }

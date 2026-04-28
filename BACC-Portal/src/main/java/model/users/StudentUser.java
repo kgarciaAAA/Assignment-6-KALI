@@ -4,22 +4,26 @@ import academics.Course;
 import academics.Major;
 import java.util.ArrayList;
 import java.util.List;
+import utilities.Receipt;
 
 public class StudentUser extends User{ //implement cloneable?
     private Major major;
     private final List<Course> completedCourses;
     private final List<Course> enrolledCourses;
     // private final List<Course> plannedCourses; 
-    private double balance;
+    private double balanceOwed;
+    private final List<Receipt> transactionHistory;
+    //Should we add a List<PaymentInfo> savedPaymentMethods to store user payments?
 
 
-    public StudentUser(String email, String userID, String password, String fullName, Major major, double balance){
+    public StudentUser(String email, String userID, String password, String fullName, Major major, double balanceOwed){
         super(email, userID, password,fullName);
         this.major = major;
         this.completedCourses = new ArrayList<>();
         this.enrolledCourses = new ArrayList<>();
         // this.plannedCourses = new ArrayList<>();
-        this.balance = balance;
+        this.balanceOwed = balanceOwed;
+        this.transactionHistory = new ArrayList<>();
         
     }
     //getters
@@ -39,8 +43,12 @@ public class StudentUser extends User{ //implement cloneable?
     //     return List.copyOf(plannedCourses);
     // }
 
-    public double getBalance(){
-        return balance;
+    public double getBalanceOwed(){
+        return balanceOwed;
+    }
+
+    public List<Receipt> getTransactionHistory() {
+        return List.copyOf(transactionHistory);
     }
 
     // controlled updates
@@ -50,6 +58,10 @@ public class StudentUser extends User{ //implement cloneable?
 
     public void addEnrolledCourse(Course course) {
         enrolledCourses.add(course);
+    }
+
+    public void addTransaction(Receipt receipt) {
+        transactionHistory.add(receipt);
     }
 
     // public void addPlannedCourse(Course course) {
@@ -64,7 +76,7 @@ public class StudentUser extends User{ //implement cloneable?
     //     return plannedCourses.remove(course);
     // }
 
-    public void adjustBalance(double amount) {
-        this.balance += amount;
+    public void adjustBalanceOwed(double amount) {
+        this.balanceOwed += amount;
     }
 }

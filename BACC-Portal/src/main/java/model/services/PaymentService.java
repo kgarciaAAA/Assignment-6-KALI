@@ -2,18 +2,27 @@ package services;
 
 import users.StudentUser;
 import utilities.PaymentInfo;
+import utilities.Receipt;
 
-public class PaymentService { //potentially add a receipt system?
-    
+public class PaymentService {
+
     public double checkStudentBalance(StudentUser user) {
-        return user.getBalance();
+        return user.getBalanceOwed();
     }
 
-    public void addStudentBalance(StudentUser user, double amount) {
-        user.adjustBalance(amount);
+    /**
+     * adds charge to students account after enrolling into a class.
+     * "THIS METHOD SHOULD BE CALLED IN CONTROLLER, USE AN IF STATEMENT TO VERIFY THE STUDENT 
+     * CORRECTLY ENROLLED THEN CALL CHARGEFORCOURSE()"
+     * @param user reference to a student user child
+     * @param amount a double containing price for a course
+    
+     */
+    public void addCharge(StudentUser user, double amount) { 
+        user.adjustBalanceOwed(amount);
     }
 
-    public boolean processPayment(StudentUser user, PaymentInfo paymentInfo, double amount) {
+    public Receipt processPayment(StudentUser user, PaymentInfo paymentInfo, double amount) {
         if (paymentInfo == null) {
             throw new IllegalArgumentException("Invalid Payment Information."); //can do some kind of system to validate the paymentInfo
         }
@@ -22,12 +31,13 @@ public class PaymentService { //potentially add a receipt system?
             throw new IllegalArgumentException("Invalid Payment Amount.");
         }
 
-        if (user.getBalance() < amount) {
+        if (user.getBalanceOwed() < amount) {
             throw new IllegalArgumentException("Requested Payment is greater than Current Balance");
         }
 
-        user.adjustBalance(-amount);
-
-        return true; //can return a generated receipt ID, or can make receipt object
+        user.adjustBalanceOwed(-amount);
+        Receipt newReceipt = new Receipt(amount, user.getBalanceOwed());
+        user.addTransaction(newReceipt);
+        return newReceipt; //can return a generated receipt ID, or can make receipt object
     }
 }
