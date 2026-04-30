@@ -1,47 +1,40 @@
 package users;
 
-import academics.Course;
+import academics.CourseSection;
 import academics.Major;
 import java.util.ArrayList;
 import java.util.List;
 import utilities.Receipt;
 
 public class StudentUser extends User{ //implement cloneable?
-    private Major major;
-    private final List<Course> completedCourses;
-    private final List<Course> enrolledCourses;
-    // private final List<Course> plannedCourses; 
+    private final Major major;
+    private final List<CourseSection> completedSections;
+    private final List<CourseSection> enrolledSections;
     private double balanceOwed;
     private final List<Receipt> transactionHistory;
     //Should we add a List<PaymentInfo> savedPaymentMethods to store user payments?
 
-
     public StudentUser(String email, String userID, String password, String fullName, Major major, double balanceOwed){
         super(email, userID, password,fullName);
         this.major = major;
-        this.completedCourses = new ArrayList<>();
-        this.enrolledCourses = new ArrayList<>();
-        // this.plannedCourses = new ArrayList<>();
+        this.completedSections = new ArrayList<>();
+        this.enrolledSections = new ArrayList<>();
         this.balanceOwed = balanceOwed;
         this.transactionHistory = new ArrayList<>();
-        
     }
+
     //getters
     public Major getMajor() { 
         return major; 
     }
 
-    public List<Course> getCompletedCourses() { 
-        return List.copyOf(completedCourses); 
+    public List<CourseSection> getCompletedSections() { 
+        return List.copyOf(completedSections); 
     }
 
-    public List<Course> getEnrolledCourses() { 
-        return List.copyOf(enrolledCourses); 
+    public List<CourseSection> getEnrolledSections() { 
+        return List.copyOf(enrolledSections); 
     }
-
-    // public List<Course> getPlannedCourses(){
-    //     return List.copyOf(plannedCourses);
-    // }
 
     public double getBalanceOwed(){
         return balanceOwed;
@@ -52,29 +45,21 @@ public class StudentUser extends User{ //implement cloneable?
     }
 
     // controlled updates
-    public void addCompletedCourse(Course course) {
-        completedCourses.add(course);
+    public void addCompletedSection(CourseSection section) {
+        completedSections.add(section);
     }
 
-    public void addEnrolledCourse(Course course) {
-        enrolledCourses.add(course);
+    public void addEnrolledSection(CourseSection section) {
+        enrolledSections.add(section);
     }
 
     public void addTransaction(Receipt receipt) {
         transactionHistory.add(receipt);
     }
 
-    // public void addPlannedCourse(Course course) {
-    //     plannedCourses.add(course);
-    // }
-
-    public boolean removeEnrolledCourse(Course course) {
-        return enrolledCourses.remove(course);
+    public boolean removeEnrolledSection(CourseSection course) {
+        return enrolledSections.remove(course);
     }
-
-    // public boolean removePlannedCourse(Course course) {
-    //     return plannedCourses.remove(course);
-    // }
 
     public void adjustBalanceOwed(double amount) {
         this.balanceOwed += amount;

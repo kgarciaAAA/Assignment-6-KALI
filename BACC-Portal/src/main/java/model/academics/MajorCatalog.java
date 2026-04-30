@@ -20,6 +20,7 @@ public class MajorCatalog {
         return major.getMajorName();
     }
 
+    //methods
     public List<Course> getRequiredCourses() {
         return List.copyOf(requiredCourses);
     }
@@ -28,13 +29,12 @@ public class MajorCatalog {
         return List.copyOf(electiveCourses);
     }
 
-    //controlled updates
-    public void addRequiredCourses(Course required) {
-        requiredCourses.add(required);
+    public boolean isRequired(Course course) {
+        return requiredCourses.contains(course);
     }
 
-    public void addElectiveCourses(Course elective) {
-        electiveCourses.add(elective);
+    public boolean isElective(Course course) {
+        return electiveCourses.contains(course);
     }
 
     public Course getCourseByID(String courseID) {

@@ -1,25 +1,26 @@
 package services;
 
 import academics.Course;
+import academics.CourseSection;
 import java.util.List;
 import users.StudentUser;
 
 public class AcademicRecordsService {
-    public boolean completeCourse(StudentUser student, Course completed) {
-        if (!student.removeEnrolledCourse(completed)) {
+    public boolean completeSection(StudentUser student, CourseSection completed) {
+        if (!student.removeEnrolledSection(completed)) {
             return false;   
         }
-        student.addCompletedCourse(completed);
+        student.addCompletedSection(completed);
         return true;
     }
 
     public int calculateCompletedCredits(StudentUser student) {
         int total = 0;
-        List<Course> studentCompletedList = student.getCompletedCourses();
-        for (Course course : studentCompletedList){
+        List<CourseSection> completed = student.getCompletedSections();
+        for (CourseSection section : completed){
+            Course course = section.getCourse();
             total += course.getUnitAmount();
         }
-
         return total;
     }
 

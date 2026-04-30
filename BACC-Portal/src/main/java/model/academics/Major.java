@@ -2,10 +2,10 @@ package academics;
 
 public class Major {
     private final String majorName;
-    private final String department;
+    private final Department department;
 
     //default constructor
-    public Major(String majorName, String department) {
+    public Major(String majorName, Department department) {
         this.majorName = majorName; 
         this.department = department;
     }
@@ -13,5 +13,5 @@ public class Major {
     //getters
     public String getMajorName(){ return majorName; }
 
-    public String getDepartment(){ return department; }
+    public Department getDepartment(){ return department; }
 }
