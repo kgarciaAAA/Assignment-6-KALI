@@ -8,12 +8,12 @@ import java.util.List;
 
 public class FacultyUser extends User{
     private final Department department;
-    private final List<CourseSection> coursesTaught;
+    private final List<CourseSection> sectionsTaught;
 
-    public FacultyUser(String email, String userID, String password, String fullName, Department department){
+    public FacultyUser(String email, String userID, String password, String fullName, Department department, List<CourseSection> sectionsTaught){
         super(email, userID, password,fullName);
         this.department = department;
-        this.coursesTaught = new ArrayList<>();
+        this.sectionsTaught = new ArrayList<>(sectionsTaught);
     }
 
     //getters
@@ -21,16 +21,21 @@ public class FacultyUser extends User{
         return department;
     }
 
-    public List<CourseSection> getCoursesTaught() {
-        return List.copyOf(coursesTaught);
+    public List<CourseSection> getSectionsTaught() {
+        return List.copyOf(sectionsTaught);
     }
 
     //controlled updates
-    public void addCoursesTaught(CourseSection course) {
-        coursesTaught.add(course);
+    public void addSectionTaught(CourseSection section) {
+        sectionsTaught.add(section);
     }
 
-    public boolean removeCourseTaught(CourseSection course) {
-        return coursesTaught.remove(course);
+    public boolean removeSectionTaught(CourseSection section) {
+        return sectionsTaught.remove(section);
     }
+
+    public int getNumSectionsTaught() {
+        return sectionsTaught.size();
+    }
+
 }

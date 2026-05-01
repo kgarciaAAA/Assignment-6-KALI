@@ -22,4 +22,21 @@ public abstract class User {
     public boolean comparePassword(String password) {
         return this.password.equals(password);
     }
+
+    @Override
+    public boolean equals(Object o) { 
+        if (this == o) {
+            return true;
+        } else if (!(o instanceof User)) {
+            return false;
+        } else {
+            User u = (User) o;
+            return userId != null && userId.equalsIgnoreCase(u.userId);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return userId == null ? 0 : userId.toLowerCase().hashCode();
+    }
 }

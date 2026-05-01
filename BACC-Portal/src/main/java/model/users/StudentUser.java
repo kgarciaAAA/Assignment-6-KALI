@@ -14,8 +14,8 @@ public class StudentUser extends User{ //implement cloneable?
     private final List<Receipt> transactionHistory;
     //Should we add a List<PaymentInfo> savedPaymentMethods to store user payments?
 
-    public StudentUser(String email, String userID, String password, String fullName, Major major, double balanceOwed){
-        super(email, userID, password,fullName);
+    public StudentUser(String email, String userId, String password, String fullName, Major major, double balanceOwed){
+        super(email, userId, password,fullName);
         this.major = major;
         this.completedSections = new ArrayList<>();
         this.enrolledSections = new ArrayList<>();
