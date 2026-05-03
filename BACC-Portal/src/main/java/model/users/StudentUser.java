@@ -17,7 +17,7 @@ public class StudentUser extends User{ //implement cloneable?
     public StudentUser(String email, String userId, String password, String fullName, Major major, double balanceOwed){
         super(email, userId, password,fullName);
         this.major = major;
-        this.completedSections = new ArrayList<>();
+        this.completedSections = new ArrayList<>(); //dont know if we want to make a reference outside of user and inject it or make a new ArrayList in user then update it using methods.
         this.enrolledSections = new ArrayList<>();
         this.balanceOwed = balanceOwed;
         this.transactionHistory = new ArrayList<>();
