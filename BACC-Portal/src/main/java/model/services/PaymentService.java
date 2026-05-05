@@ -22,7 +22,7 @@ public class PaymentService {
         user.adjustBalanceOwed(amount);
     }
 
-    public Receipt processPayment(StudentUser user, PaymentInfo paymentInfo, double amount) {
+    public Receipt processPayment(StudentUser user, PaymentInfo paymentInfo, double amount) throws IllegalArgumentException{
         if (paymentInfo == null) {
             throw new IllegalArgumentException("Invalid Payment Information."); //can do some kind of system to validate the paymentInfo
         }

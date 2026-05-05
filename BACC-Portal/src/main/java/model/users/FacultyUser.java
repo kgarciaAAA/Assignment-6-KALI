@@ -10,10 +10,10 @@ public class FacultyUser extends User{
     private final Department department;
     private final List<CourseSection> sectionsTaught;
 
-    public FacultyUser(String email, String userID, String password, String fullName, Department department, List<CourseSection> sectionsTaught){
+    public FacultyUser(String email, String userID, String password, String fullName, Department department){
         super(email, userID, password,fullName);
         this.department = department;
-        this.sectionsTaught = new ArrayList<>(sectionsTaught);
+        this.sectionsTaught = new ArrayList<>();
     }
 
     //getters
