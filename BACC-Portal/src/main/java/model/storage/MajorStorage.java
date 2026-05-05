@@ -11,6 +11,10 @@ public class MajorStorage {
         this.catalogByMajor = new HashMap<>();
     }
 
+    public Map<String, MajorCatalog> getAllMajorCatalogs() {
+        return Map.copyOf(catalogByMajor);
+    }
+
     public void addMajorCatalog(MajorCatalog majorCatalog) {
         catalogByMajor.put(majorCatalog.getMajorName(), majorCatalog);
     }

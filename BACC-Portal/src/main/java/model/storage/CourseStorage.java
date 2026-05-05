@@ -2,7 +2,9 @@ package storage;
 
 import academics.Course;
 import academics.CourseSection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -15,19 +17,39 @@ public class CourseStorage {
         this.sections = new HashMap<>();
     }
 
-    public void addCourses(Course course) {
+    public Map<String, Course> getAllCourses(){
+        return Map.copyOf(courses);
+    }
+
+    public Map<String, CourseSection> getAllSections(){
+        return Map.copyOf(sections);
+    }
+
+    public void addCourse(Course course) {
         courses.put(course.getCourseId(), course);
     }
 
-    public void addSections(CourseSection courseSection) {
+    public void addSection(CourseSection courseSection) {
         sections.put(courseSection.getSectionId(), courseSection);
     }
 
-    public Course getCourses(String courseId) {
+    public Course getCourse(String courseId) {
         return courses.get(courseId);
     }
 
-    public CourseSection getSections(String sectionId) {
+    public CourseSection getSection(String sectionId) {
         return sections.get(sectionId);
+    }
+
+    public List<CourseSection> getSectionsByCourse(Course course) {
+        List<CourseSection> courseSections = new ArrayList<>();
+
+        for (CourseSection section : sections.values()) {
+            if (section.getCourse().equals(course)) {
+                courseSections.add(section);
+            }
+        }
+
+        return courseSections;
     }
 }

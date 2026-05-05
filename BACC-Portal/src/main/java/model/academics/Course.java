@@ -25,4 +25,21 @@ public class Course {
     public double getUnitAmount(){ return unitAmount; }
 
     public List<Course> getCoursePrerequisites(){ return List.copyOf(coursePrerequisites); }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this){
+          return true; 
+        } else if (!(o instanceof Course)) {
+            return false;
+        } else {
+            Course other = (Course) o;
+            return this.courseId.equals(other.courseId);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return courseId == null ? 0 : courseId.toLowerCase().hashCode();
+    }
 }
