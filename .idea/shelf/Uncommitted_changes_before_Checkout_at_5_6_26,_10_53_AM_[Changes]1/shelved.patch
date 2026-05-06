@@ -1,0 +1,43 @@
+Index: BACC-Portal/src/main/java/model/users/StudentUser.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package users;\n\nimport academics.CourseSection;\nimport academics.Major;\nimport java.util.ArrayList;\nimport java.util.List;\nimport utilities.Receipt;\n\npublic class StudentUser extends User{ //implement cloneable?\n    private final Major major;\n    private final List<CourseSection> completedSections;\n    private final List<CourseSection> enrolledSections;\n    private double balanceOwed;\n    private final List<Receipt> transactionHistory;\n    //Should we add a List<PaymentInfo> savedPaymentMethods to store user payments?\n\n    public StudentUser(String email, String userId, String password, String fullName, Major major, double balanceOwed){\n        super(email, userId, password,fullName);\n        this.major = major;\n        this.completedSections = new ArrayList<>(); //dont know if we want to make a reference outside of user and inject it or make a new ArrayList in user then update it using methods.\n        this.enrolledSections = new ArrayList<>();\n        this.balanceOwed = balanceOwed;\n        this.transactionHistory = new ArrayList<>();\n    }\n\n    //getters\n    public Major getMajor() { \n        return major; \n    }\n\n    public List<CourseSection> getCompletedSections() { \n        return List.copyOf(completedSections); \n    }\n\n    public List<CourseSection> getEnrolledSections() { \n        return List.copyOf(enrolledSections); \n    }\n\n    public double getBalanceOwed(){\n        return balanceOwed;\n    }\n\n    public List<Receipt> getTransactionHistory() {\n        return List.copyOf(transactionHistory);\n    }\n\n    // controlled updates\n    public void addCompletedSection(CourseSection section) {\n        completedSections.add(section);\n    }\n\n    public void addEnrolledSection(CourseSection section) {\n        enrolledSections.add(section);\n    }\n\n    public void addTransaction(Receipt receipt) {\n        transactionHistory.add(receipt);\n    }\n\n    public boolean removeEnrolledSection(CourseSection course) {\n        return enrolledSections.remove(course);\n    }\n\n    public void adjustBalanceOwed(double amount) {\n        this.balanceOwed += amount;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/BACC-Portal/src/main/java/model/users/StudentUser.java b/BACC-Portal/src/main/java/model/users/StudentUser.java
+--- a/BACC-Portal/src/main/java/model/users/StudentUser.java	(revision b7f5a77223312f916fc4fe3d575aa91c3e907364)
++++ b/BACC-Portal/src/main/java/model/users/StudentUser.java	(date 1778089727051)
+@@ -6,7 +6,7 @@
+ import java.util.List;
+ import utilities.Receipt;
+ 
+-public class StudentUser extends User{ //implement cloneable?
++public class StudentUser extends users.User { //implement cloneable?
+     private final Major major;
+     private final List<CourseSection> completedSections;
+     private final List<CourseSection> enrolledSections;
+Index: BACC-Portal/src/main/java/view/Student.java
+===================================================================
+diff --git a/BACC-Portal/src/main/java/view/Student.java b/BACC-Portal/src/main/java/view/Student.java
+deleted file mode 100644
+--- a/BACC-Portal/src/main/java/view/Student.java	(revision b7f5a77223312f916fc4fe3d575aa91c3e907364)
++++ /dev/null	(revision b7f5a77223312f916fc4fe3d575aa91c3e907364)
+@@ -1,16 +0,0 @@
+-package view;
+-
+-public class Student {
+-    private String id;
+-    private String name;
+-
+-    public Student(String id, String name) {
+-        this.id = id;
+-        this.name = name;
+-    }
+-
+-    @Override
+-    public String toString() {
+-        return id + " - " + name;
+-    }
+-}
+\ No newline at end of file

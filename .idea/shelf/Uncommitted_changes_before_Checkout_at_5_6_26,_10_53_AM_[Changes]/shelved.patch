@@ -1,0 +1,252 @@
+Index: BACC-Portal/src/main/java/view/StudentView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package view;\n\nimport javafx.geometry.Insets;\nimport javafx.scene.control.*;\nimport javafx.scene.layout.VBox;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\npublic class StudentView extends VBox {\n\n    private List<Student> students = new ArrayList<>();\n    private ListView<String> studentList = new ListView<>();\n\n    public StudentView() {\n        setSpacing(12);\n        setPadding(new Insets(20));\n\n        Label heading = new Label(\"Student Management\");\n        heading.setStyle(\"-fx-font-size: 20px; -fx-font-weight: bold;\");\n\n        TextField nameField = new TextField();\n        nameField.setPromptText(\"Student name\");\n\n        TextField idField = new TextField();\n        idField.setPromptText(\"Student ID\");\n\n        Button addButton = new Button(\"Add Student\");\n\n        addButton.setOnAction(e -> {\n            String name = nameField.getText().trim();\n            String id = idField.getText().trim();\n\n            if (name.isEmpty() || id.isEmpty()) {\n                showError(\"Please enter both student name and ID.\");\n                return;\n            }\n\n            Student student = new Student(id, name);\n            students.add(student);\n\n            refreshList();\n\n            nameField.clear();\n            idField.clear();\n        });\n\n        getChildren().addAll(heading, nameField, idField, addButton, studentList);\n    }\n\n    private void refreshList() {\n        studentList.getItems().clear();\n        for (Student s : students) {\n            studentList.getItems().add(s.toString());\n        }\n    }\n\n    private void showError(String message) {\n        Alert alert = new Alert(Alert.AlertType.ERROR);\n        alert.setTitle(\"Input Error\");\n        alert.setHeaderText(null);\n        alert.setContentText(message);\n        alert.showAndWait();\n    }\n}\n
+===================================================================
+diff --git a/BACC-Portal/src/main/java/view/StudentView.java b/BACC-Portal/src/main/java/view/StudentView.java
+--- a/BACC-Portal/src/main/java/view/StudentView.java	(revision b7f5a77223312f916fc4fe3d575aa91c3e907364)
++++ b/BACC-Portal/src/main/java/view/StudentView.java	(date 1778089727045)
+@@ -3,14 +3,15 @@
+ import javafx.geometry.Insets;
+ import javafx.scene.control.*;
+ import javafx.scene.layout.VBox;
++import users.StudentUser;
+ 
+ import java.util.ArrayList;
+ import java.util.List;
+ 
+ public class StudentView extends VBox {
+ 
+-    private List<Student> students = new ArrayList<>();
+-    private ListView<String> studentList = new ListView<>();
++    private final List<StudentUser> students = new ArrayList<>();
++    private final ListView<String> studentList = new ListView<>();
+ 
+     public StudentView() {
+         setSpacing(12);
+@@ -19,41 +20,117 @@
+         Label heading = new Label("Student Management");
+         heading.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+ 
+-        TextField nameField = new TextField();
+-        nameField.setPromptText("Student name");
++        TextField emailField = new TextField();
++        emailField.setPromptText("Student Email");
+ 
+         TextField idField = new TextField();
+         idField.setPromptText("Student ID");
+ 
++        PasswordField passwordField = new PasswordField();
++        passwordField.setPromptText("Password");
++
++        TextField nameField = new TextField();
++        nameField.setPromptText("Full Name");
++
++        TextField balanceField = new TextField();
++        balanceField.setPromptText("Balance Owed, example: 0");
++
+         Button addButton = new Button("Add Student");
+ 
+         addButton.setOnAction(e -> {
+-            String name = nameField.getText().trim();
++            String email = emailField.getText().trim();
+             String id = idField.getText().trim();
++            String password = passwordField.getText().trim();
++            String fullName = nameField.getText().trim();
++            String balanceText = balanceField.getText().trim();
++
++            if (email.isEmpty() || id.isEmpty() || password.isEmpty()
++                    || fullName.isEmpty() || balanceText.isEmpty()) {
++                showError("Please complete all student fields.");
++                return;
++            }
+ 
+-            if (name.isEmpty() || id.isEmpty()) {
+-                showError("Please enter both student name and ID.");
++            if (!email.contains("@")) {
++                showError("Please enter a valid email address.");
++                return;
++            }
++
++            if (studentExists(id)) {
++                showError("A student with this ID already exists.");
++                return;
++            }
++
++            double balance;
++
++            try {
++                balance = Double.parseDouble(balanceText);
++            } catch (NumberFormatException ex) {
++                showError("Balance must be a valid number.");
++                return;
++            }
++
++            if (balance < 0) {
++                showError("Balance cannot be negative.");
+                 return;
+             }
+ 
+-            Student student = new Student(id, name);
++            StudentUser student = new StudentUser(
++                    email,
++                    id,
++                    password,
++                    fullName,
++                    null,
++                    balance
++            );
++
+             students.add(student);
+-
+             refreshList();
+ 
+-            nameField.clear();
++            emailField.clear();
+             idField.clear();
++            passwordField.clear();
++            nameField.clear();
++            balanceField.clear();
+         });
+ 
+-        getChildren().addAll(heading, nameField, idField, addButton, studentList);
++        getChildren().addAll(
++                heading,
++                emailField,
++                idField,
++                passwordField,
++                nameField,
++                balanceField,
++                addButton,
++                studentList
++        );
++    }
++
++    private boolean studentExists(String id) {
++        for (StudentUser student : students) {
++            if (student.getUserId().equalsIgnoreCase(id)) {
++                return true;
++            }
++        }
++        return false;
+     }
+ 
+     private void refreshList() {
+         studentList.getItems().clear();
+-        for (Student s : students) {
+-            studentList.getItems().add(s.toString());
++
++        for (StudentUser student : students) {
++            studentList.getItems().add(formatStudent(student));
+         }
+     }
++
++    private String formatStudent(StudentUser student) {
++        return student.getUserId()
++                + " - "
++                + student.getFullName()
++                + " | "
++                + student.getEmail()
++                + " | Balance: $"
++                + student.getBalanceOwed();
++    }
+ 
+     private void showError(String message) {
+         Alert alert = new Alert(Alert.AlertType.ERROR);
+Index: BACC-Portal/src/main/java/view/CourseView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package view;\n\nimport javafx.geometry.Insets;\nimport javafx.scene.control.*;\nimport javafx.scene.layout.VBox;\n\npublic class CourseView extends VBox {\n\n    public CourseView() {\n        setSpacing(12);\n        setPadding(new Insets(20));\n\n        Label heading = new Label(\"Course Management\");\n        heading.setStyle(\"-fx-font-size: 20px; -fx-font-weight: bold;\");\n\n        TextField courseField = new TextField();\n        courseField.setPromptText(\"Course name\");\n\n        TextField codeField = new TextField();\n        codeField.setPromptText(\"Course code\");\n\n        Button addButton = new Button(\"Add Course\");\n        ListView<String> courseList = new ListView<>();\n\n        addButton.setOnAction(e -> {\n            String course = courseField.getText().trim();\n            String code = codeField.getText().trim();\n\n            if (course.isEmpty() || code.isEmpty()) {\n                showError(\"Please enter both course name and course code.\");\n                return;\n            }\n\n            courseList.getItems().add(code + \" - \" + course);\n            courseField.clear();\n            codeField.clear();\n        });\n\n        getChildren().addAll(heading, courseField, codeField, addButton, courseList);\n    }\n\n    private void showError(String message) {\n        Alert alert = new Alert(Alert.AlertType.ERROR);\n        alert.setTitle(\"Input Error\");\n        alert.setHeaderText(null);\n        alert.setContentText(message);\n        alert.showAndWait();\n    }\n}\n
+===================================================================
+diff --git a/BACC-Portal/src/main/java/view/CourseView.java b/BACC-Portal/src/main/java/view/CourseView.java
+--- a/BACC-Portal/src/main/java/view/CourseView.java	(revision b7f5a77223312f916fc4fe3d575aa91c3e907364)
++++ b/BACC-Portal/src/main/java/view/CourseView.java	(date 1778089292865)
+@@ -1,9 +1,12 @@
+ package view;
+ 
++import academics.Course;
+ import javafx.geometry.Insets;
+ import javafx.scene.control.*;
+ import javafx.scene.layout.VBox;
+ 
++import java.util.ArrayList;
++
+ public class CourseView extends VBox {
+ 
+     public CourseView() {
+@@ -13,30 +16,64 @@
+         Label heading = new Label("Course Management");
+         heading.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+ 
+-        TextField courseField = new TextField();
+-        courseField.setPromptText("Course name");
+-
+         TextField codeField = new TextField();
+-        codeField.setPromptText("Course code");
++        codeField.setPromptText("Course ID / Code");
++
++        TextField nameField = new TextField();
++        nameField.setPromptText("Course Name");
++
++        TextField unitsField = new TextField();
++        unitsField.setPromptText("Units, example: 3");
+ 
+         Button addButton = new Button("Add Course");
++
+         ListView<String> courseList = new ListView<>();
+ 
+         addButton.setOnAction(e -> {
+-            String course = courseField.getText().trim();
+-            String code = codeField.getText().trim();
++            String courseId = codeField.getText().trim();
++            String courseName = nameField.getText().trim();
++            String unitsText = unitsField.getText().trim();
++
++            if (courseId.isEmpty() || courseName.isEmpty() || unitsText.isEmpty()) {
++                showError("Please enter course ID, course name, and units.");
++                return;
++            }
+ 
+-            if (course.isEmpty() || code.isEmpty()) {
+-                showError("Please enter both course name and course code.");
++            double units;
++
++            try {
++                units = Double.parseDouble(unitsText);
++            } catch (NumberFormatException ex) {
++                showError("Units must be a valid number.");
+                 return;
+             }
+ 
+-            courseList.getItems().add(code + " - " + course);
+-            courseField.clear();
++            if (units <= 0) {
++                showError("Units must be greater than 0.");
++                return;
++            }
++
++            Course course = new Course(courseId, courseName, units, new ArrayList<>());
++
++            courseList.getItems().add(
++                    course.getCourseId() + " - " +
++                            course.getCourseName() + " (" +
++                            course.getUnitAmount() + " units)"
++            );
++
+             codeField.clear();
++            nameField.clear();
++            unitsField.clear();
+         });
+ 
+-        getChildren().addAll(heading, courseField, codeField, addButton, courseList);
++        getChildren().addAll(
++                heading,
++                codeField,
++                nameField,
++                unitsField,
++                addButton,
++                courseList
++        );
+     }
+ 
+     private void showError(String message) {

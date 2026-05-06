@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="model.controllers.StudentController"
+            style="-fx-background-color: #f4f6f8;">
+
+    <top>
+        <Label text="Student Dashboard"
+               style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-padding: 20;"/>
+    </top>
+
+    <center>
+        <VBox spacing="12" style="-fx-padding: 20;">
+            <Label text="Available Sections" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <ListView fx:id="sectionListView" prefHeight="260"/>
+
+            <HBox spacing="10">
+                <TextField fx:id="sectionIdField" promptText="Section ID"/>
+                <Button text="Enroll" onAction="#handleEnroll"/>
+            </HBox>
+
+            <Label text="My Enrolled Classes" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <ListView fx:id="enrolledListView" prefHeight="160"/>
+
+            <HBox spacing="10">
+                <Label text="Balance:"/>
+                <Label fx:id="balanceLabel" text="$0.00"/>
+            </HBox>
+
+            <Label fx:id="statusLabel" text="Ready"/>
+        </VBox>
+    </center>
+
+</BorderPane>

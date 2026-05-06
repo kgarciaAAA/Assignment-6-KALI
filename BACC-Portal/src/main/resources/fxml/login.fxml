@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="model.controllers.LoginController"
+            style="-fx-background-color: #f4f6f8;">
+
+    <center>
+        <VBox alignment="CENTER" spacing="18" maxWidth="360"
+              style="-fx-background-color: white; -fx-padding: 35; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 18, 0, 0, 4);">
+
+            <Label text="BACC Portal"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold;"/>
+
+            <Label text="University Registration System"
+                   style="-fx-font-size: 14px; -fx-text-fill: #666;"/>
+
+            <TextField fx:id="userIdField"
+                       promptText="User ID"
+                       prefHeight="40"
+                       style="-fx-background-radius: 8;"/>
+
+            <PasswordField fx:id="passwordField"
+                           promptText="Password"
+                           prefHeight="40"
+                           style="-fx-background-radius: 8;"/>
+
+            <Button text="Login"
+                    onAction="#handleLogin"
+                    prefWidth="220"
+                    prefHeight="42"
+                    style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+
+            <Label fx:id="statusLabel"
+                   text="Enter your credentials"
+                   style="-fx-text-fill: #666;"/>
+        </VBox>
+    </center>
+
+</BorderPane>
