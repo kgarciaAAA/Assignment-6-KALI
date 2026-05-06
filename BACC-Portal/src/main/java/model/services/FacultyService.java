@@ -6,7 +6,9 @@ import users.FacultyUser;
 
 public class FacultyService {
     public CourseSection findSectionById(FacultyUser user, String sectionId) {
+
         List<CourseSection> taughtList = user.getSectionsTaught();
+
         for (CourseSection section : taughtList) {
             if (section.getSectionId().equals(sectionId)) {
                 return section;

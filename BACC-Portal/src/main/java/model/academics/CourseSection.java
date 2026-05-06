@@ -22,7 +22,7 @@ public class CourseSection {
     }
 
     //getters
-    public Course getCourse() {
+    public academics.Course getCourse() {
         return course;
     }
 
@@ -42,16 +42,23 @@ public class CourseSection {
         return price;
     }
 
-    public double getTotalCapacity() {
+    public int getTotalCapacity() {
         return totalCapacity;
     }
 
-    public double getCurrentCapacity() {
+    public int getCurrentCapacity() {
         return currentCapacity;
     }
 
-    //controlled updates
-    public void incrementCurrentCapacity(){
+    /**
+     * Attempts to enroll a student by increasing capacity
+     * @return true if successful, false if section is full
+     */
+    public boolean incrementCurrentCapacity() {
+        if (currentCapacity >= totalCapacity) {
+            return false;
+        }
         currentCapacity++;
+        return true;
     }
 }

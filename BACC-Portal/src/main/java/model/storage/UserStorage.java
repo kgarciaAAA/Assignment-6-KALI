@@ -3,6 +3,7 @@ package storage;
 import java.util.ArrayList;
 import java.util.List;
 import users.*;
+import users.FacultyUser;
 
 public class UserStorage {
     private final List<StudentUser> studentsList;
@@ -28,6 +29,8 @@ public class UserStorage {
     }
 
     public boolean exists(User user) {
+        if (user == null) return false;
+
         for (StudentUser student : studentsList)
             if (student.equals(user)) return true;
 

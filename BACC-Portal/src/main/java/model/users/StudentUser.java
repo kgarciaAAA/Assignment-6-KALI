@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import utilities.Receipt;
 
-public class StudentUser extends User{ //implement cloneable?
+public class StudentUser extends users.User { //implement cloneable?
     private final Major major;
     private final List<CourseSection> completedSections;
     private final List<CourseSection> enrolledSections;

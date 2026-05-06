@@ -34,6 +34,7 @@ public class SectionFileHandler {
             for (CourseSection section : courseStorage.getAllSections().values()) {
                 out.println(section.getCourse().getCourseId());
                 out.println(section.getInstructorName());
+                out.println(section.getSectionId());
                 out.println(section.getAccessCode());
                 out.println(section.getPrice());
                 out.println(section.getTotalCapacity());

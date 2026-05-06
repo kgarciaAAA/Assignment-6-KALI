@@ -1,8 +1,10 @@
 package services;
+
 import storage.UserStorage;
-import users.*;
-// import academics.Major;
-// import academics.Department;
+import users.AdminUser;
+import users.FacultyUser;
+import users.StudentUser;
+import users.User;
 
 public class AdminService {
     private final UserStorage userStorage;
@@ -12,24 +14,23 @@ public class AdminService {
     }
 
     public boolean addNewStudent(StudentUser studentUser) {
-        boolean doesExist = userStorage.exists(studentUser);
-        if (doesExist) return false;
-        userStorage.addStudentUser(studentUser);
-        return true;
+        return addUser(studentUser, () -> userStorage.addStudentUser(studentUser));
     }
 
-    public boolean addNewFaculty(FacultyUser facultyUser) { 
-        boolean doesExist = userStorage.exists(facultyUser);
-        if (doesExist) return false;
-        userStorage.addFacultyUser(facultyUser);
-        return true;
+    public boolean addNewFaculty(FacultyUser facultyUser) {
+        return addUser(facultyUser, () -> userStorage.addFacultyUser(facultyUser));
     }
 
     public boolean addAdminUser(AdminUser adminUser) {
-        boolean doesExist = userStorage.exists(adminUser);
-        if (doesExist) return false;
-        userStorage.addAdminUser(adminUser);
-        return true;
+        return addUser(adminUser, () -> userStorage.addAdminUser(adminUser));
     }
 
+    // helper to remove duplication
+    private boolean addUser(User user, Runnable addAction) {
+        if (userStorage.exists(user)) {
+            return false;
+        }
+        addAction.run();
+        return true;
+    }
 }
