@@ -1,10 +1,8 @@
 package academics;
 
-import users.FacultyUser;
-
 public class CourseSection {
     private final Course course;
-    private final FacultyUser instructor;
+    private final String instructorName;
     private final String sectionId;
     private final String accessCode;
     private final double price;
@@ -12,10 +10,10 @@ public class CourseSection {
     private int currentCapacity;
 
     //default constructor
-    public CourseSection(Course course, FacultyUser instructor, String sectionId,
+    public CourseSection(Course course, String instructorName, String sectionId,
          String accessCode, double price, int totalCapacity, int currentCapacity) {
         this.course = course;
-        this.instructor = instructor;
+        this.instructorName = instructorName;
         this.sectionId = sectionId;
         this.accessCode = accessCode;
         this.price = price;
@@ -28,8 +26,8 @@ public class CourseSection {
         return course;
     }
 
-    public FacultyUser getInstructor() {
-        return instructor;
+    public String getInstructorName() {
+        return instructorName;
     }
 
     public String getSectionId() {

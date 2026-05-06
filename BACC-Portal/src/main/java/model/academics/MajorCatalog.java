@@ -16,8 +16,8 @@ public class MajorCatalog {
     }
 
     //getters
-    public String getMajorName() {
-        return major.getMajorName();
+    public Major getMajor() {
+        return major;
     }
 
     //methods

@@ -10,11 +10,11 @@ public class Course {
     private final List<Course> coursePrerequisites;
 
     //default constructor
-    public Course(String courseId, String courseName, double unitAmount, List<Course> coursePrerequisites){
+    public Course(String courseId, String courseName, double unitAmount){
         this.courseId = courseId;
         this.courseName = courseName;
         this.unitAmount = unitAmount;
-        this.coursePrerequisites = new ArrayList<>(coursePrerequisites);
+        this.coursePrerequisites = new ArrayList<>();
     }
 
     //getters
@@ -23,6 +23,10 @@ public class Course {
     public String getCourseName(){ return courseName; }
 
     public double getUnitAmount(){ return unitAmount; }
+
+    public void addCoursePrerequisites(Course course) {
+        coursePrerequisites.add(course);
+    }
 
     public List<Course> getCoursePrerequisites(){ return List.copyOf(coursePrerequisites); }
 

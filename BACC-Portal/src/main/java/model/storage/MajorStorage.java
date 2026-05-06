@@ -16,7 +16,7 @@ public class MajorStorage {
     }
 
     public void addMajorCatalog(MajorCatalog majorCatalog) {
-        catalogByMajor.put(majorCatalog.getMajorName(), majorCatalog);
+        catalogByMajor.put(majorCatalog.getMajor().getMajorName(), majorCatalog);
     }
 
     public MajorCatalog getMajorCatalog(String majorName) {
