@@ -1,19 +1,21 @@
 package utilities;
 
-import java.time.LocalDateTime;
-
 public class Receipt {
-    private static int nextId = 100000;
+    private static int nextId = 100000; //have this replaced with data from a file
     private final int receiptId;
     private final double totalPaid;
     private final double remainingBalance; //stores the remaining balance of the the student at the time the receipt was processed
-    private final LocalDateTime timestamp;
 
-    public Receipt(double totalPaid, double remainingBalance) {
+    public Receipt(double totalPaid, double remainingBalance) { //new receipt
         receiptId = nextId++;
         this.totalPaid = totalPaid;
         this.remainingBalance = remainingBalance;
-        timestamp = LocalDateTime.now();
+    }
+
+        public Receipt(int receiptId, double totalPaid, double remainingBalance) { //receipt from data
+        this.receiptId = receiptId;
+        this.totalPaid = totalPaid;
+        this.remainingBalance = remainingBalance;
     }
 
     //getters
@@ -29,8 +31,9 @@ public class Receipt {
         return remainingBalance;
     }
 
-    public LocalDateTime getTimestamp() {
-        return timestamp;
+    @Override
+    public String toString() {
+        return this.receiptId + "-" + this.totalPaid + "-" + this.remainingBalance;
     }
 
 }

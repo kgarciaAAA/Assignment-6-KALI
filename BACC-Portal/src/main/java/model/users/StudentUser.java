@@ -8,18 +8,18 @@ import utilities.Receipt;
 
 public class StudentUser extends User{ //implement cloneable?
     private final Major major;
+    private double balanceOwed;
     private final List<CourseSection> completedSections;
     private final List<CourseSection> enrolledSections;
-    private double balanceOwed;
     private final List<Receipt> transactionHistory;
     //Should we add a List<PaymentInfo> savedPaymentMethods to store user payments?
 
     public StudentUser(String email, String userId, String password, String fullName, Major major, double balanceOwed){
         super(email, userId, password,fullName);
         this.major = major;
+        this.balanceOwed = balanceOwed;
         this.completedSections = new ArrayList<>(); //dont know if we want to make a reference outside of user and inject it or make a new ArrayList in user then update it using methods.
         this.enrolledSections = new ArrayList<>();
-        this.balanceOwed = balanceOwed;
         this.transactionHistory = new ArrayList<>();
     }
 
@@ -28,16 +28,16 @@ public class StudentUser extends User{ //implement cloneable?
         return major; 
     }
 
+    public double getBalanceOwed(){
+        return balanceOwed;
+    }
+
     public List<CourseSection> getCompletedSections() { 
         return List.copyOf(completedSections); 
     }
 
     public List<CourseSection> getEnrolledSections() { 
         return List.copyOf(enrolledSections); 
-    }
-
-    public double getBalanceOwed(){
-        return balanceOwed;
     }
 
     public List<Receipt> getTransactionHistory() {

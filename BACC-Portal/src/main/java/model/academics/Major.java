@@ -14,4 +14,9 @@ public class Major {
     public String getMajorName(){ return majorName; }
 
     public Department getDepartment(){ return department; }
+
+    @Override
+    public String toString() {
+        return this.majorName + "\n" + this.department;
+    }
 }

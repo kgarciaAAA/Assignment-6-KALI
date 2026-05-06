@@ -16,6 +16,7 @@ public abstract class User {
     //getters
     public String getEmail(){return this.email;}
     public String getUserId(){return this.userId;}
+    public String getPassword() {return this.password;}
     public String getFullName(){return this.fullName;}
 
     //methods
