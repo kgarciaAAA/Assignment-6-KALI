@@ -42,11 +42,11 @@ public class CourseSection {
         return price;
     }
 
-    public double getTotalCapacity() {
+    public int getTotalCapacity() {
         return totalCapacity;
     }
 
-    public double getCurrentCapacity() {
+    public int getCurrentCapacity() {
         return currentCapacity;
     }
 

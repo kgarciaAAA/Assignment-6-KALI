@@ -37,6 +37,10 @@ public class FileHandlerFacade {
             userFileHandler.readAdminUsersFromFile(userStorage);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
     }
 
@@ -50,6 +54,10 @@ public class FileHandlerFacade {
             userFileHandler.writeAdminUsersToFile(userStorage);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
     }
 }

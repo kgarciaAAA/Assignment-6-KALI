@@ -14,12 +14,12 @@ public class AcademicRecordsService {
         return true;
     }
 
-    public int calculateCompletedCredits(StudentUser student) {
-        int total = 0;
+    public double calculateCompletedCredits(StudentUser student) {
+        double total = 0;
         List<CourseSection> completed = student.getCompletedSections();
         for (CourseSection section : completed){
             Course course = section.getCourse();
-            total += course.getUnitAmount();
+            total += course.getUnitAmount(); 
         }
         return total;
     }
