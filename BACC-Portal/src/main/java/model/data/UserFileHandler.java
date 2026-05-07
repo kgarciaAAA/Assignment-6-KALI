@@ -1,21 +1,22 @@
 package data;
-import users.*;
-import utilities.Receipt;
-import storage.CourseStorage;
-import storage.UserStorage;
-import academics.Major;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Scanner;
-import academics.CourseSection;
 import java.util.List;
-import utilities.*;
+import java.util.Scanner;
 
+import academics.CourseSection;
 import academics.Department;
+import academics.Major;
+import storage.CourseStorage;
+import storage.UserStorage;
+import users.AdminUser;
+import users.FacultyUser;
+import users.StudentUser;
+import utilities.Receipt;
 
 public class UserFileHandler {
-    public void getStudentUsersFromFile(UserStorage userStorage, CourseStorage courseStorage) throws IOException{
+    public void readStudentUsersFromFile(UserStorage userStorage, CourseStorage courseStorage) throws IOException{
         try (Scanner snr = new Scanner(new File("students.txt"))) {
             while (snr.hasNextLine()) {
                 String email = snr.nextLine();
@@ -60,6 +61,7 @@ public class UserFileHandler {
                         user.addTransaction(new Receipt(receiptId, totalPaid, remainingBalance));
                     }
                 }
+                userStorage.addStudentUser(user);
                 snr.nextLine();
             }
         } catch (IOException e) {
@@ -67,29 +69,67 @@ public class UserFileHandler {
         }
     }
 
-    public void getFacultyUsersFromFile() throws IOException {
+    public void readFacultyUsersFromFile(UserStorage userStorage, CourseStorage courseStorage) throws IOException {
+        try (Scanner snr = new Scanner(new File("faculty.txt"))){
+            while (snr.hasNextLine()) {
+                String email = snr.nextLine();
+                String userId = snr.nextLine();
+                String password = snr.nextLine();
+                String fullName = snr.nextLine();
+                Department department = Department.stringToDepartment(snr.nextLine());
+                FacultyUser user = new FacultyUser(email, userId, password, fullName, department);
 
+                String sectionsTaughtString = snr.nextLine();
+                String[] sectionsId = sectionsTaughtString.split(",");
+                if (!sectionsId[0].trim().equalsIgnoreCase("NONE")) {
+                    for (String id : sectionsId) {
+                        CourseSection section = courseStorage.getSection(id.trim());
+                        if (section != null) {
+                            user.addSectionTaught(section);
+                        }
+                    }
+                }
+                userStorage.addFacultyUser(user);
+                snr.nextLine();
+            }
+        } catch (IOException e) {
+            throw new IOException("Error reading: \"faculty.txt\"");
+        }
     }
 
-    public void getAdminUsersFromFile() throws IOException {
-
+    public void readAdminUsersFromFile(UserStorage userStorage) throws IOException {
+        try (Scanner snr = new Scanner(new File("admin.txt"))) {
+            while (snr.hasNextLine()) {
+                String email = snr.nextLine();
+                String userId = snr.nextLine();
+                String password = snr.nextLine();
+                String fullName = snr.nextLine();
+                snr.nextLine();
+                AdminUser user = new AdminUser(email, userId, password, fullName);
+                userStorage.addAdminUser(user);
+            }
+        } catch (IOException e) {
+            throw new IOException("Error reading: \"admin.txt\"");
+        }
     }
 
-    public void printStudentUserToFile(UserStorage userStorage, CourseStorage courseStorage) throws IOException{
+    public void writeStudentUserToFile(UserStorage userStorage) throws IOException{
         try (PrintWriter out = new PrintWriter(new File("students.txt"))) {
             List<StudentUser> studentsList = userStorage.getStudentsList();
             for (StudentUser user : studentsList) {
                 out.println(user.getEmail());
                 out.println(user.getUserId());
                 out.println(user.getPassword());
+                out.println(user.getFullName());
                 out.println(user.getMajor());
+                out.println(user.getBalanceOwed());
 
                 List<CourseSection> completedSections = user.getCompletedSections();
                 if (completedSections.isEmpty()) {
                     out.print("NONE");
                 } else {
                     for (int i = 0; i < completedSections.size(); ++i) {
-                        out.print(completedSections.get(i).getCourse().getCourseName());
+                        out.print(completedSections.get(i).getSectionId());
                         if (i < completedSections.size() - 1) {
                             out.print(", ");
                         }
@@ -102,7 +142,7 @@ public class UserFileHandler {
                     out.print("NONE");
                 } else {
                     for (int i = 0; i < enrolledSections.size(); ++i) {
-                        out.print(enrolledSections.get(i).getCourse().getCourseName());
+                        out.print(enrolledSections.get(i).getSectionId());
                         if (i < enrolledSections.size() - 1) {
                             out.print(", ");
                         }
@@ -129,7 +169,47 @@ public class UserFileHandler {
         }
     }
 
-    public void printFacultyUsersToFile() throws IOException{}
+    public void writeFacultyUsersToFile(UserStorage userStorage, CourseStorage courseStorage) throws IOException {
+        try (PrintWriter out = new PrintWriter(new File("faculty.txt"))){
+            List<FacultyUser> facultyList = userStorage.getFacultyList();
+            for (FacultyUser user : facultyList) {
+                out.println(user.getEmail());
+                out.println(user.getUserId());
+                out.println(user.getPassword());
+                out.println(user.getFullName());
+                out.println(user.getDepartment());
+                List<CourseSection> sectionsTaught = user.getSectionsTaught();
+                if (!sectionsTaught.isEmpty()) {
+                    for (int i = 0; i < sectionsTaught.size(); ++i) {
+                        out.print(sectionsTaught.get(i).getSectionId());
+                        if (i < sectionsTaught.size() - 1) {
+                            out.print(", ");
+                        }
+                    }
+                } else {
+                    out.print("NONE");
+                }
+                out.println();
+                out.println("----------");
+            }
 
-    public void printAdminUsersToFile() throws IOException{}
+        } catch (IOException e) {
+            throw new IOException("Error writing to: \"faculty.txt\"");
+        }
+    }
+
+    public void writeAdminUsersToFile(UserStorage userStorage) throws IOException{
+        try (PrintWriter out = new PrintWriter(new File("admin.txt"))) {
+            List<AdminUser> adminList = userStorage.getAdminList();
+            for (AdminUser user : adminList) {
+                out.println(user.getEmail());
+                out.println(user.getUserId());
+                out.println(user.getPassword());
+                out.println(user.getFullName());
+                out.println("----------");
+            }
+        } catch (IOException e) {
+            throw new IOException("Error writing to: \"admin.txt\"");
+        }
+    }
 }

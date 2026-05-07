@@ -1,31 +1,27 @@
 package services;
 import storage.UserStorage;
-import users.*;
+import users.AdminUser;
+import users.FacultyUser;
+import users.StudentUser;
 // import academics.Major;
 // import academics.Department;
 
 public class AdminService {
-    private final UserStorage userStorage;
-
-    public AdminService(UserStorage userStorage) {
-        this.userStorage = userStorage;
-    }
-
-    public boolean addNewStudent(StudentUser studentUser) {
+    public boolean addNewStudent(UserStorage userStorage, StudentUser studentUser) {
         boolean doesExist = userStorage.exists(studentUser);
         if (doesExist) return false;
         userStorage.addStudentUser(studentUser);
         return true;
     }
 
-    public boolean addNewFaculty(FacultyUser facultyUser) { 
+    public boolean addNewFaculty(UserStorage userStorage, FacultyUser facultyUser) { 
         boolean doesExist = userStorage.exists(facultyUser);
         if (doesExist) return false;
         userStorage.addFacultyUser(facultyUser);
         return true;
     }
 
-    public boolean addAdminUser(AdminUser adminUser) {
+    public boolean addAdminUser(UserStorage userStorage, AdminUser adminUser) {
         boolean doesExist = userStorage.exists(adminUser);
         if (doesExist) return false;
         userStorage.addAdminUser(adminUser);

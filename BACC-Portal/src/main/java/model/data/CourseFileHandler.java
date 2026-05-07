@@ -1,5 +1,4 @@
 package data;
-import academics.Course;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
+import academics.Course;
 import storage.CourseStorage;
 
 public class CourseFileHandler {
@@ -50,7 +51,7 @@ public class CourseFileHandler {
         }
     }
  
-    public void printCoursesToFile(CourseStorage storage) throws IOException {
+    public void writeCoursesToFile(CourseStorage storage) throws IOException {
         try (PrintWriter out = new PrintWriter(new File("courses.txt"))) {
             for (Course course : storage.getAllCourses().values()) {
                 out.println(course.getCourseId());

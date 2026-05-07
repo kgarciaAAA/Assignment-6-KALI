@@ -2,7 +2,11 @@ package storage;
 
 import java.util.ArrayList;
 import java.util.List;
-import users.*;
+
+import users.AdminUser;
+import users.FacultyUser;
+import users.StudentUser;
+import users.User;
 
 public class UserStorage {
     private final List<StudentUser> studentsList;
@@ -38,6 +42,16 @@ public class UserStorage {
             if (admin.equals(user)) return true;
 
         return false;
+    }
+
+    public List<FacultyUser> findFacultyUsersByName(String name) {
+        List<FacultyUser> foundUsers = new ArrayList<>();
+        for(FacultyUser user : facultyList) {
+            if (user.getFullName().equalsIgnoreCase(name)){
+                foundUsers.add(user);
+            }
+        }
+        return List.copyOf(foundUsers);
     }
 
     public void addStudentUser(StudentUser user) {

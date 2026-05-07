@@ -1,9 +1,10 @@
 package users;
 
-import academics.CourseSection;
-import academics.Department;
 import java.util.ArrayList;
 import java.util.List;
+
+import academics.CourseSection;
+import academics.Department;
 
 
 public class FacultyUser extends User{
@@ -17,7 +18,7 @@ public class FacultyUser extends User{
     }
 
     //getters
-    public Department getFacultyDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
