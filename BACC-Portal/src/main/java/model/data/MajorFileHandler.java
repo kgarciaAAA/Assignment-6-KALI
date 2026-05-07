@@ -52,6 +52,10 @@ public class MajorFileHandler {
             }
         } catch (IOException e) {
             throw new IOException("Error reading: \"majors.txt\"");
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
     }
 
@@ -91,6 +95,10 @@ public class MajorFileHandler {
             }
         } catch (IOException e) {
             throw new IOException("Error writing to: \"majors.txt\"");
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
     }
 }

@@ -34,8 +34,7 @@ public class CourseFileHandler {
             throw new IOException("Error reading: \"courses.txt\"");
         } catch (NumberFormatException e) {
             throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
     }
