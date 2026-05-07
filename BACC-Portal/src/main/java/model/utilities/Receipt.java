@@ -16,6 +16,7 @@ public class Receipt {
         this.receiptId = receiptId;
         this.totalPaid = totalPaid;
         this.remainingBalance = remainingBalance;
+        nextId = Math.max(nextId, this.receiptId + 1);
     }
 
     //getters
