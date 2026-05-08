@@ -3,8 +3,6 @@ import storage.UserStorage;
 import users.AdminUser;
 import users.FacultyUser;
 import users.StudentUser;
-// import academics.Major;
-// import academics.Department;
 
 public class AdminService {
     public boolean addNewStudent(UserStorage userStorage, StudentUser studentUser) {

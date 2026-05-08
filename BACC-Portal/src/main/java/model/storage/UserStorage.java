@@ -13,12 +13,14 @@ public class UserStorage {
     private final List<FacultyUser> facultyList;
     private final List<AdminUser> adminList;
 
+    //constructor
     public UserStorage() {
         studentsList = new ArrayList<>();
         facultyList = new ArrayList<>();
         adminList = new ArrayList<>();
     }
 
+    //getters
     public List<StudentUser> getStudentsList() {
         return List.copyOf(studentsList);
     }
@@ -54,6 +56,7 @@ public class UserStorage {
         return List.copyOf(foundUsers);
     }
 
+    //controlled updates
     public void addStudentUser(StudentUser user) {
         studentsList.add(user);
     }

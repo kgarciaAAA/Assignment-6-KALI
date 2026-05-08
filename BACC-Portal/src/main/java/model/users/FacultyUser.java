@@ -11,6 +11,7 @@ public class FacultyUser extends User{
     private final Department department;
     private final List<CourseSection> sectionsTaught;
 
+    //constructor
     public FacultyUser(String email, String userID, String password, String fullName, boolean isHashed, Department department){
         super(email, userID, password, fullName, isHashed);
         this.department = department;
@@ -26,6 +27,10 @@ public class FacultyUser extends User{
         return List.copyOf(sectionsTaught);
     }
 
+    public int getNumSectionsTaught() {
+        return sectionsTaught.size();
+    }
+    
     //controlled updates
     public void addSectionTaught(CourseSection section) {
         sectionsTaught.add(section);
@@ -35,8 +40,6 @@ public class FacultyUser extends User{
         return sectionsTaught.remove(section);
     }
 
-    public int getNumSectionsTaught() {
-        return sectionsTaught.size();
-    }
+
 
 }

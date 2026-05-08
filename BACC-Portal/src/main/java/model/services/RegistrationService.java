@@ -8,7 +8,7 @@ import users.StudentUser;
 
 public class RegistrationService {
 
-    public boolean enroll(StudentUser user, CourseSection section) { //SHOULD add schedule conflicts and maybe Valid for Major checks
+    public boolean enroll(StudentUser user, CourseSection section) {
         boolean takenOrEnrolled = canEnroll(user, section);
         if (!takenOrEnrolled) {
             return false;

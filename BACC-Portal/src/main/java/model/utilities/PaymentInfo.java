@@ -7,7 +7,7 @@ public class PaymentInfo {
     private final PaymentType paymentType;
     private final String securityCode;
 
-    //default constructors
+    //constructors
     public PaymentInfo(String nameOnCard, String cardNumber, String expirationDate, PaymentType paymentType, String securityCode) {
         if (nameOnCard == null || nameOnCard.isEmpty()) {
             throw new IllegalArgumentException("Name On Card is Empty.");

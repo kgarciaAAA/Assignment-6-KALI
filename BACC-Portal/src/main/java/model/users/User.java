@@ -8,6 +8,7 @@ public abstract class User {
     protected String password;
     protected String fullName;
 
+    //constructor
     public User(String email, String userId, String password, String fullName, boolean isHashed){
         this.email = email;
         this.userId = userId;

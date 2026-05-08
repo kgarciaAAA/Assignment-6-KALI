@@ -4,7 +4,7 @@ public class Major {
     private final String majorName;
     private final Department department;
 
-    //default constructor
+    //constructor
     public Major(String majorName, Department department) {
         this.majorName = majorName; 
         this.department = department;

@@ -1,36 +1,31 @@
 package storage;
 
-import academics.Course;
-import academics.CourseSection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import academics.Course;
+import academics.CourseSection;
 
 
 public class CourseStorage {
     private final Map<String, Course> courses;
     private final Map<String, CourseSection> sections;
 
+    //constructor
     public CourseStorage() {
         this.courses = new HashMap<>();
         this.sections = new HashMap<>();
     }
 
+    //getters
     public Map<String, Course> getAllCourses(){
         return Map.copyOf(courses);
     }
 
     public Map<String, CourseSection> getAllSections(){
         return Map.copyOf(sections);
-    }
-
-    public void addCourse(Course course) {
-        courses.put(course.getCourseId(), course);
-    }
-
-    public void addSection(CourseSection courseSection) {
-        sections.put(courseSection.getSectionId(), courseSection);
     }
 
     public Course getCourse(String courseId) {
@@ -51,5 +46,15 @@ public class CourseStorage {
         }
 
         return courseSections;
+    }    
+
+    //controlled updates
+    public void addCourse(Course course) {
+        courses.put(course.getCourseId(), course);
     }
+
+    public void addSection(CourseSection courseSection) {
+        sections.put(courseSection.getSectionId(), courseSection);
+    }
+
 }

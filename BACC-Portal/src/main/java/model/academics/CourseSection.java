@@ -9,7 +9,7 @@ public class CourseSection {
     private final int totalCapacity;
     private int currentCapacity;
 
-    //default constructor
+    //constructor
     public CourseSection(Course course, String instructorName, String sectionId,
          String accessCode, double price, int totalCapacity, int currentCapacity) {
         this.course = course;

@@ -6,6 +6,7 @@ public class Receipt {
     private final double totalPaid;
     private final double remainingBalance; //stores the remaining balance of the the student at the time the receipt was processed
 
+    //constructors
     public Receipt(double totalPaid, double remainingBalance) { //new receipt
         receiptId = nextId++;
         this.totalPaid = totalPaid;

@@ -8,7 +8,7 @@ public class MajorCatalog {
     private final List<Course> requiredCourses;
     private final List<Course> electiveCourses;
 
-    //default constructor
+    //constructor
     public MajorCatalog (Major major, List<Course> requiredCourses, List<Course> electiveCourses){
         this.major = major;
         this.requiredCourses = new ArrayList<>(requiredCourses);

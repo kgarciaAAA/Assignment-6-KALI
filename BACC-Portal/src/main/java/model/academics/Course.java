@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Course {
-    private final String courseId; //do we want to change the data type? maybe integer/int or make it an enumerated value?
+    private final String courseId;
     private final String courseName;
     private final double unitAmount; 
     private final List<Course> coursePrerequisites;
 
-    //default constructor
+    //constructor
     public Course(String courseId, String courseName, double unitAmount){
         this.courseId = courseId;
         this.courseName = courseName;

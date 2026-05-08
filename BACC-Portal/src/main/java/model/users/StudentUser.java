@@ -14,6 +14,7 @@ public class StudentUser extends User{
     private final List<CourseSection> enrolledSections;
     private final List<Receipt> transactionHistory;
 
+    //constructor
     public StudentUser(String email, String userId, String password, String fullName, boolean isHashed, Major major, double balanceOwed){
         super(email, userId, password, fullName, isHashed);
         this.major = major;
