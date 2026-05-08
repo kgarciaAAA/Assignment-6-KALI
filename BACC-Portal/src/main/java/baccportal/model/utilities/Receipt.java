@@ -4,7 +4,7 @@ public class Receipt {
     private static int nextId = 100000; //have this replaced with data from a file
     private final int receiptId;
     private final double totalPaid;
-    private final double remainingBalance; //stores the remaining balance of the the student at the time the receipt was processed
+    private final double remainingBalance; //stores the remaining balance of the student at the time the receipt was processed
 
     //constructors
     public Receipt(double totalPaid, double remainingBalance) { //new receipt

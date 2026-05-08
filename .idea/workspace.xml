@@ -4,19 +4,69 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72a190ec-188e-4759-912a-37de3c8bc2bf" name="Changes" comment="This is testing branch!">
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/academics/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/academics/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/academics/CourseSection.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/academics/CourseSection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/academics/Major.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/academics/Major.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/data/SectionFileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/data/SectionFileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/data/UserFileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/data/UserFileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/AcademicRecordsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/AcademicRecordsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/AdminService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/FacultyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/FacultyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/RegistrationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/RegistrationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/storage/UserStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/storage/UserStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/users/StudentUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/users/StudentUser.java" afterDir="false" />
+    <list default="true" id="0ca2a15e-78c0-4b22-b133-81cb9db6aa18" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assignment-6-KALI.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentDashboardController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/data/AppData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/admin.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentDashboard.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACC-Portal/txtfiles/admin.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACC-Portal/txtfiles/faculty.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACC-Portal/txtfiles/students.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/data/UserFileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/data/UserFileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/storage/UserStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/storage/UserStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/utilities/Receipt.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/utilities/Receipt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/student.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/controllers/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/controllers/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/controllers/MainController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/controllers/StudentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/controllers/StudentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/fxml/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/fxml/login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/fxml/student.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/fxml/student.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/academics/Course.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/academics/Course.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/academics/CourseSection.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/academics/CourseSection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/academics/Department.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/academics/Department.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/academics/Major.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/academics/Major.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/academics/MajorCatalog.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/academics/MajorCatalog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/data/CourseFileHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/data/CourseFileHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/data/FileHandlerFacade.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/data/FileHandlerFacade.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/data/MajorFileHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/data/MajorFileHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/data/SectionFileHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/data/SectionFileHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/data/UserFileHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/data/UserFileHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/services/AcademicRecordsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/services/AcademicRecordsService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/services/AdminService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/services/AdminService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/services/FacultyService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/services/FacultyService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/services/PaymentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/services/PaymentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/services/RegistrationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/services/RegistrationService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/storage/CourseStorage.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/storage/CourseStorage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/storage/MajorStorage.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/storage/MajorStorage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/storage/UserStorage.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/storage/UserStorage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/users/AdminUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/users/AdminUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/users/FacultyUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/users/FacultyUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/users/StudentUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/users/StudentUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/users/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/utilities/PasswordUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/utilities/PasswordUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/utilities/PaymentInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/utilities/PaymentInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/utilities/PaymentType.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/utilities/PaymentType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/utilities/Receipt.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/utilities/Receipt.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/module-info.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/txtfiles/admin.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txtfiles/courses.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/txtfiles/courses.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/txtfiles/faculty.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txtfiles/majors.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/txtfiles/majors.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/txtfiles/sections.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/txtfiles/sections.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/txtfiles/students.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +84,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Testing-branch" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,121 +105,41 @@
     <commands />
     <urls />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 3,
+  &quot;associatedIndex&quot;: 0,
   &quot;fromUser&quot;: false
 }</component>
-  <component name="ProjectId" id="3DMKp1MjfDtHQGGc67PQxDcc3dF" />
+  <component name="ProjectId" id="3DRznSLfH5ioDv1KRcx4T0j4KyJ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Application.App.executor": "Run",
     "Maven.bacc-portal [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "Testing-branch1",
+    "git-widget-placeholder": "javafx-integration-branch",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "to.speed.mode.migration.done": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/BACC-Portal/src/main/resources/fxml" />
-      <recent name="$PROJECT_DIR$/BACC-Portal/src/main/java/model" />
+      <recent name="$PROJECT_DIR$/BACC-Portal" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="20" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="App" />
-      <module name="BACC-Portal" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="Tox" factoryName="Tox">
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Doctests">
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.App" />
-        <item itemvalue="Application.App" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -180,25 +150,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="72a190ec-188e-4759-912a-37de3c8bc2bf" name="Changes" comment="" />
-      <created>1778086677184</created>
+      <changelist id="0ca2a15e-78c0-4b22-b133-81cb9db6aa18" name="Changes" comment="" />
+      <created>1778259836987</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1778086677184</updated>
+      <updated>1778259836987</updated>
     </task>
-    <task id="LOCAL-00001" summary="This is testing branch!">
-      <option name="closed" value="true" />
-      <created>1778088089256</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1778088089256</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="This is testing branch!" />
-    <option name="LAST_COMMIT_MESSAGE" value="This is testing branch!" />
   </component>
 </project>

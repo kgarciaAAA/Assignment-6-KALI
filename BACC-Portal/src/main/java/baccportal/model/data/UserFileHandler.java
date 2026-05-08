@@ -119,22 +119,31 @@ public class UserFileHandler {
         }
     }
 
-    public void writeStudentUserToFile(UserStorage userStorage) throws IOException{
+    public void writeStudentUserToFile(UserStorage userStorage) throws IOException {
         try (PrintWriter out = new PrintWriter(new File("txtfiles/students.txt"))) {
             List<StudentUser> studentsList = userStorage.getStudentsList();
+
             for (StudentUser user : studentsList) {
                 out.println(user.getEmail());
                 out.println(user.getUserId());
                 out.println(user.getPassword());
                 out.println(user.getFullName());
-                out.println(user.getMajor());
+
+                if (user.getMajor() == null) {
+                    out.println("Undeclared");
+                    out.println("NONE");
+                } else {
+                    out.println(user.getMajor().getMajorName());
+                    out.println(user.getMajor().getDepartment());
+                }
+
                 out.println(user.getBalanceOwed());
 
                 List<CourseSection> completedSections = user.getCompletedSections();
                 if (completedSections.isEmpty()) {
                     out.print("NONE");
                 } else {
-                    for (int i = 0; i < completedSections.size(); ++i) {
+                    for (int i = 0; i < completedSections.size(); i++) {
                         out.print(completedSections.get(i).getSectionId());
                         if (i < completedSections.size() - 1) {
                             out.print(", ");
@@ -147,7 +156,7 @@ public class UserFileHandler {
                 if (enrolledSections.isEmpty()) {
                     out.print("NONE");
                 } else {
-                    for (int i = 0; i < enrolledSections.size(); ++i) {
+                    for (int i = 0; i < enrolledSections.size(); i++) {
                         out.print(enrolledSections.get(i).getSectionId());
                         if (i < enrolledSections.size() - 1) {
                             out.print(", ");
@@ -160,7 +169,7 @@ public class UserFileHandler {
                 if (transactionHistory.isEmpty()) {
                     out.print("NONE");
                 } else {
-                    for (int i = 0; i < transactionHistory.size(); ++i) {
+                    for (int i = 0; i < transactionHistory.size(); i++) {
                         out.print(transactionHistory.get(i));
                         if (i < transactionHistory.size() - 1) {
                             out.print(", ");
@@ -168,6 +177,7 @@ public class UserFileHandler {
                     }
                 }
                 out.println();
+
                 out.println("----------");
             }
         } catch (IOException e) {

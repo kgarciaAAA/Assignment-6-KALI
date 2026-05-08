@@ -56,6 +56,32 @@ public class UserStorage {
         return List.copyOf(foundUsers);
     }
 
+    public User findUserById(String userId) {
+        for (StudentUser student : studentsList) {
+            if (student.getUserId().equalsIgnoreCase(userId)) {
+                return student;
+            }
+        }
+
+        for (FacultyUser faculty : facultyList) {
+            if (faculty.getUserId().equalsIgnoreCase(userId)) {
+                return faculty;
+            }
+        }
+
+        for (AdminUser admin : adminList) {
+            if (admin.getUserId().equalsIgnoreCase(userId)) {
+                return admin;
+            }
+        }
+
+        return null;
+    }
+
+    public boolean removeStudentById(String userId) {
+        return studentsList.removeIf(student -> student.getUserId().equalsIgnoreCase(userId));
+    }
+
     //controlled updates
     public void addStudentUser(StudentUser user) {
         studentsList.add(user);
@@ -69,3 +95,6 @@ public class UserStorage {
         adminList.add(user);
     }
 }
+
+
+

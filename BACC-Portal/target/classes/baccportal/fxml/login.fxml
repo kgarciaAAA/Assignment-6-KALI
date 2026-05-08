@@ -1,42 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx/17.0.12"
             fx:controller="baccportal.controllers.LoginController"
-            style="-fx-background-color: #f4f6f8;">
+            prefWidth="800"
+            prefHeight="600"
+            style="-fx-background-color: white;">
 
     <center>
-        <VBox alignment="CENTER" spacing="18" maxWidth="360"
-              style="-fx-background-color: white; -fx-padding: 35; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 18, 0, 0, 4);">
+        <VBox alignment="CENTER"
+              spacing="16"
+              maxWidth="320"
+              BorderPane.alignment="CENTER">
 
             <Label text="BACC Portal"
-                   style="-fx-font-size: 28px; -fx-font-weight: bold;"/>
+                   style="-fx-font-size: 28px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #333333;"/>
 
             <Label text="University Registration System"
-                   style="-fx-font-size: 14px; -fx-text-fill: #666;"/>
+                   style="-fx-font-size: 14px;
+                          -fx-text-fill: #777777;"/>
 
             <TextField fx:id="userIdField"
                        promptText="User ID"
+                       prefWidth="290"
                        prefHeight="40"
-                       style="-fx-background-radius: 8;"/>
+                       maxWidth="290"
+                       style="-fx-background-radius: 8;
+                              -fx-border-radius: 8;
+                              -fx-border-color: #cccccc;
+                              -fx-background-color: white;
+                              -fx-padding: 0 10 0 10;"/>
 
-            <PasswordField fx:id="passwordField"
+            <StackPane prefWidth="290" maxWidth="290">
+                <PasswordField fx:id="passwordField"
+                               promptText="Password"
+                               prefHeight="40"
+                               maxWidth="Infinity"
+                               style="-fx-background-radius: 8;
+                                      -fx-border-radius: 8;
+                                      -fx-border-color: #cccccc;
+                                      -fx-background-color: white;
+                                      -fx-padding: 0 60 0 10;"/>
+
+                <TextField fx:id="visiblePasswordField"
                            promptText="Password"
                            prefHeight="40"
-                           style="-fx-background-radius: 8;"/>
+                           maxWidth="Infinity"
+                           visible="false"
+                           managed="false"
+                           style="-fx-background-radius: 8;
+                                  -fx-border-radius: 8;
+                                  -fx-border-color: #cccccc;
+                                  -fx-background-color: white;
+                                  -fx-padding: 0 60 0 10;"/>
+
+                <Button fx:id="togglePasswordButton"
+                        text="Show"
+                        onAction="#togglePasswordVisibility"
+                        StackPane.alignment="CENTER_RIGHT"
+                        style="-fx-background-color: transparent;
+                               -fx-text-fill: #2563eb;
+                               -fx-font-size: 11px;
+                               -fx-font-weight: bold;
+                               -fx-padding: 0 10 0 10;"/>
+            </StackPane>
 
             <Button text="Login"
                     onAction="#handleLogin"
                     prefWidth="220"
                     prefHeight="42"
-                    style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+                    style="-fx-background-color: #2f6fed;
+                           -fx-text-fill: white;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 8;"/>
 
             <Label fx:id="statusLabel"
-                   text="Enter your credentials"
-                   style="-fx-text-fill: #666;"/>
+                   text=""
+                   style="-fx-text-fill: #777777;
+                          -fx-font-size: 13px;"/>
+
         </VBox>
     </center>
 
