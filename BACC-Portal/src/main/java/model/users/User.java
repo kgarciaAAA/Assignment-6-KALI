@@ -8,11 +8,16 @@ public abstract class User {
     protected String password;
     protected String fullName;
 
-    public User(String email, String userId, String password, String fullName){
+    public User(String email, String userId, String password, String fullName, boolean isHashed){
         this.email = email;
         this.userId = userId;
-        this.password = PasswordUtil.hashPassword(password);
+        if (isHashed) {
+            this.password = password;
+        } else {
+            this.password = PasswordUtil.hashPassword(password);
+        }
         this.fullName = fullName;
+
     }
 
     //getters

@@ -1,24 +1,24 @@
 package users;
 
-import academics.CourseSection;
-import academics.Major;
 import java.util.ArrayList;
 import java.util.List;
+
+import academics.CourseSection;
+import academics.Major;
 import utilities.Receipt;
 
-public class StudentUser extends User{ //implement cloneable?
+public class StudentUser extends User{
     private final Major major;
     private double balanceOwed;
     private final List<CourseSection> completedSections;
     private final List<CourseSection> enrolledSections;
     private final List<Receipt> transactionHistory;
-    //Should we add a List<PaymentInfo> savedPaymentMethods to store user payments?
 
-    public StudentUser(String email, String userId, String password, String fullName, Major major, double balanceOwed){
-        super(email, userId, password,fullName);
+    public StudentUser(String email, String userId, String password, String fullName, boolean isHashed, Major major, double balanceOwed){
+        super(email, userId, password, fullName, isHashed);
         this.major = major;
         this.balanceOwed = balanceOwed;
-        this.completedSections = new ArrayList<>(); //dont know if we want to make a reference outside of user and inject it or make a new ArrayList in user then update it using methods.
+        this.completedSections = new ArrayList<>();
         this.enrolledSections = new ArrayList<>();
         this.transactionHistory = new ArrayList<>();
     }

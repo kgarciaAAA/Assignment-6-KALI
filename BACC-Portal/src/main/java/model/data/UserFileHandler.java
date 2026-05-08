@@ -33,7 +33,7 @@ public class UserFileHandler {
                 String[] enrolledIds = enrolledSectionsString.split(",");
                 String receiptInfoString = snr.nextLine();
                 String[] receiptInfoArr = receiptInfoString.split(",");
-                StudentUser user = new StudentUser(email, userId, password, fullName, major, balanceOwed);
+                StudentUser user = new StudentUser(email, userId, password, fullName, true, major, balanceOwed);
                 
                 if (!completedIds[0].trim().equalsIgnoreCase("NONE")) {
                     for (String id : completedIds) {
@@ -81,7 +81,7 @@ public class UserFileHandler {
                 String password = snr.nextLine();
                 String fullName = snr.nextLine();
                 Department department = Department.stringToDepartment(snr.nextLine());
-                FacultyUser user = new FacultyUser(email, userId, password, fullName, department);
+                FacultyUser user = new FacultyUser(email, userId, password, fullName, true, department);
 
                 String sectionsTaughtString = snr.nextLine();
                 String[] sectionsId = sectionsTaughtString.split(",");
@@ -111,7 +111,7 @@ public class UserFileHandler {
                 String password = snr.nextLine();
                 String fullName = snr.nextLine();
                 snr.nextLine();
-                AdminUser user = new AdminUser(email, userId, password, fullName);
+                AdminUser user = new AdminUser(email, userId, password, fullName, true);
                 userStorage.addAdminUser(user);
             }
         } catch (IOException e) {

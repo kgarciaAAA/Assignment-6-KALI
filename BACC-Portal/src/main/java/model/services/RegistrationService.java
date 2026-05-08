@@ -1,8 +1,9 @@
 package services;
 
+import java.util.List;
+
 import academics.Course;
 import academics.CourseSection;
-import java.util.List;
 import users.StudentUser;
 
 public class RegistrationService {
@@ -13,6 +14,7 @@ public class RegistrationService {
             return false;
         }
         user.addEnrolledSection(section);
+        section.incrementCurrentCapacity();
         return true;
     }
 

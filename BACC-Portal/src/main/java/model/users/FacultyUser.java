@@ -11,8 +11,8 @@ public class FacultyUser extends User{
     private final Department department;
     private final List<CourseSection> sectionsTaught;
 
-    public FacultyUser(String email, String userID, String password, String fullName, Department department){
-        super(email, userID, password,fullName);
+    public FacultyUser(String email, String userID, String password, String fullName, boolean isHashed, Department department){
+        super(email, userID, password, fullName, isHashed);
         this.department = department;
         this.sectionsTaught = new ArrayList<>();
     }
