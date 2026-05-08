@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="72a190ec-188e-4759-912a-37de3c8bc2bf" name="Changes" comment="This is testing branch!">
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/academics/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/academics/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/academics/CourseSection.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/academics/CourseSection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/academics/Major.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/academics/Major.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/data/SectionFileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/data/SectionFileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/data/UserFileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/data/UserFileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/AcademicRecordsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/AcademicRecordsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/AdminService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/FacultyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/FacultyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/RegistrationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/services/RegistrationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/storage/UserStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/storage/UserStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/users/StudentUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/model/users/StudentUser.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Testing-branch" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sengleapheng65-lab&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/kgarciaAAA/Assignment-6-KALI.git&quot;,
+    &quot;accountId&quot;: &quot;a8c1f278-a581-4fe0-8ab8-bae847032c1f&quot;
+  }
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3DMKp1MjfDtHQGGc67PQxDcc3dF" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.App.executor": "Run",
+    "Maven.bacc-portal [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "Testing-branch1",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "to.speed.mode.migration.done": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/BACC-Portal/src/main/resources/fxml" />
+      <recent name="$PROJECT_DIR$/BACC-Portal/src/main/java/model" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="20" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="App" />
+      <module name="BACC-Portal" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="RUN_TOOL" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.App" />
+        <item itemvalue="Application.App" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.32098.101" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="72a190ec-188e-4759-912a-37de3c8bc2bf" name="Changes" comment="" />
+      <created>1778086677184</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1778086677184</updated>
+    </task>
+    <task id="LOCAL-00001" summary="This is testing branch!">
+      <option name="closed" value="true" />
+      <created>1778088089256</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1778088089256</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="This is testing branch!" />
+    <option name="LAST_COMMIT_MESSAGE" value="This is testing branch!" />
+  </component>
+</project>
