@@ -29,6 +29,7 @@
             </padding>
 
             <Button maxWidth="Infinity" onAction="#showOverview" text="Overview" />
+            <Button maxWidth="Infinity" onAction="#showManageCourses" text="Enroll / Drop Course"/>
             <Button maxWidth="Infinity" onAction="#showEnrolledCourses" text="Enrolled Courses" />
             <Button maxWidth="Infinity" onAction="#showCompletedCourses" text="Completed Courses" />
             <Button maxWidth="Infinity" onAction="#showTransactions" text="Transactions" />

@@ -46,15 +46,20 @@ public class CourseStorage {
         }
 
         return courseSections;
-    }    
+    }
+
 
     //controlled updates
     public void addCourse(Course course) {
         courses.put(course.getCourseId(), course);
     }
 
+    public boolean removeCourseById(String courseId) { return courses.remove(courseId) != null;}
+
     public void addSection(CourseSection courseSection) {
         sections.put(courseSection.getSectionId(), courseSection);
     }
+
+    public boolean removeSectionById(String sectionId) {return sections.remove(sectionId) != null;}
 
 }

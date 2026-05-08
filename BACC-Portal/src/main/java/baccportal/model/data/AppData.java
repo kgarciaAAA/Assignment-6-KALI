@@ -3,25 +3,39 @@ package baccportal.model.storage;
 import java.io.IOException;
 
 import baccportal.model.data.UserFileHandler;
+import baccportal.model.data.CourseFileHandler;
+import baccportal.model.data.SectionFileHandler;
 
 public class AppData {
 
     private final UserStorage userStorage;
     private final CourseStorage courseStorage;
     private final UserFileHandler userFileHandler;
+    private final CourseFileHandler courseFileHandler;
+    private final SectionFileHandler sectionFileHandler;
 
     public AppData() {
         this.userStorage = new UserStorage();
         this.courseStorage = new CourseStorage();
         this.userFileHandler = new UserFileHandler();
+        this.courseFileHandler = new CourseFileHandler();
+        this.sectionFileHandler = new SectionFileHandler();
     }
 
     public void load() {
-        System.out.println("Working directory: " + System.getProperty("user.dir"));
+        try {
+            courseFileHandler.readCoursesFromFile(courseStorage);
+            System.out.println("Courses file loaded.");
+        } catch (Exception e) {
+            System.out.println("Could not load courses.txt: " + e.getMessage());
+        }
 
-        System.out.println("admin exists: " + java.nio.file.Files.exists(java.nio.file.Path.of("txtfiles/admin.txt")));
-        System.out.println("students exists: " + java.nio.file.Files.exists(java.nio.file.Path.of("txtfiles/students.txt")));
-        System.out.println("faculty exists: " + java.nio.file.Files.exists(java.nio.file.Path.of("txtfiles/faculty.txt")));
+        try {
+            sectionFileHandler.readSectionsFromFile(courseStorage);
+            System.out.println("Sections file loaded.");
+        } catch (Exception e) {
+            System.out.println("Could not load sections.txt: " + e.getMessage());
+        }
 
         try {
             userFileHandler.readAdminUsersFromFile(userStorage);
@@ -44,6 +58,8 @@ public class AppData {
             System.out.println("Could not load faculty.txt: " + e.getMessage());
         }
 
+        System.out.println("Courses loaded: " + courseStorage.getAllCourses().size());
+        System.out.println("Sections loaded: " + courseStorage.getAllSections().size());
         System.out.println("Students loaded: " + userStorage.getStudentsList().size());
         System.out.println("Faculty loaded: " + userStorage.getFacultyList().size());
         System.out.println("Admins loaded: " + userStorage.getAdminList().size());
@@ -57,6 +73,24 @@ public class AppData {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error saving user data to text files.");
+        }
+    }
+
+    public void saveCourses() {
+        try {
+            courseFileHandler.writeCoursesToFile(courseStorage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error saving course data to text files.");
+        }
+    }
+
+    public void saveSections() {
+        try {
+            sectionFileHandler.writeSectionsToFile(courseStorage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error saving section data to text files.");
         }
     }
 

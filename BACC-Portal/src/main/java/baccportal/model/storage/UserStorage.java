@@ -82,6 +82,14 @@ public class UserStorage {
         return studentsList.removeIf(student -> student.getUserId().equalsIgnoreCase(userId));
     }
 
+    public boolean removeFacultyById(String userId) {
+        return facultyList.removeIf(faculty -> faculty.getUserId().equalsIgnoreCase(userId));
+    }
+
+    public boolean removeAdminById(String userId) {
+        return adminList.removeIf(admin -> admin.getUserId().equalsIgnoreCase(userId));
+    }
+
     //controlled updates
     public void addStudentUser(StudentUser user) {
         studentsList.add(user);

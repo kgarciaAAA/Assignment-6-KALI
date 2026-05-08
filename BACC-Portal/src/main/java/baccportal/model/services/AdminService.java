@@ -1,29 +1,54 @@
 package baccportal.model.services;
+
 import baccportal.model.storage.UserStorage;
 import baccportal.model.users.AdminUser;
 import baccportal.model.users.FacultyUser;
 import baccportal.model.users.StudentUser;
 
 public class AdminService {
-    public boolean addNewStudent(UserStorage userStorage, StudentUser studentUser) {
-        boolean doesExist = userStorage.exists(studentUser);
-        if (doesExist) return false;
+
+    private final UserStorage userStorage;
+
+    public AdminService(UserStorage userStorage) {
+        this.userStorage = userStorage;
+    }
+
+    public boolean addNewStudent(StudentUser studentUser) {
+        if (userStorage.exists(studentUser)) {
+            return false;
+        }
+
         userStorage.addStudentUser(studentUser);
         return true;
     }
 
-    public boolean addNewFaculty(UserStorage userStorage, FacultyUser facultyUser) { 
-        boolean doesExist = userStorage.exists(facultyUser);
-        if (doesExist) return false;
+    public boolean addNewFaculty(FacultyUser facultyUser) {
+        if (userStorage.exists(facultyUser)) {
+            return false;
+        }
+
         userStorage.addFacultyUser(facultyUser);
         return true;
     }
 
-    public boolean addAdminUser(UserStorage userStorage, AdminUser adminUser) {
-        boolean doesExist = userStorage.exists(adminUser);
-        if (doesExist) return false;
+    public boolean addAdminUser(AdminUser adminUser) {
+        if (userStorage.exists(adminUser)) {
+            return false;
+        }
+
         userStorage.addAdminUser(adminUser);
         return true;
     }
 
+    public boolean deleteStudent(String userId) {
+        return userStorage.removeStudentById(userId);
+    }
+
+    public boolean deleteFaculty(String userId) {
+        return userStorage.removeFacultyById(userId);
+    }
+
+    public boolean deleteAdmin(String userId) {
+        return userStorage.removeAdminById(userId);
+    }
 }

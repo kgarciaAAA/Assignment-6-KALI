@@ -3,29 +3,16 @@ package baccportal.controllers;
 import java.io.IOException;
 
 import baccportal.App;
-import baccportal.model.academics.Department;
-import baccportal.model.academics.Major;
 import baccportal.model.storage.UserStorage;
 import baccportal.model.users.AdminUser;
-import baccportal.model.users.FacultyUser;
-import baccportal.model.users.StudentUser;
 import baccportal.model.users.User;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-
 
 public class AdminController {
 
@@ -45,11 +32,7 @@ public class AdminController {
             showOverview();
         } else {
             welcomeLabel.setText("Welcome");
-            contentBox.getChildren().clear();
-
-            Label errorLabel = new Label("No admin user is currently logged in.");
-            errorLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: red;");
-            contentBox.getChildren().add(errorLabel);
+            showError("No admin user is currently logged in.");
         }
     }
 
@@ -59,8 +42,7 @@ public class AdminController {
 
         contentBox.getChildren().clear();
 
-        Label heading = new Label("Admin Overview");
-        heading.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+        Label heading = createHeading("Admin Overview");
 
         GridPane grid = new GridPane();
         grid.setHgap(15);
@@ -89,316 +71,60 @@ public class AdminController {
 
     @FXML
     private void showStudents() {
-        contentBox.getChildren().clear();
-
-        Label heading = new Label("Manage Students");
-        heading.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
-
-        TableView<StudentUser> studentTable = new TableView<>();
-
-        TableColumn<StudentUser, String> idColumn = new TableColumn<>("ID");
-        idColumn.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().getUserId())
-        );
-
-        TableColumn<StudentUser, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().getFullName())
-        );
-
-        TableColumn<StudentUser, String> emailColumn = new TableColumn<>("Email");
-        emailColumn.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().getEmail())
-        );
-
-        TableColumn<StudentUser, Number> balanceColumn = new TableColumn<>("Balance");
-        balanceColumn.setCellValueFactory(data ->
-                new SimpleDoubleProperty(data.getValue().getBalanceOwed())
-        );
-
-        studentTable.getColumns().addAll(idColumn, nameColumn, emailColumn, balanceColumn);
-        studentTable.getItems().addAll(userStorage.getStudentsList());
-
-        studentTable.setPrefHeight(300);
-        studentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
-        Label statusLabel = new Label();
-
-        Label formHeading = new Label("Add New Student");
-        formHeading.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
-
-        TextField emailField = new TextField();
-        emailField.setPromptText("Email");
-
-        TextField idField = new TextField();
-        idField.setPromptText("Student ID");
-
-        PasswordField passwordField = new PasswordField();
-        HBox passwordBox = createPasswordToggleBox(passwordField, "Password");
-
-        TextField nameField = new TextField();
-        nameField.setPromptText("Full Name");
-
-        TextField majorField = new TextField();
-        majorField.setPromptText("Major Name");
-
-        ComboBox<Department> departmentBox = new ComboBox<>();
-        departmentBox.getItems().addAll(
-                Department.COMPUTER_SCIENCE,
-                Department.DATA_SCIENCE,
-                Department.MATHEMATICS
-        );
-        departmentBox.setPromptText("Select Department");
-
-        TextField balanceField = new TextField();
-        balanceField.setPromptText("Balance Owed");
-
-        Button addButton = new Button("Add Student");
-
-        addButton.setOnAction(e -> {
-            try {
-                String email = emailField.getText().trim();
-                String id = idField.getText().trim();
-                String password = passwordField.getText();
-                String fullName = nameField.getText().trim();
-                String majorName = majorField.getText().trim();
-                Department department = departmentBox.getValue();
-
-                if (email.isBlank() || id.isBlank() || password.isBlank()
-                        || fullName.isBlank() || majorName.isBlank()
-                        || department == null || balanceField.getText().trim().isBlank()) {
-                    statusLabel.setText("Fill all student fields.");
-                    return;
-                }
-
-                double balance = Double.parseDouble(balanceField.getText().trim());
-
-                if (userStorage.findUserById(id) != null) {
-                    statusLabel.setText("A user with this ID already exists.");
-                    return;
-                }
-
-                Major major = new Major(majorName, department);
-
-                StudentUser newStudent = new StudentUser(
-                        email,
-                        id,
-                        password,
-                        fullName,
-                        false,
-                        major,
-                        balance
-                );
-
-                userStorage.addStudentUser(newStudent);
-                App.getAppData().saveUsers();
-
-                statusLabel.setText("Student added successfully.");
-                showStudents();
-
-            } catch (NumberFormatException ex) {
-                statusLabel.setText("Balance must be a number.");
-            }
-        });
-
-        GridPane form = new GridPane();
-        form.setHgap(10);
-        form.setVgap(10);
-
-        form.add(new Label("Email:"), 0, 0);
-        form.add(emailField, 1, 0);
-
-        form.add(new Label("Student ID:"), 0, 1);
-        form.add(idField, 1, 1);
-
-        form.add(new Label("Password:"), 0, 2);
-        form.add(passwordBox, 1, 2);
-
-        form.add(new Label("Full Name:"), 0, 3);
-        form.add(nameField, 1, 3);
-
-        form.add(new Label("Major:"), 0, 4);
-        form.add(majorField, 1, 4);
-
-        form.add(new Label("Department:"), 0, 5);
-        form.add(departmentBox, 1, 5);
-
-        form.add(new Label("Balance:"), 0, 6);
-        form.add(balanceField, 1, 6);
-
-        form.add(addButton, 1, 7);
-
-        Label deleteHeading = new Label("Delete Student");
-        deleteHeading.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
-
-        TextField deleteIdField = new TextField();
-        deleteIdField.setPromptText("Student ID to delete");
-
-        Button deleteButton = new Button("Delete Student");
-
-        deleteButton.setOnAction(e -> {
-            String id = deleteIdField.getText().trim();
-
-            if (id.isBlank()) {
-                statusLabel.setText("Enter a student ID to delete.");
-                return;
-            }
-
-            boolean removed = userStorage.removeStudentById(id);
-
-            if (removed) {
-                App.getAppData().saveUsers();
-                statusLabel.setText("Student deleted successfully.");
-                showStudents();
-            } else {
-                statusLabel.setText("Student not found.");
-            }
-        });
-
-        GridPane deleteForm = new GridPane();
-        deleteForm.setHgap(10);
-        deleteForm.setVgap(10);
-
-        deleteForm.add(new Label("Student ID:"), 0, 0);
-        deleteForm.add(deleteIdField, 1, 0);
-        deleteForm.add(deleteButton, 1, 1);
-
-        contentBox.getChildren().addAll(
-                heading,
-                studentTable,
-                formHeading,
-                form,
-                deleteHeading,
-                deleteForm,
-                statusLabel
-        );
+        loadAdminPage("adminStudents");
     }
 
     @FXML
     private void showFaculty() {
-        contentBox.getChildren().clear();
+        loadAdminPage("adminFaculty");
+    }
 
-        Label heading = new Label("Manage Faculty");
-        heading.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
-
-        ListView<String> listView = new ListView<>();
-
-        for (FacultyUser faculty : userStorage.getFacultyList()) {
-            listView.getItems().add(
-                    faculty.getUserId()
-                            + " | " + faculty.getFullName()
-                            + " | " + faculty.getEmail()
-            );
-        }
-
-        contentBox.getChildren().addAll(heading, listView);
+    @FXML
+    private void showSections() {
+        loadAdminPage("adminSections");
     }
 
     @FXML
     private void showChangePassword() {
-        contentBox.getChildren().clear();
-
-        Label heading = new Label("Change Password");
-        heading.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
-
-        PasswordField currentPasswordField = new PasswordField();
-        PasswordField newPasswordField = new PasswordField();
-        PasswordField confirmPasswordField = new PasswordField();
-
-        HBox currentPasswordBox = createPasswordToggleBox(currentPasswordField, "Current Password");
-        HBox newPasswordBox = createPasswordToggleBox(newPasswordField, "New Password");
-        HBox confirmPasswordBox = createPasswordToggleBox(confirmPasswordField, "Confirm New Password");
-
-        Label statusLabel = new Label();
-
-        Button saveButton = new Button("Update Password");
-
-        saveButton.setOnAction(e -> {
-            User user = App.getCurrentUser();
-
-            String currentPassword = currentPasswordField.getText();
-            String newPassword = newPasswordField.getText();
-            String confirmPassword = confirmPasswordField.getText();
-
-            if (currentPassword.isBlank() || newPassword.isBlank() || confirmPassword.isBlank()) {
-                statusLabel.setText("Fill all password fields.");
-                return;
-            }
-
-            if (!user.comparePassword(currentPassword)) {
-                statusLabel.setText("Current password is incorrect.");
-                return;
-            }
-
-            if (!newPassword.equals(confirmPassword)) {
-                statusLabel.setText("New passwords do not match.");
-                return;
-            }
-
-            user.setPassword(newPassword);
-            App.getAppData().saveUsers();
-
-            statusLabel.setText("Password updated successfully.");
-        });
-
-        GridPane form = new GridPane();
-        form.setHgap(10);
-        form.setVgap(10);
-
-        form.add(new Label("Current Password:"), 0, 0);
-        form.add(currentPasswordBox, 1, 0);
-
-        form.add(new Label("New Password:"), 0, 1);
-        form.add(newPasswordBox, 1, 1);
-
-        form.add(new Label("Confirm Password:"), 0, 2);
-        form.add(confirmPasswordBox, 1, 2);
-
-        form.add(saveButton, 1, 3);
-
-        contentBox.getChildren().addAll(heading, form, statusLabel);
+        loadAdminPage("changePassword");
     }
 
     @FXML
     private void showCourses() {
-        contentBox.getChildren().clear();
-
-        Label heading = new Label("Manage Courses");
-        heading.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
-
-        Label message = new Label("Course management will connect to CourseStorage next.");
-
-        contentBox.getChildren().addAll(heading, message);
+        loadAdminPage("adminCourses");
     }
 
-    private HBox createPasswordToggleBox(PasswordField passwordField, String promptText) {
-        passwordField.setPromptText(promptText);
-        passwordField.setPrefWidth(170);
 
-        TextField visibleTextField = new TextField();
-        visibleTextField.setPromptText(promptText);
-        visibleTextField.setPrefWidth(170);
 
-        visibleTextField.textProperty().bindBidirectional(passwordField.textProperty());
+    private Label createHeading(String text) {
+        Label label = new Label(text);
+        label.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+        return label;
+    }
 
-        visibleTextField.setVisible(false);
-        visibleTextField.setManaged(false);
+    private void showError(String message) {
+        contentBox.getChildren().clear();
 
-        Button toggleButton = new Button("Show");
+        Label errorLabel = new Label(message);
+        errorLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: red;");
 
-        toggleButton.setOnAction(e -> {
-            boolean showing = visibleTextField.isVisible();
+        contentBox.getChildren().add(errorLabel);
+    }
 
-            visibleTextField.setVisible(!showing);
-            visibleTextField.setManaged(!showing);
+    private void loadAdminPage(String fxmlName) {
+        try {
+            Node page = FXMLLoader.load(
+                    App.class.getResource("/baccportal/fxml/" + fxmlName + ".fxml")
+            );
 
-            passwordField.setVisible(showing);
-            passwordField.setManaged(showing);
+            contentBox.getChildren().clear();
+            contentBox.getChildren().add(page);
 
-            toggleButton.setText(showing ? "Show" : "Hide");
-        });
-
-        return new HBox(8, passwordField, visibleTextField, toggleButton);
+        } catch (IOException e) {
+            e.printStackTrace();
+            contentBox.getChildren().clear();
+            contentBox.getChildren().add(new Label("Error loading page: " + fxmlName));
+        }
     }
 
     @FXML

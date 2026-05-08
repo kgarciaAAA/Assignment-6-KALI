@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      fx:controller="baccportal.controllers.AdminCoursesController">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <Label text="Manage Courses"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="courseTable" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="courseIdColumn" text="Course ID"/>
+            <TableColumn fx:id="courseNameColumn" text="Course Name"/>
+            <TableColumn fx:id="unitsColumn" text="Units"/>
+        </columns>
+    </TableView>
+
+    <Label text="Add New Course"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Course ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="courseIdField" promptText="Course ID" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Course Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="courseNameField" promptText="Course Name" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Units:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="unitsField" promptText="Units" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Button text="Add Course" onAction="#handleAddCourse" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <Label text="Delete Course"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Course ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="deleteCourseIdField" promptText="Course ID to delete" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Button text="Delete Course" onAction="#handleDeleteCourse" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <Label fx:id="statusLabel"/>
+
+</VBox>

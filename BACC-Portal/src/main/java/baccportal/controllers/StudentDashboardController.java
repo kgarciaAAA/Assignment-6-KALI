@@ -3,16 +3,15 @@ package baccportal.controllers;
 import java.io.IOException;
 
 import baccportal.App;
-import baccportal.model.academics.CourseSection;
 import baccportal.model.users.StudentUser;
 import baccportal.model.users.User;
-import baccportal.model.utilities.Receipt;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+
 
 public class StudentDashboardController {
 
@@ -76,54 +75,41 @@ public class StudentDashboardController {
     }
 
     @FXML
+    private void showManageCourses() {
+        loadStudentPage("studentManageCourses");
+    }
+
+    @FXML
     private void showEnrolledCourses() {
-        if (student == null) {
-            return;
-        }
-
-        contentBox.getChildren().clear();
-
-        Label heading = new Label("Enrolled Courses");
-        heading.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
-
-        ListView<CourseSection> listView = new ListView<>();
-        listView.getItems().addAll(student.getEnrolledSections());
-
-        contentBox.getChildren().addAll(heading, listView);
+        loadStudentPage("studentEnrolledCourses");
     }
 
     @FXML
     private void showCompletedCourses() {
-        if (student == null) {
-            return;
-        }
-
-        contentBox.getChildren().clear();
-
-        Label heading = new Label("Completed Courses");
-        heading.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
-
-        ListView<CourseSection> listView = new ListView<>();
-        listView.getItems().addAll(student.getCompletedSections());
-
-        contentBox.getChildren().addAll(heading, listView);
+        loadStudentPage("studentCompletedCourses");
     }
 
     @FXML
     private void showTransactions() {
-        if (student == null) {
-            return;
+        loadStudentPage("studentTransactions");
+    }
+
+
+
+    private void loadStudentPage(String fxmlName) {
+        try {
+            Node page = FXMLLoader.load(
+                    App.class.getResource("/baccportal/fxml/" + fxmlName + ".fxml")
+            );
+
+            contentBox.getChildren().clear();
+            contentBox.getChildren().add(page);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            contentBox.getChildren().clear();
+            contentBox.getChildren().add(new Label("Error loading page: " + fxmlName));
         }
-
-        contentBox.getChildren().clear();
-
-        Label heading = new Label("Transaction History");
-        heading.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
-
-        ListView<Receipt> listView = new ListView<>();
-        listView.getItems().addAll(student.getTransactionHistory());
-
-        contentBox.getChildren().addAll(heading, listView);
     }
 
     @FXML

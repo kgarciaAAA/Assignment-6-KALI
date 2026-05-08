@@ -54,4 +54,9 @@ public class CourseSection {
     public void incrementCurrentCapacity(){
         currentCapacity++;
     }
+    public void decrementCurrentCapacity() {
+        if (currentCapacity > 0) {
+            currentCapacity--;
+        }
+    }
 }

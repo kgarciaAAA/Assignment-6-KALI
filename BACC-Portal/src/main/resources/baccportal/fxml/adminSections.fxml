@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      fx:controller="baccportal.controllers.AdminSectionsController">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <Label text="Manage Sections"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="sectionsTable" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="sectionIdColumn" text="Section ID"/>
+            <TableColumn fx:id="courseIdColumn" text="Course ID"/>
+            <TableColumn fx:id="courseNameColumn" text="Course Name"/>
+            <TableColumn fx:id="instructorColumn" text="Instructor"/>
+            <TableColumn fx:id="accessCodeColumn" text="Access Code"/>
+            <TableColumn fx:id="priceColumn" text="Price"/>
+            <TableColumn fx:id="capacityColumn" text="Capacity"/>
+        </columns>
+    </TableView>
+
+    <Label text="Add New Section"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Course ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="courseIdField" promptText="Existing Course ID" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Instructor:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="instructorField" promptText="Instructor Name" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Section ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="sectionIdField" promptText="Section ID" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Access Code:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="accessCodeField" promptText="Access Code" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Price:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField fx:id="priceField" promptText="Price" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="Total Capacity:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <TextField fx:id="totalCapacityField" promptText="Total Capacity" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+        <Label text="Current Capacity:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <TextField fx:id="currentCapacityField" promptText="Current Capacity" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+        <Button text="Add Section" onAction="#handleAddSection" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <Label text="Delete Section"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Section ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="deleteSectionIdField" promptText="Section ID to delete" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Button text="Delete Section" onAction="#handleDeleteSection" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <Label fx:id="statusLabel"/>
+
+</VBox>

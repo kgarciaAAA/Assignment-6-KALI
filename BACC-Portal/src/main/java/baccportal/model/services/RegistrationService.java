@@ -39,6 +39,20 @@ public class RegistrationService {
         return hasPrerequisites(userCompleted, section);
     }
 
+    public boolean drop(StudentUser user, CourseSection section) {
+        if (user == null || section == null) {
+            return false;
+        }
+
+        boolean removed = user.removeEnrolledSection(section);
+
+        if (removed) {
+            section.decrementCurrentCapacity();
+        }
+
+        return removed;
+    }
+
     private boolean hasPrerequisites(List<CourseSection> userCompleted, CourseSection section) {
         List<Course> coursePreReq = section.getCourse().getCoursePrerequisites();
         for (Course preReq : coursePreReq) {

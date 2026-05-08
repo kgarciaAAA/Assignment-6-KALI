@@ -35,6 +35,7 @@
             <Button maxWidth="Infinity" text="Overview" onAction="#showOverview"/>
             <Button maxWidth="Infinity" text="Manage Students" onAction="#showStudents"/>
             <Button maxWidth="Infinity" text="Manage Faculty" onAction="#showFaculty"/>
+            <Button maxWidth="Infinity" text="Manage Sections" onAction="#showSections"/>
             <Button maxWidth="Infinity" text="Manage Courses" onAction="#showCourses"/>
             <Button maxWidth="Infinity" text="Change Password" onAction="#showChangePassword"/>
             <Button maxWidth="Infinity" text="Logout" onAction="#handleLogout"/>
