@@ -67,7 +67,7 @@ public class UserFileHandler {
         } catch (IOException e) {
             throw new IOException("Error reading: \"students.txt\""); 
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
+            throw new NumberFormatException("Error parsing numerical value: " + e.getMessage());
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
@@ -98,10 +98,8 @@ public class UserFileHandler {
             }
         } catch (IOException e) {
             throw new IOException("Error reading: \"faculty.txt\"");
-        } catch (NumberFormatException e) {
-            throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
+            throw new IllegalArgumentException("File data: " + e.getMessage());
         }
     }
 
@@ -118,10 +116,6 @@ public class UserFileHandler {
             }
         } catch (IOException e) {
             throw new IOException("Error reading: \"admin.txt\"");
-        } catch (NumberFormatException e) {
-          throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
     }
 
@@ -178,14 +172,10 @@ public class UserFileHandler {
             }
         } catch (IOException e) {
             throw new IOException("Error writing to: \"students.txt\"");
-        } catch (NumberFormatException e) {
-          throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
     }
 
-    public void writeFacultyUsersToFile(UserStorage userStorage, CourseStorage courseStorage) throws IOException {
+    public void writeFacultyUsersToFile(UserStorage userStorage) throws IOException {
         try (PrintWriter out = new PrintWriter(new File("faculty.txt"))){
             List<FacultyUser> facultyList = userStorage.getFacultyList();
             for (FacultyUser user : facultyList) {
@@ -211,10 +201,6 @@ public class UserFileHandler {
 
         } catch (IOException e) {
             throw new IOException("Error writing to: \"faculty.txt\"");
-        } catch (NumberFormatException e) {
-          throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
     }
 
@@ -230,10 +216,6 @@ public class UserFileHandler {
             }
         } catch (IOException e) {
             throw new IOException("Error writing to: \"admin.txt\"");
-        } catch (NumberFormatException e) {
-          throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
     }
 }

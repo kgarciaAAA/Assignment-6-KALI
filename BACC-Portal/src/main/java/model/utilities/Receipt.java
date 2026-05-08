@@ -12,7 +12,7 @@ public class Receipt {
         this.remainingBalance = remainingBalance;
     }
 
-        public Receipt(int receiptId, double totalPaid, double remainingBalance) { //receipt from data
+    public Receipt(int receiptId, double totalPaid, double remainingBalance) { //receipt from data
         this.receiptId = receiptId;
         this.totalPaid = totalPaid;
         this.remainingBalance = remainingBalance;

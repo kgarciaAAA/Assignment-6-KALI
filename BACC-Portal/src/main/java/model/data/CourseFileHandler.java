@@ -33,7 +33,7 @@ public class CourseFileHandler {
         } catch (IOException e) {
             throw new IOException("Error reading: \"courses.txt\"");
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
+            throw new IllegalArgumentException("Error parsing unit amount: " + e.getMessage());
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
@@ -78,10 +78,6 @@ public class CourseFileHandler {
             }
         } catch (IOException e) {
             throw new IOException("Error writing to: \"courses.txt\"");
-        } catch (NumberFormatException e) {
-            throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
     }
     

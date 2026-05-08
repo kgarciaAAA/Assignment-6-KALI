@@ -1,10 +1,11 @@
 package data;
-import academics.Course;
-import academics.CourseSection;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
+
+import academics.Course;
+import academics.CourseSection;
 import storage.CourseStorage;
 
 public class SectionFileHandler {
@@ -27,7 +28,7 @@ public class SectionFileHandler {
         } catch (IOException e) {
             throw new IOException("Error reading: \"sections.txt\"");
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
+            throw new NumberFormatException("Error parsing numerical value: " + e.getMessage());
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
@@ -48,10 +49,6 @@ public class SectionFileHandler {
 
         } catch (IOException e) {
             throw new IOException("Error writing to: \"sections.txt\"");
-        } catch (NumberFormatException e) {
-            throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
     }
 }

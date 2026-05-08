@@ -1,14 +1,15 @@
 package data;
-import academics.Course;
-import academics.Department;
-import academics.Major;
-import academics.MajorCatalog;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import academics.Course;
+import academics.Department;
+import academics.Major;
+import academics.MajorCatalog;
 import storage.CourseStorage;
 import storage.MajorStorage;
 
@@ -53,7 +54,7 @@ public class MajorFileHandler {
         } catch (IOException e) {
             throw new IOException("Error reading: \"majors.txt\"");
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
+            throw new NumberFormatException("Error parsing numerical value: " + e.getMessage());
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
@@ -95,10 +96,6 @@ public class MajorFileHandler {
             }
         } catch (IOException e) {
             throw new IOException("Error writing to: \"majors.txt\"");
-        } catch (NumberFormatException e) {
-            throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
     }
 }

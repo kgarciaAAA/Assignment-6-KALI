@@ -38,9 +38,9 @@ public class FileHandlerFacade {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
+            throw new NumberFormatException("Error parsing numerical value: " + e.getMessage());
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
+            throw new IllegalArgumentException("Invalid File Data: " + e.getMessage());
         }
     }
 
@@ -50,14 +50,10 @@ public class FileHandlerFacade {
             sectionFileHandler.writeSectionsToFile(courseStorage);
             majorFileHandler.writeMajorsToFile(majorStorage);
             userFileHandler.writeStudentUserToFile(userStorage);
-            userFileHandler.writeFacultyUsersToFile(userStorage, courseStorage);
+            userFileHandler.writeFacultyUsersToFile(userStorage);
             userFileHandler.writeAdminUsersToFile(userStorage);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } catch (NumberFormatException e) {
-            throw new NumberFormatException("Error parsing unit amount: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Error parsing course prerequisites: " + e.getMessage());
         }
     }
 }
