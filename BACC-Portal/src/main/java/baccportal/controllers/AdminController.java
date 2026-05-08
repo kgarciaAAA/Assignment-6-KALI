@@ -2,23 +2,30 @@ package baccportal.controllers;
 
 import java.io.IOException;
 
+import baccportal.App;
 import baccportal.model.academics.Department;
 import baccportal.model.academics.Major;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import baccportal.App;
 import baccportal.model.storage.UserStorage;
 import baccportal.model.users.AdminUser;
 import baccportal.model.users.FacultyUser;
 import baccportal.model.users.StudentUser;
 import baccportal.model.users.User;
+
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+
 
 public class AdminController {
 
@@ -87,20 +94,36 @@ public class AdminController {
         Label heading = new Label("Manage Students");
         heading.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
 
-        ListView<String> listView = new ListView<>();
+        TableView<StudentUser> studentTable = new TableView<>();
 
-        for (StudentUser student : userStorage.getStudentsList()) {
-            listView.getItems().add(
-                    student.getUserId()
-                            + " | " + student.getFullName()
-                            + " | " + student.getEmail()
-                            + " | Balance: $" + String.format("%.2f", student.getBalanceOwed())
-            );
-        }
+        TableColumn<StudentUser, String> idColumn = new TableColumn<>("ID");
+        idColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().getUserId())
+        );
+
+        TableColumn<StudentUser, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().getFullName())
+        );
+
+        TableColumn<StudentUser, String> emailColumn = new TableColumn<>("Email");
+        emailColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().getEmail())
+        );
+
+        TableColumn<StudentUser, Number> balanceColumn = new TableColumn<>("Balance");
+        balanceColumn.setCellValueFactory(data ->
+                new SimpleDoubleProperty(data.getValue().getBalanceOwed())
+        );
+
+        studentTable.getColumns().addAll(idColumn, nameColumn, emailColumn, balanceColumn);
+        studentTable.getItems().addAll(userStorage.getStudentsList());
+
+        studentTable.setPrefHeight(300);
+        studentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         Label statusLabel = new Label();
 
-        // Add Student Section
         Label formHeading = new Label("Add New Student");
         formHeading.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
@@ -110,8 +133,8 @@ public class AdminController {
         TextField idField = new TextField();
         idField.setPromptText("Student ID");
 
-        TextField passwordField = new TextField();
-        passwordField.setPromptText("Password");
+        PasswordField passwordField = new PasswordField();
+        HBox passwordBox = createPasswordToggleBox(passwordField, "Password");
 
         TextField nameField = new TextField();
         nameField.setPromptText("Full Name");
@@ -125,7 +148,7 @@ public class AdminController {
                 Department.DATA_SCIENCE,
                 Department.MATHEMATICS
         );
-        departmentBox.setPromptText("Department");
+        departmentBox.setPromptText("Select Department");
 
         TextField balanceField = new TextField();
         balanceField.setPromptText("Balance Owed");
@@ -142,8 +165,8 @@ public class AdminController {
                 Department department = departmentBox.getValue();
 
                 if (email.isBlank() || id.isBlank() || password.isBlank()
-                        || fullName.isBlank() || majorName.isBlank() || department == null
-                        || balanceField.getText().trim().isBlank()) {
+                        || fullName.isBlank() || majorName.isBlank()
+                        || department == null || balanceField.getText().trim().isBlank()) {
                     statusLabel.setText("Fill all student fields.");
                     return;
                 }
@@ -189,7 +212,7 @@ public class AdminController {
         form.add(idField, 1, 1);
 
         form.add(new Label("Password:"), 0, 2);
-        form.add(passwordField, 1, 2);
+        form.add(passwordBox, 1, 2);
 
         form.add(new Label("Full Name:"), 0, 3);
         form.add(nameField, 1, 3);
@@ -205,7 +228,6 @@ public class AdminController {
 
         form.add(addButton, 1, 7);
 
-        // Delete Student Section
         Label deleteHeading = new Label("Delete Student");
         deleteHeading.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
@@ -243,7 +265,7 @@ public class AdminController {
 
         contentBox.getChildren().addAll(
                 heading,
-                listView,
+                studentTable,
                 formHeading,
                 form,
                 deleteHeading,
@@ -251,7 +273,6 @@ public class AdminController {
                 statusLabel
         );
     }
-
 
     @FXML
     private void showFaculty() {
@@ -272,6 +293,7 @@ public class AdminController {
 
         contentBox.getChildren().addAll(heading, listView);
     }
+
     @FXML
     private void showChangePassword() {
         contentBox.getChildren().clear();
@@ -280,13 +302,12 @@ public class AdminController {
         heading.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
 
         PasswordField currentPasswordField = new PasswordField();
-        currentPasswordField.setPromptText("Current Password");
-
         PasswordField newPasswordField = new PasswordField();
-        newPasswordField.setPromptText("New Password");
-
         PasswordField confirmPasswordField = new PasswordField();
-        confirmPasswordField.setPromptText("Confirm New Password");
+
+        HBox currentPasswordBox = createPasswordToggleBox(currentPasswordField, "Current Password");
+        HBox newPasswordBox = createPasswordToggleBox(newPasswordField, "New Password");
+        HBox confirmPasswordBox = createPasswordToggleBox(confirmPasswordField, "Confirm New Password");
 
         Label statusLabel = new Label();
 
@@ -325,13 +346,13 @@ public class AdminController {
         form.setVgap(10);
 
         form.add(new Label("Current Password:"), 0, 0);
-        form.add(currentPasswordField, 1, 0);
+        form.add(currentPasswordBox, 1, 0);
 
         form.add(new Label("New Password:"), 0, 1);
-        form.add(newPasswordField, 1, 1);
+        form.add(newPasswordBox, 1, 1);
 
         form.add(new Label("Confirm Password:"), 0, 2);
-        form.add(confirmPasswordField, 1, 2);
+        form.add(confirmPasswordBox, 1, 2);
 
         form.add(saveButton, 1, 3);
 
@@ -348,6 +369,36 @@ public class AdminController {
         Label message = new Label("Course management will connect to CourseStorage next.");
 
         contentBox.getChildren().addAll(heading, message);
+    }
+
+    private HBox createPasswordToggleBox(PasswordField passwordField, String promptText) {
+        passwordField.setPromptText(promptText);
+        passwordField.setPrefWidth(170);
+
+        TextField visibleTextField = new TextField();
+        visibleTextField.setPromptText(promptText);
+        visibleTextField.setPrefWidth(170);
+
+        visibleTextField.textProperty().bindBidirectional(passwordField.textProperty());
+
+        visibleTextField.setVisible(false);
+        visibleTextField.setManaged(false);
+
+        Button toggleButton = new Button("Show");
+
+        toggleButton.setOnAction(e -> {
+            boolean showing = visibleTextField.isVisible();
+
+            visibleTextField.setVisible(!showing);
+            visibleTextField.setManaged(!showing);
+
+            passwordField.setVisible(showing);
+            passwordField.setManaged(showing);
+
+            toggleButton.setText(showing ? "Show" : "Hide");
+        });
+
+        return new HBox(8, passwordField, visibleTextField, toggleButton);
     }
 
     @FXML
