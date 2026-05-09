@@ -34,6 +34,7 @@
             <Button maxWidth="Infinity" onAction="#showCompletedCourses" text="Completed Courses" />
             <Button maxWidth="Infinity" onAction="#showPayment" text="Make Payment"/>
             <Button maxWidth="Infinity" onAction="#showTransactions" text="Transactions" />
+            <Button maxWidth="Infinity" onAction="#showChangePassword" text="Change Password"/>
             <Button maxWidth="Infinity" onAction="#handleLogout" text="Log out" />
         </VBox>
     </left>

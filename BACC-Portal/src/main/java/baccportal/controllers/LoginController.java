@@ -1,7 +1,6 @@
 package baccportal.controllers;
 
 import baccportal.App;
-import baccportal.model.storage.UserStorage;
 import baccportal.model.users.AdminUser;
 import baccportal.model.users.FacultyUser;
 import baccportal.model.users.StudentUser;
@@ -22,7 +21,7 @@ public class LoginController {
 
     private boolean passwordVisible = false;
 
-    private final UserStorage userStorage = App.getAppData().getUserStorage();
+
 
     @FXML
     private void initialize() {
@@ -44,6 +43,8 @@ public class LoginController {
 
     @FXML
     private void handleLogin() {
+        App.getAppData().reloadUsers();
+
         String id = userIdField.getText().trim();
         String password = passwordField.getText();
 
@@ -52,20 +53,7 @@ public class LoginController {
             return;
         }
 
-        User user = userStorage.findUserById(id);
-
-        System.out.println("Entered ID: " + id);
-        System.out.println("Entered password: " + password);
-        System.out.println("User found: " + user);
-        System.out.println("Students loaded: " + userStorage.getStudentsList().size());
-        System.out.println("Faculty loaded: " + userStorage.getFacultyList().size());
-        System.out.println("Admins loaded: " + userStorage.getAdminList().size());
-
-        if (user != null) {
-            System.out.println("Stored user ID: " + user.getUserId());
-            System.out.println("Stored full name: " + user.getFullName());
-            System.out.println("Password matches: " + user.comparePassword(password));
-        }
+        User user = App.getAppData().getUserStorage().findUserById(id);
 
         if (user == null || !user.comparePassword(password)) {
             statusLabel.setText("Invalid login.");

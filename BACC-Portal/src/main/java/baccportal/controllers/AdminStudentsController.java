@@ -173,6 +173,7 @@ public class AdminStudentsController {
             }
 
             App.getAppData().saveUsers();
+            App.getAppData().reloadUsers();
 
             clearAddForm();
             loadStudents();
@@ -205,6 +206,8 @@ public class AdminStudentsController {
         }
 
         App.getAppData().saveUsers();
+        App.getAppData().reloadUsers();
+
         loadStudents();
         statusLabel.setText("Student deleted successfully.");
     }

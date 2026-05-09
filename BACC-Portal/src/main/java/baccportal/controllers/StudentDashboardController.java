@@ -97,6 +97,11 @@ public class StudentDashboardController {
         loadStudentPage("studentTransactions");
     }
 
+    @FXML
+    private void showChangePassword() {
+        loadStudentPage("changePassword");
+    }
+
 
 
     private void loadStudentPage(String fxmlName) {
