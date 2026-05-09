@@ -16,6 +16,7 @@ public class AdminFacultyController {
     @FXML private TableColumn<FacultyUser, String> nameColumn;
     @FXML private TableColumn<FacultyUser, String> emailColumn;
     @FXML private TableColumn<FacultyUser, String> departmentColumn;
+    @FXML private TableColumn<FacultyUser, Void> deleteColumn;
 
     @FXML private TextField emailField;
     @FXML private TextField idField;
@@ -23,7 +24,6 @@ public class AdminFacultyController {
     @FXML private TextField nameField;
     @FXML private ComboBox<Department> departmentBox;
 
-    @FXML private TextField deleteIdField;
     @FXML private Label statusLabel;
 
     private final UserStorage userStorage = App.getAppData().getUserStorage();
@@ -32,6 +32,7 @@ public class AdminFacultyController {
     @FXML
     private void initialize() {
         setupTable();
+        setupDeleteColumn();
         setupDepartmentBox();
         loadFaculty();
     }
@@ -60,6 +61,37 @@ public class AdminFacultyController {
         facultyTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
+    private void setupDeleteColumn() {
+        deleteColumn.setCellFactory(column -> new TableCell<>() {
+            private final Button deleteButton = new Button("Delete");
+
+            {
+                deleteButton.setOnAction(e -> {
+                    FacultyUser faculty = getTableView().getItems().get(getIndex());
+                    deleteFaculty(faculty);
+                });
+
+                deleteButton.setStyle(
+                        "-fx-background-color: #dc2626;" +
+                                "-fx-text-fill: white;" +
+                                "-fx-font-weight: bold;" +
+                                "-fx-background-radius: 6;"
+                );
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(deleteButton);
+                }
+            }
+        });
+    }
+
     private void setupDepartmentBox() {
         departmentBox.getItems().setAll(
                 Department.COMPUTER_SCIENCE,
@@ -69,7 +101,8 @@ public class AdminFacultyController {
     }
 
     private void loadFaculty() {
-        facultyTable.getItems().setAll(userStorage.getFacultyList());
+        facultyTable.getItems().clear();
+        facultyTable.getItems().addAll(userStorage.getFacultyList());
     }
 
     @FXML
@@ -103,21 +136,27 @@ public class AdminFacultyController {
         }
 
         App.getAppData().saveUsers();
+
         clearAddForm();
         loadFaculty();
         statusLabel.setText("Faculty added successfully.");
     }
 
-    @FXML
-    private void handleDeleteFaculty() {
-        String id = deleteIdField.getText().trim();
-
-        if (id.isBlank()) {
-            statusLabel.setText("Enter a faculty ID to delete.");
+    private void deleteFaculty(FacultyUser faculty) {
+        if (faculty == null) {
+            statusLabel.setText("No faculty selected.");
             return;
         }
 
-        boolean removed = adminService.deleteFaculty(id);
+        if (!confirmAction(
+                "Delete Faculty",
+                "Are you sure you want to delete faculty " + faculty.getFullName()
+                        + " (" + faculty.getUserId() + ")?"
+        )) {
+            return;
+        }
+
+        boolean removed = adminService.deleteFaculty(faculty.getUserId());
 
         if (!removed) {
             statusLabel.setText("Faculty not found.");
@@ -125,9 +164,19 @@ public class AdminFacultyController {
         }
 
         App.getAppData().saveUsers();
-        deleteIdField.clear();
         loadFaculty();
         statusLabel.setText("Faculty deleted successfully.");
+    }
+
+    private boolean confirmAction(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        return alert.showAndWait()
+                .filter(response -> response == ButtonType.OK)
+                .isPresent();
     }
 
     private void clearAddForm() {

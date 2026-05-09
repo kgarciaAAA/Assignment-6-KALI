@@ -4,13 +4,20 @@ import baccportal.App;
 import baccportal.model.users.StudentUser;
 import baccportal.model.users.User;
 import baccportal.model.utilities.Receipt;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableCell;
 
 public class StudentTransactionsController {
 
-    @FXML private ListView<Receipt> transactionListView;
+    @FXML private TableView<Receipt> transactionTable;
+    @FXML private TableColumn<Receipt, Number> receiptIdColumn;
+    @FXML private TableColumn<Receipt, Number> paidColumn;
+    @FXML private TableColumn<Receipt, Number> remainingBalanceColumn;
     @FXML private Label statusLabel;
 
     private StudentUser student;
@@ -21,17 +28,62 @@ public class StudentTransactionsController {
 
         if (user instanceof StudentUser) {
             student = (StudentUser) user;
+            setupTable();
             loadTransactions();
         } else {
             statusLabel.setText("No student user is currently logged in.");
         }
     }
 
+    private void setupTable() {
+        receiptIdColumn.setCellValueFactory(data ->
+                new SimpleIntegerProperty(data.getValue().getReceiptId())
+        );
+
+        paidColumn.setCellValueFactory(data ->
+                new SimpleDoubleProperty(data.getValue().getTotalPaid())
+        );
+
+        remainingBalanceColumn.setCellValueFactory(data ->
+                new SimpleDoubleProperty(data.getValue().getRemainingBalance())
+        );
+
+        paidColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(Number value, boolean empty) {
+                super.updateItem(value, empty);
+
+                if (empty || value == null) {
+                    setText(null);
+                } else {
+                    setText("$" + String.format("%.2f", value.doubleValue()));
+                }
+            }
+        });
+
+        remainingBalanceColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(Number value, boolean empty) {
+                super.updateItem(value, empty);
+
+                if (empty || value == null) {
+                    setText(null);
+                } else {
+                    setText("$" + String.format("%.2f", value.doubleValue()));
+                }
+            }
+        });
+
+        transactionTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    }
+
     private void loadTransactions() {
-        transactionListView.getItems().setAll(student.getTransactionHistory());
+        transactionTable.getItems().setAll(student.getTransactionHistory());
 
         if (student.getTransactionHistory().isEmpty()) {
             statusLabel.setText("No transactions yet.");
+        } else {
+            statusLabel.setText("");
         }
     }
 }

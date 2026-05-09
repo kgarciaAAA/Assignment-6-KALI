@@ -7,15 +7,15 @@ import baccportal.model.academics.CourseSection;
 import baccportal.model.academics.Major;
 import baccportal.model.utilities.Receipt;
 
-public class StudentUser extends User{
+public class StudentUser extends User {
     private final Major major;
     private double balanceOwed;
     private final List<CourseSection> completedSections;
     private final List<CourseSection> enrolledSections;
     private final List<Receipt> transactionHistory;
 
-    //constructor
-    public StudentUser(String email, String userId, String password, String fullName, boolean isHashed, Major major, double balanceOwed){
+    public StudentUser(String email, String userId, String password, String fullName,
+                       boolean isHashed, Major major, double balanceOwed) {
         super(email, userId, password, fullName, isHashed);
         this.major = major;
         this.balanceOwed = balanceOwed;
@@ -24,28 +24,26 @@ public class StudentUser extends User{
         this.transactionHistory = new ArrayList<>();
     }
 
-    //getters
-    public Major getMajor() { 
-        return major; 
+    public Major getMajor() {
+        return major;
     }
 
-    public double getBalanceOwed(){
+    public double getBalanceOwed() {
         return balanceOwed;
     }
 
-    public List<CourseSection> getCompletedSections() { 
-        return List.copyOf(completedSections); 
+    public List<CourseSection> getCompletedSections() {
+        return List.copyOf(completedSections);
     }
 
-    public List<CourseSection> getEnrolledSections() { 
-        return List.copyOf(enrolledSections); 
+    public List<CourseSection> getEnrolledSections() {
+        return List.copyOf(enrolledSections);
     }
 
     public List<Receipt> getTransactionHistory() {
         return List.copyOf(transactionHistory);
     }
 
-    // controlled updates
     public void addCompletedSection(CourseSection section) {
         completedSections.add(section);
     }
@@ -58,8 +56,22 @@ public class StudentUser extends User{
         transactionHistory.add(receipt);
     }
 
-    public boolean removeEnrolledSection(CourseSection course) {
-        return enrolledSections.remove(course);
+    public boolean removeEnrolledSection(CourseSection section) {
+        return enrolledSections.remove(section);
+    }
+
+    public boolean removeCompletedSection(CourseSection section) {
+        return completedSections.remove(section);
+    }
+
+    public boolean completeSection(CourseSection section) {
+        boolean removed = enrolledSections.remove(section);
+
+        if (removed) {
+            completedSections.add(section);
+        }
+
+        return removed;
     }
 
     public void adjustBalanceOwed(double amount) {

@@ -4,6 +4,8 @@ import baccportal.App;
 import baccportal.model.academics.Course;
 import baccportal.model.academics.CourseSection;
 import baccportal.model.storage.CourseStorage;
+import baccportal.model.users.FacultyUser;
+import baccportal.model.users.StudentUser;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -12,30 +14,34 @@ import javafx.scene.control.*;
 public class AdminSectionsController {
 
     @FXML private TableView<CourseSection> sectionsTable;
+
     @FXML private TableColumn<CourseSection, String> sectionIdColumn;
     @FXML private TableColumn<CourseSection, String> courseIdColumn;
     @FXML private TableColumn<CourseSection, String> courseNameColumn;
+    @FXML private TableColumn<CourseSection, Number> unitsColumn;
     @FXML private TableColumn<CourseSection, String> instructorColumn;
+    @FXML private TableColumn<CourseSection, String> accessCodeColumn;
     @FXML private TableColumn<CourseSection, Number> priceColumn;
     @FXML private TableColumn<CourseSection, String> capacityColumn;
+    @FXML private TableColumn<CourseSection, Void> deleteColumn;
 
     @FXML private TextField courseIdField;
-    @FXML private TextField instructorField;
+    @FXML private ComboBox<FacultyUser> instructorBox;
     @FXML private TextField sectionIdField;
     @FXML private TextField accessCodeField;
     @FXML private TextField priceField;
     @FXML private TextField totalCapacityField;
     @FXML private TextField currentCapacityField;
 
-    @FXML private TextField deleteSectionIdField;
     @FXML private Label statusLabel;
-    @FXML private TableColumn<CourseSection, String> accessCodeColumn;
 
     private final CourseStorage courseStorage = App.getAppData().getCourseStorage();
 
     @FXML
     private void initialize() {
         setupTable();
+        setupDeleteColumn();
+        setupInstructorBox();
         loadSections();
     }
 
@@ -52,6 +58,10 @@ public class AdminSectionsController {
                 new SimpleStringProperty(data.getValue().getCourse().getCourseName())
         );
 
+        unitsColumn.setCellValueFactory(data ->
+                new SimpleDoubleProperty(data.getValue().getCourse().getUnitAmount())
+        );
+
         instructorColumn.setCellValueFactory(data ->
                 new SimpleStringProperty(data.getValue().getInstructorName())
         );
@@ -64,10 +74,23 @@ public class AdminSectionsController {
                 new SimpleDoubleProperty(data.getValue().getPrice())
         );
 
+        priceColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(Number value, boolean empty) {
+                super.updateItem(value, empty);
+
+                if (empty || value == null) {
+                    setText(null);
+                } else {
+                    setText("$" + String.format("%.2f", value.doubleValue()));
+                }
+            }
+        });
+
         capacityColumn.setCellValueFactory(data ->
                 new SimpleStringProperty(
                         data.getValue().getCurrentCapacity()
-                                + "/"
+                                + " / "
                                 + data.getValue().getTotalCapacity()
                 )
         );
@@ -75,14 +98,79 @@ public class AdminSectionsController {
         sectionsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
+    private void setupDeleteColumn() {
+        deleteColumn.setCellFactory(column -> new TableCell<>() {
+            private final Button deleteButton = new Button("Delete");
+
+            {
+                deleteButton.setOnAction(e -> {
+                    CourseSection section = getTableView().getItems().get(getIndex());
+                    deleteSection(section);
+                });
+
+                deleteButton.setStyle(
+                        "-fx-background-color: #dc2626;" +
+                                "-fx-text-fill: white;" +
+                                "-fx-font-weight: bold;" +
+                                "-fx-background-radius: 6;"
+                );
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(deleteButton);
+                }
+            }
+        });
+    }
+
+    private void setupInstructorBox() {
+        instructorBox.getItems().setAll(
+                App.getAppData().getUserStorage().getFacultyList()
+        );
+
+        instructorBox.setCellFactory(listView -> new ListCell<>() {
+            @Override
+            protected void updateItem(FacultyUser faculty, boolean empty) {
+                super.updateItem(faculty, empty);
+
+                if (empty || faculty == null) {
+                    setText(null);
+                } else {
+                    setText(faculty.getFullName() + " (" + faculty.getUserId() + ")");
+                }
+            }
+        });
+
+        instructorBox.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(FacultyUser faculty, boolean empty) {
+                super.updateItem(faculty, empty);
+
+                if (empty || faculty == null) {
+                    setText(null);
+                } else {
+                    setText(faculty.getFullName() + " (" + faculty.getUserId() + ")");
+                }
+            }
+        });
+    }
+
     private void loadSections() {
-        sectionsTable.getItems().setAll(courseStorage.getAllSections().values());
+        sectionsTable.getItems().clear();
+        sectionsTable.getItems().addAll(courseStorage.getAllSections().values());
     }
 
     @FXML
     private void handleAddSection() {
         String courseId = courseIdField.getText().trim();
-        String instructor = instructorField.getText().trim();
+        FacultyUser selectedInstructor = instructorBox.getValue();
+        String instructor = selectedInstructor == null ? "" : selectedInstructor.getFullName().trim();
         String sectionId = sectionIdField.getText().trim();
         String accessCode = accessCodeField.getText().trim();
         String priceText = priceField.getText().trim();
@@ -145,32 +233,56 @@ public class AdminSectionsController {
         }
     }
 
-    @FXML
-    private void handleDeleteSection() {
-        String sectionId = deleteSectionIdField.getText().trim();
-
-        if (sectionId.isBlank()) {
-            statusLabel.setText("Enter a section ID to delete.");
+    private void deleteSection(CourseSection section) {
+        if (section == null) {
+            statusLabel.setText("No section selected.");
             return;
         }
 
-        boolean removed = courseStorage.removeSectionById(sectionId);
+        if (!confirmAction(
+                "Delete Section",
+                "Are you sure you want to delete section " + section.getSectionId() + "?"
+        )) {
+            return;
+        }
 
-        if (!removed) {
+        CourseSection removedSection = courseStorage.removeSectionById(section.getSectionId());
+
+        if (removedSection == null) {
             statusLabel.setText("Section not found.");
             return;
         }
 
-        App.getAppData().saveSections();
+        for (StudentUser student : App.getAppData().getUserStorage().getStudentsList()) {
+            student.removeEnrolledSection(removedSection);
+            student.removeCompletedSection(removedSection);
+        }
 
-        deleteSectionIdField.clear();
+        for (FacultyUser faculty : App.getAppData().getUserStorage().getFacultyList()) {
+            faculty.removeSectionTaught(removedSection);
+        }
+
+        App.getAppData().saveSections();
+        App.getAppData().saveUsers();
+
         loadSections();
         statusLabel.setText("Section deleted successfully.");
     }
 
+    private boolean confirmAction(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        return alert.showAndWait()
+                .filter(response -> response == ButtonType.OK)
+                .isPresent();
+    }
+
     private void clearAddForm() {
         courseIdField.clear();
-        instructorField.clear();
+        instructorBox.setValue(null);
         sectionIdField.clear();
         accessCodeField.clear();
         priceField.clear();
@@ -178,3 +290,5 @@ public class AdminSectionsController {
         currentCapacityField.clear();
     }
 }
+
+

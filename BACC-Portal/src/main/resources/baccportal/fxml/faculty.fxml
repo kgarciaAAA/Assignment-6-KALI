@@ -7,7 +7,7 @@
 <BorderPane prefHeight="600" prefWidth="800"
             xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/17.0.12"
-            fx:controller="baccportal.controllers.AdminController">
+            fx:controller="baccportal.controllers.FacultyDashboardController">
 
     <top>
         <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #1f2937;">
@@ -15,7 +15,7 @@
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
 
-            <Label text="BACC Admin Portal"
+            <Label text="BACC Faculty Portal"
                    style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;"/>
 
             <Region HBox.hgrow="ALWAYS"/>
@@ -33,10 +33,7 @@
             </padding>
 
             <Button maxWidth="Infinity" text="Overview" onAction="#showOverview"/>
-            <Button maxWidth="Infinity" text="Manage Students" onAction="#showStudents"/>
-            <Button maxWidth="Infinity" text="Manage Faculty" onAction="#showFaculty"/>
-            <Button maxWidth="Infinity" text="Manage Sections" onAction="#showSections"/>
-            <Button maxWidth="Infinity" text="Manage Courses" onAction="#showCourses"/>
+            <Button maxWidth="Infinity" text="My Sections" onAction="#showMySections"/>
             <Button maxWidth="Infinity" text="Change Password" onAction="#showChangePassword"/>
             <Button maxWidth="Infinity" text="Log out" onAction="#handleLogout"/>
         </VBox>

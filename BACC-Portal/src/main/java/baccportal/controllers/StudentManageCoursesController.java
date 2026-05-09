@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -24,9 +25,10 @@ public class StudentManageCoursesController {
     @FXML private TableColumn<CourseSection, String> instructorColumn;
     @FXML private TableColumn<CourseSection, String> capacityColumn;
     @FXML private TableColumn<CourseSection, Number> priceColumn;
-    @FXML private TextField accessCodeField;
+    @FXML private TableColumn<CourseSection, Number> unitsColumn;
 
     @FXML private TextField sectionIdField;
+    @FXML private TextField accessCodeField;
     @FXML private Label statusLabel;
 
     private StudentUser student;
@@ -61,6 +63,10 @@ public class StudentManageCoursesController {
                 new SimpleStringProperty(data.getValue().getCourse().getCourseName())
         );
 
+        unitsColumn.setCellValueFactory(data ->
+                new SimpleDoubleProperty(data.getValue().getCourse().getUnitAmount())
+        );
+
         instructorColumn.setCellValueFactory(data ->
                 new SimpleStringProperty(data.getValue().getInstructorName())
         );
@@ -68,7 +74,7 @@ public class StudentManageCoursesController {
         capacityColumn.setCellValueFactory(data ->
                 new SimpleStringProperty(
                         data.getValue().getCurrentCapacity()
-                                + "/"
+                                + " / "
                                 + data.getValue().getTotalCapacity()
                 )
         );
@@ -77,11 +83,34 @@ public class StudentManageCoursesController {
                 new SimpleDoubleProperty(data.getValue().getPrice())
         );
 
+        priceColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(Number value, boolean empty) {
+                super.updateItem(value, empty);
+
+                if (empty || value == null) {
+                    setText(null);
+                } else {
+                    setText("$" + String.format("%.2f", value.doubleValue()));
+                }
+            }
+        });
+
         sectionsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     private void loadSections() {
-        sectionsTable.getItems().setAll(courseStorage.getAllSections().values());
+        sectionsTable.getItems().clear();
+        sectionsTable.getItems().addAll(
+                App.getAppData().getCourseStorage().getAllSections().values()
+        );
+    }
+
+    @FXML
+    private void handleRefresh() {
+        App.getAppData().reloadSections();
+        loadSections();
+        statusLabel.setText("Sections refreshed.");
     }
 
     @FXML
@@ -125,7 +154,9 @@ public class StudentManageCoursesController {
         }
 
         paymentService.addCharge(student, section.getPrice());
+
         App.getAppData().saveUsers();
+        App.getAppData().saveSections();
 
         sectionIdField.clear();
         accessCodeField.clear();
@@ -133,46 +164,6 @@ public class StudentManageCoursesController {
 
         statusLabel.setText(
                 "Enrolled successfully. New balance: $"
-                        + String.format("%.2f", student.getBalanceOwed())
-        );
-    }
-
-    @FXML
-    private void handleDrop() {
-        if (student == null) {
-            statusLabel.setText("No student logged in.");
-            return;
-        }
-
-        String sectionId = sectionIdField.getText().trim();
-
-        if (sectionId.isBlank()) {
-            statusLabel.setText("Enter a section ID.");
-            return;
-        }
-
-        CourseSection section = courseStorage.getSection(sectionId);
-
-        if (section == null) {
-            statusLabel.setText("Section not found.");
-            return;
-        }
-
-        boolean dropped = registrationService.drop(student, section);
-
-        if (!dropped) {
-            statusLabel.setText("You are not enrolled in that section.");
-            return;
-        }
-
-        student.adjustBalanceOwed(-section.getPrice());
-        App.getAppData().saveUsers();
-
-        sectionIdField.clear();
-        loadSections();
-
-        statusLabel.setText(
-                "Dropped successfully. New balance: $"
                         + String.format("%.2f", student.getBalanceOwed())
         );
     }

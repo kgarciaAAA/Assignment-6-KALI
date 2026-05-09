@@ -18,6 +18,7 @@ public class AdminStudentsController {
     @FXML private TableColumn<StudentUser, String> nameColumn;
     @FXML private TableColumn<StudentUser, String> emailColumn;
     @FXML private TableColumn<StudentUser, Number> balanceColumn;
+    @FXML private TableColumn<StudentUser, Void> deleteColumn;
 
     @FXML private TextField emailField;
     @FXML private TextField idField;
@@ -27,7 +28,6 @@ public class AdminStudentsController {
     @FXML private ComboBox<Department> departmentBox;
     @FXML private TextField balanceField;
 
-    @FXML private TextField deleteIdField;
     @FXML private Label statusLabel;
 
     private final UserStorage userStorage = App.getAppData().getUserStorage();
@@ -36,6 +36,8 @@ public class AdminStudentsController {
     @FXML
     private void initialize() {
         setupTable();
+        setupDeleteColumn();
+        setupDeleteColumnSize();
         setupDepartmentBox();
         loadStudents();
     }
@@ -57,7 +59,59 @@ public class AdminStudentsController {
                 new SimpleDoubleProperty(data.getValue().getBalanceOwed())
         );
 
+        balanceColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(Number value, boolean empty) {
+                super.updateItem(value, empty);
+
+                if (empty || value == null) {
+                    setText(null);
+                } else {
+                    setText("$" + String.format("%.2f", value.doubleValue()));
+                }
+            }
+        });
+
         studentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    }
+
+    private void setupDeleteColumn() {
+        deleteColumn.setCellFactory(column -> new TableCell<>() {
+            private final Button deleteButton = new Button("Delete");
+
+            {
+                deleteButton.setOnAction(e -> {
+                    StudentUser student = getTableView().getItems().get(getIndex());
+                    deleteStudent(student);
+                });
+
+                deleteButton.setStyle(
+                        "-fx-background-color: #dc2626;" +
+                                "-fx-text-fill: white;" +
+                                "-fx-font-weight: bold;" +
+                                "-fx-background-radius: 6;" +
+                                "-fx-padding: 5 12 5 12;"
+                );
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(deleteButton);
+                }
+            }
+        });
+    }
+
+    private void setupDeleteColumnSize() {
+        deleteColumn.setPrefWidth(100);
+        deleteColumn.setMinWidth(90);
+        deleteColumn.setMaxWidth(120);
+        deleteColumn.setResizable(false);
     }
 
     private void setupDepartmentBox() {
@@ -69,7 +123,15 @@ public class AdminStudentsController {
     }
 
     private void loadStudents() {
-        studentTable.getItems().setAll(userStorage.getStudentsList());
+        studentTable.getItems().clear();
+        studentTable.getItems().addAll(App.getAppData().getUserStorage().getStudentsList());
+    }
+
+    @FXML
+    private void handleRefresh() {
+        App.getAppData().reloadUsers();
+        loadStudents();
+        statusLabel.setText("Students refreshed.");
     }
 
     @FXML
@@ -111,6 +173,7 @@ public class AdminStudentsController {
             }
 
             App.getAppData().saveUsers();
+
             clearAddForm();
             loadStudents();
             statusLabel.setText("Student added successfully.");
@@ -120,16 +183,21 @@ public class AdminStudentsController {
         }
     }
 
-    @FXML
-    private void handleDeleteStudent() {
-        String id = deleteIdField.getText().trim();
-
-        if (id.isBlank()) {
-            statusLabel.setText("Enter a student ID to delete.");
+    private void deleteStudent(StudentUser student) {
+        if (student == null) {
+            statusLabel.setText("No student selected.");
             return;
         }
 
-        boolean removed = adminService.deleteStudent(id);
+        if (!confirmAction(
+                "Delete Student",
+                "Are you sure you want to delete student " + student.getFullName()
+                        + " (" + student.getUserId() + ")?"
+        )) {
+            return;
+        }
+
+        boolean removed = adminService.deleteStudent(student.getUserId());
 
         if (!removed) {
             statusLabel.setText("Student not found.");
@@ -137,9 +205,19 @@ public class AdminStudentsController {
         }
 
         App.getAppData().saveUsers();
-        deleteIdField.clear();
         loadStudents();
         statusLabel.setText("Student deleted successfully.");
+    }
+
+    private boolean confirmAction(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        return alert.showAndWait()
+                .filter(response -> response == ButtonType.OK)
+                .isPresent();
     }
 
     private void clearAddForm() {

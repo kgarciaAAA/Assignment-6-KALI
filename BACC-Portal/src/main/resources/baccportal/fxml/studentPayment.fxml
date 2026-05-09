@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="18"
+      xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      fx:controller="baccportal.controllers.StudentPaymentController">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <Label text="Make a Payment"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <VBox spacing="6"
+          style="-fx-background-color: white;
+                 -fx-border-color: #d1d5db;
+                 -fx-border-radius: 8;
+                 -fx-background-radius: 8;
+                 -fx-padding: 15;">
+
+        <Label text="Payment Summary"
+               style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+        <Label fx:id="studentLabel" text="Student:"/>
+
+        <Label fx:id="balanceLabel"
+               text="Current Balance: $0.00"
+               style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+    </VBox>
+
+    <VBox spacing="12"
+          style="-fx-background-color: white;
+                 -fx-border-color: #d1d5db;
+                 -fx-border-radius: 8;
+                 -fx-background-radius: 8;
+                 -fx-padding: 15;">
+
+        <Label text="Card Information"
+               style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+        <GridPane hgap="12" vgap="12">
+
+            <Label text="Amount:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="amountField"
+                       promptText="Amount to pay"
+                       GridPane.rowIndex="0"
+                       GridPane.columnIndex="1"/>
+
+            <Label text="Payment Type:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="paymentTypeBox"
+                      promptText="Select Type"
+                      GridPane.rowIndex="1"
+                      GridPane.columnIndex="1"/>
+
+            <Label text="Name on Card:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="nameOnCardField"
+                       promptText="Full name on card"
+                       GridPane.rowIndex="2"
+                       GridPane.columnIndex="1"/>
+
+            <Label text="Card Number:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="cardNumberField"
+                       promptText="1234 5678 9012 3456"
+                       GridPane.rowIndex="3"
+                       GridPane.columnIndex="1"/>
+
+            <Label text="Expiration Date:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <HBox spacing="6" GridPane.rowIndex="4" GridPane.columnIndex="1">
+                <TextField fx:id="expirationMonthField" promptText="MM" prefWidth="55"/>
+                <Label text="/"/>
+                <TextField fx:id="expirationYearField" promptText="YY" prefWidth="55"/>
+            </HBox>
+
+            <Label text="Security Code:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <PasswordField fx:id="securityCodeField"
+                           promptText="CVV"
+                           GridPane.rowIndex="5"
+                           GridPane.columnIndex="1"/>
+
+            <Button text="Submit Payment"
+                    onAction="#handlePayment"
+                    GridPane.rowIndex="6"
+                    GridPane.columnIndex="1"
+                    style="-fx-background-color: #2563eb;
+                           -fx-text-fill: white;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 8;
+                           -fx-padding: 8 16 8 16;"/>
+        </GridPane>
+
+        <Label text="Card data is used only for this simulated payment."
+               style="-fx-text-fill: #6b7280; -fx-font-size: 12px;"/>
+    </VBox>
+
+    <Label fx:id="statusLabel"/>
+
+</VBox>

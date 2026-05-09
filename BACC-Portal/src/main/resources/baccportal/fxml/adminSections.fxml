@@ -21,10 +21,12 @@
             <TableColumn fx:id="sectionIdColumn" text="Section ID"/>
             <TableColumn fx:id="courseIdColumn" text="Course ID"/>
             <TableColumn fx:id="courseNameColumn" text="Course Name"/>
+            <TableColumn fx:id="unitsColumn" text="Units"/>
             <TableColumn fx:id="instructorColumn" text="Instructor"/>
             <TableColumn fx:id="accessCodeColumn" text="Access Code"/>
             <TableColumn fx:id="priceColumn" text="Price"/>
             <TableColumn fx:id="capacityColumn" text="Capacity"/>
+            <TableColumn fx:id="deleteColumn" text="Action"/>
         </columns>
     </TableView>
 
@@ -36,7 +38,10 @@
         <TextField fx:id="courseIdField" promptText="Existing Course ID" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
         <Label text="Instructor:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <TextField fx:id="instructorField" promptText="Instructor Name" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <ComboBox fx:id="instructorBox"
+                  promptText="Select Instructor"
+                  GridPane.rowIndex="1"
+                  GridPane.columnIndex="1"/>
 
         <Label text="Section ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
         <TextField fx:id="sectionIdField" promptText="Section ID" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
@@ -54,16 +59,6 @@
         <TextField fx:id="currentCapacityField" promptText="Current Capacity" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
 
         <Button text="Add Section" onAction="#handleAddSection" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
-    </GridPane>
-
-    <Label text="Delete Section"
-           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-
-    <GridPane hgap="10" vgap="10">
-        <Label text="Section ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <TextField fx:id="deleteSectionIdField" promptText="Section ID to delete" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-        <Button text="Delete Section" onAction="#handleDeleteSection" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
     </GridPane>
 
     <Label fx:id="statusLabel"/>

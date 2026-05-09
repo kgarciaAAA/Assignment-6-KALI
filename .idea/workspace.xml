@@ -4,41 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ca2a15e-78c0-4b22-b133-81cb9db6aa18" name="Changes" comment="New Update 1!">
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/AdminCoursesController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/AdminFacultyController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/AdminSectionsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/AdminStudentsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/ChangePasswordController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentCompletedCoursesController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentEnrolledCoursesController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentManageCoursesController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentTransactionsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/adminCourses.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/adminFaculty.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/adminSections.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/adminStudents.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/changePassword.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentCompletedCourses.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentEnrolledCourses.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentManageCourses.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentTransactions.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/AdminController.java" afterDir="false" />
+    <list default="true" id="0ca2a15e-78c0-4b22-b133-81cb9db6aa18" name="Changes" comment="New Update 2.0!">
+      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/FacultyDashboardController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/FacultySectionsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentPaymentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/faculty.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/facultySections.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentPayment.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/AdminCoursesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/AdminCoursesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/AdminFacultyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/AdminFacultyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/AdminSectionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/AdminSectionsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/AdminStudentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/AdminStudentsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentCompletedCoursesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentCompletedCoursesController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/academics/CourseSection.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/academics/CourseSection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentEnrolledCoursesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentEnrolledCoursesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentManageCoursesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentManageCoursesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentTransactionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/controllers/StudentTransactionsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/data/AppData.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/data/AppData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/services/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/services/AdminService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/services/RegistrationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/services/RegistrationService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/storage/CourseStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/storage/CourseStorage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/storage/UserStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/storage/UserStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/users/StudentUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/java/baccportal/model/users/StudentUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/admin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/admin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/adminCourses.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/adminCourses.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/adminFaculty.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/adminFaculty.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/adminSections.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/adminSections.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/adminStudents.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/adminStudents.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentCompletedCourses.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentCompletedCourses.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentDashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentDashboard.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/academics/CourseSection.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/academics/CourseSection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/services/AdminService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/services/AdminService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/services/RegistrationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/services/RegistrationService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentEnrolledCourses.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentEnrolledCourses.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentManageCourses.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentManageCourses.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentTransactions.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/src/main/resources/baccportal/fxml/studentTransactions.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/storage/CourseStorage.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/storage/CourseStorage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/storage/UserStorage.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/storage/UserStorage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/users/StudentUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/target/classes/baccportal/model/users/StudentUser.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BACC-Portal/txtfiles/courses.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/txtfiles/courses.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACC-Portal/txtfiles/faculty.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/txtfiles/faculty.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BACC-Portal/txtfiles/sections.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/txtfiles/sections.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BACC-Portal/txtfiles/students.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BACC-Portal/txtfiles/students.txt" afterDir="false" />
     </list>
@@ -146,12 +147,21 @@
       <option name="project" value="LOCAL" />
       <updated>1778274410868</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="New Update 2.0!">
+      <option name="closed" value="true" />
+      <created>1778281246840</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1778281246840</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="New Update!" />
     <MESSAGE value="New Update 1!" />
-    <option name="LAST_COMMIT_MESSAGE" value="New Update 1!" />
+    <MESSAGE value="New Update 2.0!" />
+    <option name="LAST_COMMIT_MESSAGE" value="New Update 2.0!" />
   </component>
 </project>

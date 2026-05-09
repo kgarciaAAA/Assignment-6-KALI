@@ -102,6 +102,12 @@ public class UserStorage {
     public void addAdminUser(AdminUser user) {
         adminList.add(user);
     }
+
+    public void clearUsers() {
+        studentsList.clear();
+        facultyList.clear();
+        adminList.clear();
+    }
 }
 
 

@@ -21,9 +21,15 @@
             <TableColumn fx:id="sectionIdColumn" text="Section ID"/>
             <TableColumn fx:id="courseIdColumn" text="Course ID"/>
             <TableColumn fx:id="courseNameColumn" text="Course Name"/>
+            <TableColumn fx:id="unitsColumn" text="Units"/>
+            <TableColumn fx:id="instructorColumn" text="Instructor"/>
             <TableColumn fx:id="priceColumn" text="Price"/>
+            <TableColumn fx:id="dropColumn" text="Action"/>
         </columns>
     </TableView>
+
+    <Button text="Refresh Enrolled Courses"
+            onAction="#handleRefresh"/>
 
     <Label fx:id="statusLabel"/>
 

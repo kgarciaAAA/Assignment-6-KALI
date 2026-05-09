@@ -5,3 +5,10 @@ Faculty User
 COMPUTER_SCIENCE
 NONE
 ----------
+Lisa98@gmail.com
+Faculty
+iPwRZqNxYXfMGCVzVJQ42g==:dYayqAcYs6xw/Dwa2SMJ4DORyN4A28NMaBfX9WYzmrg=
+Lisa Perez
+COMPUTER_SCIENCE
+NONE
+----------

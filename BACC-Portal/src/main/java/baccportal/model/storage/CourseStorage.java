@@ -8,23 +8,20 @@ import java.util.Map;
 import baccportal.model.academics.Course;
 import baccportal.model.academics.CourseSection;
 
-
 public class CourseStorage {
     private final Map<String, Course> courses;
     private final Map<String, CourseSection> sections;
 
-    //constructor
     public CourseStorage() {
         this.courses = new HashMap<>();
         this.sections = new HashMap<>();
     }
 
-    //getters
-    public Map<String, Course> getAllCourses(){
+    public Map<String, Course> getAllCourses() {
         return Map.copyOf(courses);
     }
 
-    public Map<String, CourseSection> getAllSections(){
+    public Map<String, CourseSection> getAllSections() {
         return Map.copyOf(sections);
     }
 
@@ -45,21 +42,47 @@ public class CourseStorage {
             }
         }
 
-        return courseSections;
+        return List.copyOf(courseSections);
     }
 
-
-    //controlled updates
     public void addCourse(Course course) {
         courses.put(course.getCourseId(), course);
     }
 
-    public boolean removeCourseById(String courseId) { return courses.remove(courseId) != null;}
+    public boolean removeCourseById(String courseId) {
+        return courses.remove(courseId) != null;
+    }
 
     public void addSection(CourseSection courseSection) {
         sections.put(courseSection.getSectionId(), courseSection);
     }
 
-    public boolean removeSectionById(String sectionId) {return sections.remove(sectionId) != null;}
+    public CourseSection removeSectionById(String sectionId) {
+        return sections.remove(sectionId);
+    }
 
+    public List<CourseSection> removeSectionsByCourseId(String courseId) {
+        List<CourseSection> removedSections = new ArrayList<>();
+        List<String> sectionIdsToRemove = new ArrayList<>();
+
+        for (CourseSection section : sections.values()) {
+            if (section.getCourse().getCourseId().equalsIgnoreCase(courseId)) {
+                sectionIdsToRemove.add(section.getSectionId());
+            }
+        }
+
+        for (String sectionId : sectionIdsToRemove) {
+            CourseSection removed = sections.remove(sectionId);
+
+            if (removed != null) {
+                removedSections.add(removed);
+            }
+        }
+
+        return removedSections;
+    }
+
+    public void clearSections() {
+        sections.clear();
+    }
 }

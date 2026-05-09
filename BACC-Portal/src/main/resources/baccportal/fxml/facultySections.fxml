@@ -7,53 +7,55 @@
 <VBox spacing="15"
       xmlns:fx="http://javafx.com/fxml/1"
       xmlns="http://javafx.com/javafx/17.0.12"
-      fx:controller="baccportal.controllers.StudentManageCoursesController">
+      fx:controller="baccportal.controllers.FacultySectionsController">
 
     <padding>
         <Insets top="25" right="25" bottom="25" left="25"/>
     </padding>
 
-    <Label text="Enroll in a Course"
+    <Label text="My Sections"
            style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
-    <Label text="Available Sections"
-           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-
-    <TableView fx:id="sectionsTable" prefHeight="250">
+    <TableView fx:id="sectionsTable" prefHeight="260">
         <columns>
             <TableColumn fx:id="sectionIdColumn" text="Section ID"/>
             <TableColumn fx:id="courseIdColumn" text="Course ID"/>
             <TableColumn fx:id="courseNameColumn" text="Course Name"/>
-            <TableColumn fx:id="unitsColumn" text="Units"/>
-            <TableColumn fx:id="instructorColumn" text="Instructor"/>
             <TableColumn fx:id="capacityColumn" text="Capacity"/>
+            <TableColumn fx:id="unitsColumn" text="Units"/>
             <TableColumn fx:id="priceColumn" text="Price"/>
         </columns>
     </TableView>
 
+    <Button text="Refresh Sections"
+            onAction="#handleRefresh"/>
+
+    <Label text="View Enrolled Students"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
     <GridPane hgap="10" vgap="10">
         <Label text="Section ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
         <TextField fx:id="sectionIdField"
-                   promptText="Enter section ID"
+                   promptText="Enter your section ID"
                    GridPane.rowIndex="0"
                    GridPane.columnIndex="1"/>
 
-        <Label text="Access Code:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <TextField fx:id="accessCodeField"
-                   promptText="Enter access code"
-                   GridPane.rowIndex="1"
-                   GridPane.columnIndex="1"/>
-
-        <Button text="Enroll"
-                onAction="#handleEnroll"
-                GridPane.rowIndex="2"
+        <Button text="View Students"
+                onAction="#handleViewStudents"
+                GridPane.rowIndex="1"
                 GridPane.columnIndex="1"/>
-
-        <Button text="Refresh"
-                onAction="#handleRefresh"
-                GridPane.rowIndex="2"
-                GridPane.columnIndex="2"/>
     </GridPane>
+
+    <TableView fx:id="studentsTable" prefHeight="220">
+        <columns>
+            <TableColumn fx:id="studentIdColumn" text="Student ID"/>
+            <TableColumn fx:id="studentNameColumn" text="Name"/>
+            <TableColumn fx:id="studentEmailColumn" text="Email"/>
+        </columns>
+    </TableView>
+
+    <Button text="Mark Selected Student Completed"
+            onAction="#handleMarkSelectedCompleted"/>
 
     <Label fx:id="statusLabel"/>
 

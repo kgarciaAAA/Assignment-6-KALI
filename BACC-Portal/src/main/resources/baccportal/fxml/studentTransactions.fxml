@@ -16,7 +16,13 @@
     <Label text="Transaction History"
            style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
-    <ListView fx:id="transactionListView" prefHeight="300"/>
+    <TableView fx:id="transactionTable" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="receiptIdColumn" text="Receipt ID"/>
+            <TableColumn fx:id="paidColumn" text="Paid"/>
+            <TableColumn fx:id="remainingBalanceColumn" text="Remaining Balance"/>
+        </columns>
+    </TableView>
 
     <Label fx:id="statusLabel"/>
 

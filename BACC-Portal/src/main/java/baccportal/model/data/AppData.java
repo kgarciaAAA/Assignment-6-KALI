@@ -2,14 +2,15 @@ package baccportal.model.storage;
 
 import java.io.IOException;
 
-import baccportal.model.data.UserFileHandler;
 import baccportal.model.data.CourseFileHandler;
 import baccportal.model.data.SectionFileHandler;
+import baccportal.model.data.UserFileHandler;
 
 public class AppData {
 
     private final UserStorage userStorage;
     private final CourseStorage courseStorage;
+
     private final UserFileHandler userFileHandler;
     private final CourseFileHandler courseFileHandler;
     private final SectionFileHandler sectionFileHandler;
@@ -17,6 +18,7 @@ public class AppData {
     public AppData() {
         this.userStorage = new UserStorage();
         this.courseStorage = new CourseStorage();
+
         this.userFileHandler = new UserFileHandler();
         this.courseFileHandler = new CourseFileHandler();
         this.sectionFileHandler = new SectionFileHandler();
@@ -37,6 +39,16 @@ public class AppData {
             System.out.println("Could not load sections.txt: " + e.getMessage());
         }
 
+        loadUsersOnly();
+
+        System.out.println("Courses loaded: " + courseStorage.getAllCourses().size());
+        System.out.println("Sections loaded: " + courseStorage.getAllSections().size());
+        System.out.println("Students loaded: " + userStorage.getStudentsList().size());
+        System.out.println("Faculty loaded: " + userStorage.getFacultyList().size());
+        System.out.println("Admins loaded: " + userStorage.getAdminList().size());
+    }
+
+    private void loadUsersOnly() {
         try {
             userFileHandler.readAdminUsersFromFile(userStorage);
             System.out.println("Admin file loaded.");
@@ -57,12 +69,28 @@ public class AppData {
         } catch (Exception e) {
             System.out.println("Could not load faculty.txt: " + e.getMessage());
         }
+    }
 
-        System.out.println("Courses loaded: " + courseStorage.getAllCourses().size());
-        System.out.println("Sections loaded: " + courseStorage.getAllSections().size());
-        System.out.println("Students loaded: " + userStorage.getStudentsList().size());
-        System.out.println("Faculty loaded: " + userStorage.getFacultyList().size());
-        System.out.println("Admins loaded: " + userStorage.getAdminList().size());
+    public void reloadSections() {
+        try {
+            courseStorage.clearSections();
+            sectionFileHandler.readSectionsFromFile(courseStorage);
+            System.out.println("Sections reloaded.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error reloading sections.");
+        }
+    }
+
+    public void reloadUsers() {
+        try {
+            userStorage.clearUsers();
+            loadUsersOnly();
+            System.out.println("Users reloaded.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error reloading users.");
+        }
     }
 
     public void saveUsers() {

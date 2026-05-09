@@ -22,6 +22,7 @@
             <TableColumn fx:id="nameColumn" text="Name"/>
             <TableColumn fx:id="emailColumn" text="Email"/>
             <TableColumn fx:id="departmentColumn" text="Department"/>
+            <TableColumn fx:id="deleteColumn" text="Action"/>
         </columns>
     </TableView>
 
@@ -45,16 +46,6 @@
         <ComboBox fx:id="departmentBox" promptText="Select Department" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
         <Button text="Add Faculty" onAction="#handleAddFaculty" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-    </GridPane>
-
-    <Label text="Delete Faculty"
-           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-
-    <GridPane hgap="10" vgap="10">
-        <Label text="Faculty ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <TextField fx:id="deleteIdField" promptText="Faculty ID to delete" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-        <Button text="Delete Faculty" onAction="#handleDeleteFaculty" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
     </GridPane>
 
     <Label fx:id="statusLabel"/>

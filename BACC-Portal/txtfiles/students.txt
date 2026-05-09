@@ -4,8 +4,19 @@ MW0dsu9BXkaMrZgQjbOuzw==:C2LkeJ9LJtDDHMegcPKzlV7fJT7AgUgkiF1cwLHGJKY=
 Leapheng Seng
 Computer Science
 COMPUTER_SCIENCE
-1400.0
+300.0
+02
 NONE
-01
+100000-1200.0-200.0, 100001-200.0-0.0, 100002-550.0-0.0, 100003-320.0-0.0
+----------
+Leon98@gmail.com
+012958956
+cixImwxWF5iMZFzVjKAYQQ==:kL1XyhW6XPEwcIqsor+i3uXWkvRTvTK2duexrNfmKhw=
+Leon
+CS
+COMPUTER_SCIENCE
+320.0
+NONE
+NONE
 NONE
 ----------

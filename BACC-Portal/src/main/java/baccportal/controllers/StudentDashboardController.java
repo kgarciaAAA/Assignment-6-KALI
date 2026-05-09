@@ -90,6 +90,9 @@ public class StudentDashboardController {
     }
 
     @FXML
+    private void showPayment() {loadStudentPage("studentPayment");}
+
+    @FXML
     private void showTransactions() {
         loadStudentPage("studentTransactions");
     }
