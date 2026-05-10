@@ -3,13 +3,14 @@ package baccportal.controllers;
 import java.io.IOException;
 
 import baccportal.App;
+import baccportal.model.services.AuthService;
+import baccportal.model.session.Session;
 import baccportal.model.users.StudentUser;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 
 
 public class StudentDashboardController {
@@ -21,13 +22,19 @@ public class StudentDashboardController {
     private VBox contentBox;
 
     private StudentUser student;
+    private final Session session;
+    private final AuthService authService;
+
+    public StudentDashboardController(Session session, AuthService authService) {
+        this.session = session;
+        this.authService = authService;
+    }
 
     @FXML
     private void initialize() {
-        var sessionStudent = App.getSession().student();
+        student = session.student();
 
-        if (sessionStudent.isPresent()) {
-            student = sessionStudent.get();
+        if (student != null) {
             welcomeLabel.setText("Welcome, " + student.getFullName());
             showOverview();
         } else {
@@ -105,9 +112,7 @@ public class StudentDashboardController {
 
     private void loadStudentPage(String fxmlName) {
         try {
-            Node page = FXMLLoader.load(
-                    App.class.getResource("/baccportal/fxml/" + fxmlName + ".fxml")
-            );
+            Node page = App.loadFXML(fxmlName);
 
             contentBox.getChildren().clear();
             contentBox.getChildren().add(page);
@@ -121,7 +126,7 @@ public class StudentDashboardController {
 
     @FXML
     private void handleLogout() throws IOException {
-        App.getAppData().getAuthService().logout();
+        authService.logout();
         App.setRoot("login");
     }
 }

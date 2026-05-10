@@ -1,8 +1,9 @@
 package baccportal.controllers;
 
-import baccportal.App;
 import baccportal.model.academics.CourseSection;
+import baccportal.model.data.AppData;
 import baccportal.model.services.RegistrationService;
+import baccportal.model.session.Session;
 import baccportal.model.storage.CourseStorage;
 import baccportal.model.users.StudentUser;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -30,12 +31,24 @@ public class StudentManageCoursesController {
     @FXML private Label statusLabel;
 
     private StudentUser student;
-    private final CourseStorage courseStorage = App.getAppData().getCourseStorage();
-    private final RegistrationService registrationService = App.getAppData().getRegistrationService();
+    private final Session session;
+    private final AppData appData;
+    private final CourseStorage courseStorage;
+    private final RegistrationService registrationService;
+
+    public StudentManageCoursesController(Session session,
+                                          AppData appData,
+                                          CourseStorage courseStorage,
+                                          RegistrationService registrationService) {
+        this.session = session;
+        this.appData = appData;
+        this.courseStorage = courseStorage;
+        this.registrationService = registrationService;
+    }
 
     @FXML
     private void initialize() {
-        student = App.getSession().student();
+        student = session.student();
 
         if (student != null) {
             setupTable();
@@ -103,7 +116,7 @@ public class StudentManageCoursesController {
 
     @FXML
     private void handleRefresh() {
-        App.getAppData().reloadSections();
+        appData.reloadSections();
         loadSections();
         statusLabel.setText("Sections refreshed.");
     }
@@ -136,15 +149,10 @@ public class StudentManageCoursesController {
             return;
         }
 
-        if (!section.getAccessCode().equals(accessCode)) {
-            statusLabel.setText("Invalid access code.");
-            return;
-        }
-
-        boolean enrolled = registrationService.enroll(student, section);
+        boolean enrolled = registrationService.enroll(student, section, accessCode);
 
         if (!enrolled) {
-            statusLabel.setText("Enrollment failed. Check duplicate enrollment, prerequisites, or capacity.");
+            statusLabel.setText("Enrollment failed. Check duplicate enrollment, prerequisites, capacity, or access code.");
             return;
         }
 

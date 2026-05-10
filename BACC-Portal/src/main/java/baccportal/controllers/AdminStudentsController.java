@@ -1,8 +1,8 @@
 package baccportal.controllers;
 
-import baccportal.App;
 import baccportal.model.academics.Department;
 import baccportal.model.academics.Major;
+import baccportal.model.data.AppData;
 import baccportal.model.services.AdminService;
 import baccportal.model.users.StudentUser;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -29,7 +29,13 @@ public class AdminStudentsController {
 
     @FXML private Label statusLabel;
 
-    private final AdminService adminService = App.getAppData().getAdminService();
+    private final AppData appData;
+    private final AdminService adminService;
+
+    public AdminStudentsController(AppData appData, AdminService adminService) {
+        this.appData = appData;
+        this.adminService = adminService;
+    }
 
     @FXML
     private void initialize() {
@@ -122,12 +128,12 @@ public class AdminStudentsController {
 
     private void loadStudents() {
         studentTable.getItems().clear();
-        studentTable.getItems().addAll(App.getAppData().getUserStorage().getStudentsList());
+        studentTable.getItems().addAll(appData.getUserStorage().getStudentsList());
     }
 
     @FXML
     private void handleRefresh() {
-        App.getAppData().reloadUsers();
+        appData.reloadUsers();
         loadStudents();
         statusLabel.setText("Students refreshed.");
     }

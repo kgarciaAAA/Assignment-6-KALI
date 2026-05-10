@@ -1,7 +1,8 @@
 package baccportal.controllers;
 
-import baccportal.App;
 import baccportal.model.academics.CourseSection;
+import baccportal.model.data.AppData;
+import baccportal.model.session.Session;
 import baccportal.model.users.StudentUser;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -23,10 +24,17 @@ public class StudentCompletedCoursesController {
     @FXML private Label statusLabel;
 
     private StudentUser student;
+    private final Session session;
+    private final AppData appData;
+
+    public StudentCompletedCoursesController(Session session, AppData appData) {
+        this.session = session;
+        this.appData = appData;
+    }
 
     @FXML
     private void initialize() {
-        student = App.getSession().student();
+        student = session.student();
 
         if (student != null) {
             setupTable();
@@ -97,13 +105,13 @@ public class StudentCompletedCoursesController {
 
         String studentId = student.getUserId();
 
-        App.getAppData().reloadUsers();
+        appData.reloadUsers();
 
-        StudentUser refreshed = App.getAppData().getUserStorage().findStudentUserById(studentId);
+        StudentUser refreshed = appData.getUserStorage().findStudentUserById(studentId);
 
         if (refreshed != null) {
             student = refreshed;
-            App.getSession().setUser(refreshed);
+            session.setUser(refreshed);
             loadCompletedCourses();
             statusLabel.setText("Completed courses refreshed.");
         } else {

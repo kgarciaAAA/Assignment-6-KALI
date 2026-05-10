@@ -1,10 +1,11 @@
 package baccportal.controllers;
 
-import baccportal.App;
 import baccportal.model.academics.CourseSection;
+import baccportal.model.data.AppData;
 import baccportal.model.services.AcademicRecordsService;
 import baccportal.model.services.FacultyService;
 import baccportal.model.services.RegistrationService;
+import baccportal.model.session.Session;
 import baccportal.model.users.FacultyUser;
 import baccportal.model.users.StudentUser;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -40,13 +41,27 @@ public class FacultySectionsController {
     @FXML private Label statusLabel;
 
     private FacultyUser faculty;
-    private final FacultyService facultyService = App.getAppData().getFacultyService();
-    private final AcademicRecordsService academicRecordsService = App.getAppData().getAcademicRecordsService();
-    private final RegistrationService registrationService = App.getAppData().getRegistrationService();
+    private final Session session;
+    private final AppData appData;
+    private final FacultyService facultyService;
+    private final AcademicRecordsService academicRecordsService;
+    private final RegistrationService registrationService;
+
+    public FacultySectionsController(Session session,
+                                     AppData appData,
+                                     FacultyService facultyService,
+                                     AcademicRecordsService academicRecordsService,
+                                     RegistrationService registrationService) {
+        this.session = session;
+        this.appData = appData;
+        this.facultyService = facultyService;
+        this.academicRecordsService = academicRecordsService;
+        this.registrationService = registrationService;
+    }
 
     @FXML
     private void initialize() {
-        faculty = App.getSession().faculty();
+        faculty = session.faculty();
 
         if (faculty != null) {
             setupSectionsTable();
@@ -172,15 +187,15 @@ public class FacultySectionsController {
     private void handleRefresh() {
         String facultyId = faculty.getUserId();
 
-        App.getAppData().reloadSections();
-        App.getAppData().reloadUsers();
+        appData.reloadSections();
+        appData.reloadUsers();
 
         FacultyUser refreshed =
-                App.getAppData().getUserStorage().findFacultyUserById(facultyId);
+                appData.getUserStorage().findFacultyUserById(facultyId);
 
         if (refreshed != null) {
             faculty = refreshed;
-            App.getSession().setUser(refreshed);
+            session.setUser(refreshed);
         }
 
         loadSections();
@@ -197,7 +212,7 @@ public class FacultySectionsController {
             return;
         }
 
-        App.getAppData().reloadUsers();
+        appData.reloadUsers();
 
         String sectionId = sectionIdField.getText().trim();
 

@@ -1,7 +1,7 @@
 package baccportal.controllers;
 
-import baccportal.App;
 import baccportal.model.services.PaymentService;
+import baccportal.model.session.Session;
 import baccportal.model.users.StudentUser;
 import baccportal.model.utilities.PaymentInfo;
 import baccportal.model.utilities.PaymentType;
@@ -29,11 +29,17 @@ public class StudentPaymentController {
     @FXML private Label statusLabel;
 
     private StudentUser student;
-    private final PaymentService paymentService = App.getAppData().getPaymentService();
+    private final Session session;
+    private final PaymentService paymentService;
+
+    public StudentPaymentController(Session session, PaymentService paymentService) {
+        this.session = session;
+        this.paymentService = paymentService;
+    }
 
     @FXML
     private void initialize() {
-        student = App.getSession().student();
+        student = session.student();
 
         if (student != null) {
             paymentTypeBox.getItems().setAll(PaymentType.CREDIT_CARD, PaymentType.DEBIT_CARD);

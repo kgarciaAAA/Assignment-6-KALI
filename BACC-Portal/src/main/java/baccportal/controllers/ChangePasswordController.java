@@ -1,7 +1,7 @@
 package baccportal.controllers;
 
-import baccportal.App;
 import baccportal.model.services.PasswordService;
+import baccportal.model.session.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,7 +24,13 @@ public class ChangePasswordController {
 
     @FXML private Label statusLabel;
 
-    private final PasswordService passwordService = App.getAppData().getPasswordService();
+    private final Session session;
+    private final PasswordService passwordService;
+
+    public ChangePasswordController(Session session, PasswordService passwordService) {
+        this.session = session;
+        this.passwordService = passwordService;
+    }
 
     @FXML
     private void initialize() {
@@ -50,7 +56,7 @@ public class ChangePasswordController {
 
     @FXML
     private void handleChangePassword() {
-        var user = App.getSession().getUser();
+        var user = session.getUser();
 
         if (user == null) {
             statusLabel.setText("No user is currently logged in.");

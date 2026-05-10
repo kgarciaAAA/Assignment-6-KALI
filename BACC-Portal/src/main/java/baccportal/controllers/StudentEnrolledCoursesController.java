@@ -1,8 +1,9 @@
 package baccportal.controllers;
 
-import baccportal.App;
 import baccportal.model.academics.CourseSection;
+import baccportal.model.data.AppData;
 import baccportal.model.services.RegistrationService;
+import baccportal.model.session.Session;
 import baccportal.model.users.StudentUser;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -30,14 +31,23 @@ public class StudentEnrolledCoursesController {
     @FXML private Label statusLabel;
 
     private StudentUser student;
-    private final RegistrationService registrationService = App.getAppData().getRegistrationService();
+    private final Session session;
+    private final AppData appData;
+    private final RegistrationService registrationService;
+
+    public StudentEnrolledCoursesController(Session session,
+                                            AppData appData,
+                                            RegistrationService registrationService) {
+        this.session = session;
+        this.appData = appData;
+        this.registrationService = registrationService;
+    }
 
     @FXML
     private void initialize() {
-        var opt = App.getSession().student();
+        student = session.student();
 
-        if (opt.isPresent()) {
-            student = opt.get();
+        if (student != null) {
             setupTable();
             setupDropColumn();
             loadEnrolledCourses();
@@ -144,13 +154,13 @@ public class StudentEnrolledCoursesController {
 
         String studentId = student.getUserId();
 
-        App.getAppData().reloadUsers();
+        appData.reloadUsers();
 
-        StudentUser refreshed = App.getAppData().getUserStorage().findStudentUserById(studentId);
+        StudentUser refreshed = appData.getUserStorage().findStudentUserById(studentId);
 
         if (refreshed != null) {
             student = refreshed;
-            App.getSession().setUser(refreshed);
+            session.setUser(refreshed);
             loadEnrolledCourses();
             statusLabel.setText("Enrolled courses refreshed.");
         } else {

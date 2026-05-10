@@ -3,11 +3,12 @@ package baccportal.controllers;
 import java.io.IOException;
 
 import baccportal.App;
+import baccportal.model.services.AuthService;
+import baccportal.model.session.Session;
 import baccportal.model.storage.UserStorage;
 import baccportal.model.users.AdminUser;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -19,11 +20,19 @@ public class AdminController {
     @FXML private VBox contentBox;
 
     private AdminUser admin;
-    private final UserStorage userStorage = App.getAppData().getUserStorage();
+    private final Session session;
+    private final AuthService authService;
+    private final UserStorage userStorage;
+
+    public AdminController(Session session, AuthService authService, UserStorage userStorage) {
+        this.session = session;
+        this.authService = authService;
+        this.userStorage = userStorage;
+    }
 
     @FXML
     private void initialize() {
-        admin = App.getSession().admin();
+        admin = session.admin();
 
         if (admin != null) {
             welcomeLabel.setText("Welcome, " + admin.getFullName());
@@ -111,9 +120,7 @@ public class AdminController {
 
     private void loadAdminPage(String fxmlName) {
         try {
-            Node page = FXMLLoader.load(
-                    App.class.getResource("/baccportal/fxml/" + fxmlName + ".fxml")
-            );
+            Node page = App.loadFXML(fxmlName);
 
             contentBox.getChildren().clear();
             contentBox.getChildren().add(page);
@@ -127,7 +134,7 @@ public class AdminController {
 
     @FXML
     private void handleLogout() throws IOException {
-        App.getAppData().getAuthService().logout();
+        authService.logout();
         App.setRoot("login");
     }
 }

@@ -1,10 +1,10 @@
 package baccportal.controllers;
 
-import baccportal.App;
 import baccportal.model.academics.Course;
 import baccportal.model.academics.CourseSection;
 import baccportal.model.services.AdminService;
 import baccportal.model.storage.CourseStorage;
+import baccportal.model.storage.UserStorage;
 import baccportal.model.users.FacultyUser;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -37,8 +37,17 @@ public class AdminSectionsController {
 
     @FXML private Label statusLabel;
 
-    private final CourseStorage courseStorage = App.getAppData().getCourseStorage();
-    private final AdminService adminService = App.getAppData().getAdminService();
+    private final CourseStorage courseStorage;
+    private final AdminService adminService;
+    private final UserStorage userStorage;
+
+    public AdminSectionsController(CourseStorage courseStorage,
+                                   AdminService adminService,
+                                   UserStorage userStorage) {
+        this.courseStorage = courseStorage;
+        this.adminService = adminService;
+        this.userStorage = userStorage;
+    }
 
     @FXML
     private void initialize() {
@@ -133,13 +142,8 @@ public class AdminSectionsController {
     }
 
     private void setupInstructorBoxes() {
-        instructorBox.getItems().setAll(
-                App.getAppData().getUserStorage().getFacultyList()
-        );
-
-        reassignInstructorBox.getItems().setAll(
-                App.getAppData().getUserStorage().getFacultyList()
-        );
+        instructorBox.getItems().setAll(userStorage.getFacultyList());
+        reassignInstructorBox.getItems().setAll(userStorage.getFacultyList());
 
         setupFacultyComboBox(instructorBox);
         setupFacultyComboBox(reassignInstructorBox);

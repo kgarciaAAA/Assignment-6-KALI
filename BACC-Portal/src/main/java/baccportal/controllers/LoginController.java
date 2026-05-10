@@ -18,8 +18,12 @@ public class LoginController {
     @FXML private Label statusLabel;
 
     private boolean passwordVisible = false;
-    private final AuthService authService = App.getAppData().getAuthService();
-    
+    private final AuthService authService;
+
+    public LoginController(AuthService authService) {
+        this.authService = authService;
+    }
+
     @FXML
     private void initialize() {
         visiblePasswordField.textProperty().bindBidirectional(passwordField.textProperty());
@@ -57,9 +61,7 @@ public class LoginController {
         }
 
         try {
-            App.setCurrentUser(user);
             App.setRoot(user.rootFxmlAfterLogin());
-
         } catch (Exception e) {
             e.printStackTrace();
             statusLabel.setText("Error loading screen.");

@@ -75,5 +75,9 @@ public class AcademicRecordsService {
     }
 
     // ADD A METHOD THAT CHECKS IF STUDENT CAN GRADUATE
+
+    // public boolean canGraduate(StudentUser student) {
+    //     return student.getCompletedCredits() >= student.getMajor().getRequiredCredits();
+    // }
     // ADD A METHOD THAT RETURNS A TRANSCRIPT
 }

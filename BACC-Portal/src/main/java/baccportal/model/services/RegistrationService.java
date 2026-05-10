@@ -16,10 +16,12 @@ public class RegistrationService {
         this.paymentService = paymentService;
     }
 
-    public boolean enroll(StudentUser user, CourseSection section) {
+    public boolean enroll(StudentUser user, CourseSection section, String accessCode) {
         if (user == null || section == null)
             return false;
-        
+    
+        if (!section.getAccessCode().equals(accessCode))
+            return false;
 
         if (!canEnroll(user, section))
             return false;

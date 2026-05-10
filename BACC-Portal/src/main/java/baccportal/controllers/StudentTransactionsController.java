@@ -1,6 +1,6 @@
 package baccportal.controllers;
 
-import baccportal.App;
+import baccportal.model.session.Session;
 import baccportal.model.users.StudentUser;
 import baccportal.model.utilities.Receipt;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -20,10 +20,15 @@ public class StudentTransactionsController {
     @FXML private Label statusLabel;
 
     private StudentUser student;
+    private final Session session;
+
+    public StudentTransactionsController(Session session) {
+        this.session = session;
+    }
 
     @FXML
     private void initialize() {
-        student = App.getSession().student();
+        student = session.student();
 
         if (student != null) {
             setupTable();

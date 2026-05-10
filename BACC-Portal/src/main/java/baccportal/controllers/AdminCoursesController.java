@@ -1,6 +1,5 @@
 package baccportal.controllers;
 
-import baccportal.App;
 import baccportal.model.academics.Course;
 import baccportal.model.services.AdminService;
 import baccportal.model.storage.CourseStorage;
@@ -30,8 +29,13 @@ public class AdminCoursesController {
 
     @FXML private Label statusLabel;
 
-    private final CourseStorage courseStorage = App.getAppData().getCourseStorage();
-    private final AdminService adminService = App.getAppData().getAdminService();
+    private final CourseStorage courseStorage;
+    private final AdminService adminService;
+
+    public AdminCoursesController(CourseStorage courseStorage, AdminService adminService) {
+        this.courseStorage = courseStorage;
+        this.adminService = adminService;
+    }
 
     @FXML
     private void initialize() {

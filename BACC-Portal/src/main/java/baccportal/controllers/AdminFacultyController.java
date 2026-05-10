@@ -1,6 +1,5 @@
 package baccportal.controllers;
 
-import baccportal.App;
 import baccportal.model.academics.Department;
 import baccportal.model.services.AdminService;
 import baccportal.model.users.FacultyUser;
@@ -26,8 +25,13 @@ public class AdminFacultyController {
 
     @FXML private Label statusLabel;
 
-    private final AdminService adminService = App.getAppData().getAdminService();
-    private final UserStorage userStorage = App.getAppData().getUserStorage();
+    private final AdminService adminService;
+    private final UserStorage userStorage;
+
+    public AdminFacultyController(AdminService adminService, UserStorage userStorage) {
+        this.adminService = adminService;
+        this.userStorage = userStorage;
+    }
 
     @FXML
     private void initialize() {

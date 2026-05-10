@@ -9,17 +9,21 @@ import baccportal.model.services.FacultyService;
 import baccportal.model.services.PasswordService;
 import baccportal.model.services.PaymentService;
 import baccportal.model.services.RegistrationService;
+import baccportal.model.session.Session;
 import baccportal.model.storage.CourseStorage;
+import baccportal.model.storage.MajorStorage;
 import baccportal.model.storage.UserStorage;
 
 public class AppData implements PersistencePort {
 
     private final UserStorage userStorage;
     private final CourseStorage courseStorage;
+    private final MajorStorage majorStorage;
 
     private final UserFileHandler userFileHandler;
     private final CourseFileHandler courseFileHandler;
     private final SectionFileHandler sectionFileHandler;
+    private final MajorFileHandler majorFileHandler;
 
     private final AdminService adminService;
     private final AcademicRecordsService academicRecordsService;
@@ -29,21 +33,23 @@ public class AppData implements PersistencePort {
     private final PaymentService paymentService;
     private final RegistrationService registrationService;
 
-    public AppData() {
+    public AppData(Session session) {
         this.userStorage = new UserStorage();
         this.courseStorage = new CourseStorage();
+        this.majorStorage = new MajorStorage();
 
         this.userFileHandler = new UserFileHandler();
         this.courseFileHandler = new CourseFileHandler();
         this.sectionFileHandler = new SectionFileHandler();
-
+        this.majorFileHandler = new MajorFileHandler();
+        
         // Services that impact persisted state, get this as a dependency.
         this.paymentService = new PaymentService(this);
         this.registrationService = new RegistrationService(paymentService, this);
         this.academicRecordsService = new AcademicRecordsService(userStorage, this);
         this.facultyService = new FacultyService();
         this.passwordService = new PasswordService(this);
-        this.authService = new AuthService(userStorage, passwordService);
+        this.authService = new AuthService(userStorage, passwordService, session);
         this.adminService = new AdminService(userStorage, courseStorage, this);
     }
 
@@ -182,5 +188,13 @@ public class AppData implements PersistencePort {
 
     public RegistrationService getRegistrationService() {
         return registrationService;
+    }
+
+    public MajorStorage getMajorStorage() {
+        return majorStorage;
+    }
+
+    public MajorFileHandler getMajorFileHandler() {
+        return majorFileHandler;
     }
 }
