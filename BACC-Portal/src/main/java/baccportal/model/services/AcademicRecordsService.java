@@ -14,7 +14,11 @@ public class AcademicRecordsService {
     private final CourseStorage courseStorage;
     private final PersistencePort persistence;
 
-    public AcademicRecordsService(UserStorage userStorage, CourseStorage courseStorage, PersistencePort persistence) {
+    public AcademicRecordsService(
+            UserStorage userStorage,
+            CourseStorage courseStorage,
+            PersistencePort persistence
+    ) {
         this.userStorage = userStorage;
         this.courseStorage = courseStorage;
         this.persistence = persistence;
@@ -22,25 +26,43 @@ public class AcademicRecordsService {
 
     public boolean completeSection(StudentUser student, CourseSection completed) {
         boolean removed = student.removeEnrolledSection(completed);
-        
-        if (!removed)
-            return false;   
-        
+
+        if (!removed) {
+            return false;
+        }
+
         student.addCompletedSection(completed);
+
         // Free a seat now that the student is no longer occupying one in this section.
         completed.decrementCurrentCapacity();
 
         persistence.saveUsers();
         persistence.saveSections();
 
-        return removed;
+        return true;
+    }
+
+    public boolean dropSection(StudentUser student, CourseSection section) {
+        boolean removed = student.removeEnrolledSection(section);
+
+        if (!removed) {
+            return false;
+        }
+
+        // Free a seat because the student is no longer enrolled.
+        section.decrementCurrentCapacity();
+
+        persistence.saveUsers();
+        persistence.saveSections();
+
+        return true;
     }
 
     public CourseSection findEnrolledSection(StudentUser student, String sectionId) {
         for (CourseSection section : student.getEnrolledSections()) {
-            // TODO: Override .equals? Or just make sectionID consistent?
-            if (section.getSectionId().equalsIgnoreCase(sectionId)) 
+            if (section.getSectionId().equalsIgnoreCase(sectionId)) {
                 return section;
+            }
         }
 
         return null;
@@ -48,18 +70,20 @@ public class AcademicRecordsService {
 
     public double calculateCompletedCredits(StudentUser student) {
         double total = 0;
+
         List<CourseSection> completed = student.getCompletedSections();
-        for (CourseSection section : completed){
+
+        for (CourseSection section : completed) {
             Course course = section.getCourse();
-            total += course.getUnitAmount(); 
+            total += course.getUnitAmount();
         }
+
         return total;
     }
 
-    // TODO: Uses UserStorage to get students list. Make this more efficient if possible. 
     public List<StudentUser> getStudentsInSection(String sectionId) {
         List<StudentUser> roster = new ArrayList<>();
-        
+
         for (StudentUser student : userStorage.getStudentsList()) {
             for (CourseSection section : student.getEnrolledSections()) {
                 if (section.getSectionId().equalsIgnoreCase(sectionId)) {
@@ -71,8 +95,7 @@ public class AcademicRecordsService {
 
         return roster;
     }
-    
-    //ADD A METHOD THAT CHECKS IF STUDENT CAN GRADUATE (would need updates and checks)
 
-    //ADD A METHOD THAT RETURNS A LIST/DATASTRUCTURE CONTAINING A TRANSCRIPT?
+    // ADD A METHOD THAT CHECKS IF STUDENT CAN GRADUATE
+    // ADD A METHOD THAT RETURNS A TRANSCRIPT
 }
