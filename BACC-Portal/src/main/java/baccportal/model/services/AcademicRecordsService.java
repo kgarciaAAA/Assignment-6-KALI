@@ -4,16 +4,19 @@ import baccportal.model.academics.Course;
 import baccportal.model.academics.CourseSection;
 import java.util.List;
 import java.util.ArrayList;
+import baccportal.model.storage.CourseStorage;
 import baccportal.model.users.StudentUser;
 import baccportal.model.storage.UserStorage;
 import baccportal.model.data.PersistencePort;
 
 public class AcademicRecordsService {
     private final UserStorage userStorage;
+    private final CourseStorage courseStorage;
     private final PersistencePort persistence;
 
-    public AcademicRecordsService(UserStorage userStorage, PersistencePort persistence) {
+    public AcademicRecordsService(UserStorage userStorage, CourseStorage courseStorage, PersistencePort persistence) {
         this.userStorage = userStorage;
+        this.courseStorage = courseStorage;
         this.persistence = persistence;
     }
 
@@ -55,9 +58,7 @@ public class AcademicRecordsService {
 
     // TODO: Uses UserStorage to get students list. Make this more efficient if possible. 
     public List<StudentUser> getStudentsInSection(String sectionId) {
-        
         List<StudentUser> roster = new ArrayList<>();
-
         
         for (StudentUser student : userStorage.getStudentsList()) {
             for (CourseSection section : student.getEnrolledSections()) {
@@ -70,7 +71,6 @@ public class AcademicRecordsService {
 
         return roster;
     }
-
     
     //ADD A METHOD THAT CHECKS IF STUDENT CAN GRADUATE (would need updates and checks)
 

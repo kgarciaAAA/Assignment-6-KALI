@@ -1,14 +1,28 @@
-f@test.com
-456
-8/0nY/yNVQOMg+QglEor5g==:DIbsv4pZrg8bOZVeM3AlQKktIRuxFtCRatXuMbIYIa4=
-Faculty User
+maria.rodriguez@faculty.bacc.edu
+200001
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Maria Rodriguez
 COMPUTER_SCIENCE
-NONE
+300001, 300002
 ----------
-Lisa98@gmail.com
-Faculty
-iPwRZqNxYXfMGCVzVJQ42g==:dYayqAcYs6xw/Dwa2SMJ4DORyN4A28NMaBfX9WYzmrg=
-Lisa Perez
+jordan.kim@faculty.bacc.edu
+200002
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Jordan Kim
+COMPUTER_SCIENCE
+300003, 300004
+----------
+casey.lopez@faculty.bacc.edu
+200004
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Casey Lopez
+MATHEMATICS
+300007, 300008
+----------
+sam.chen@faculty.bacc.edu
+200005
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Sam Chen
 COMPUTER_SCIENCE
 NONE
 ----------

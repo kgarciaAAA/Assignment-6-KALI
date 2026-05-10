@@ -3,6 +3,7 @@ package baccportal.model.storage;
 import java.util.ArrayList;
 import java.util.List;
 
+import baccportal.model.academics.CourseSection;
 import baccportal.model.users.AdminUser;
 import baccportal.model.users.FacultyUser;
 import baccportal.model.users.StudentUser;
@@ -78,12 +79,46 @@ public class UserStorage {
         return null;
     }
 
+    // Guranteed to return a student user with this id, or null if none.
+    public StudentUser findStudentUserById(String userId) {
+        for (StudentUser student : studentsList) {
+            if (student.getUserId().equalsIgnoreCase(userId)) 
+                return student;
+        }
+
+        return null;
+    }
+
+    // Guranteed to return a faculty user with this id, or null if none.
+    public FacultyUser findFacultyUserById(String userId) {
+        for (FacultyUser faculty : facultyList) {
+            if (faculty.getUserId().equalsIgnoreCase(userId))
+                return faculty;
+        }
+        
+        return null;
+    }
+
     public boolean removeStudentById(String userId) {
         return studentsList.removeIf(student -> student.getUserId().equalsIgnoreCase(userId));
     }
 
     public boolean removeFacultyById(String userId) {
         return facultyList.removeIf(faculty -> faculty.getUserId().equalsIgnoreCase(userId));
+    }
+
+    // TODO: Moved from AdminService to UserStorage
+    public void detachSectionFromAllFaculty(CourseSection section) {
+        for (FacultyUser faculty : facultyList) {
+            faculty.removeSectionTaught(section);
+        }
+    }
+    // TODO: Moved from AdminService to UserStorage
+    public void detachSectionFromAllStudents(CourseSection section) {
+        for (StudentUser student : studentsList) {
+            student.removeEnrolledSection(section);
+            student.removeCompletedSection(section);
+        }
     }
 
     public boolean removeAdminById(String userId) {

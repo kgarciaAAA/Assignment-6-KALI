@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import baccportal.App;
 import baccportal.model.users.StudentUser;
-import baccportal.model.users.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -25,10 +24,10 @@ public class StudentDashboardController {
 
     @FXML
     private void initialize() {
-        User user = App.getCurrentUser();
+        var sessionStudent = App.getSession().student();
 
-        if (user instanceof StudentUser) {
-            student = (StudentUser) user;
+        if (sessionStudent.isPresent()) {
+            student = sessionStudent.get();
             welcomeLabel.setText("Welcome, " + student.getFullName());
             showOverview();
         } else {

@@ -4,7 +4,6 @@ import baccportal.App;
 import baccportal.model.academics.CourseSection;
 import baccportal.model.services.RegistrationService;
 import baccportal.model.users.StudentUser;
-import baccportal.model.users.User;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -35,10 +34,10 @@ public class StudentEnrolledCoursesController {
 
     @FXML
     private void initialize() {
-        User user = App.getCurrentUser();
+        var opt = App.getSession().student();
 
-        if (user instanceof StudentUser) {
-            student = (StudentUser) user;
+        if (opt.isPresent()) {
+            student = opt.get();
             setupTable();
             setupDropColumn();
             loadEnrolledCourses();
@@ -147,12 +146,11 @@ public class StudentEnrolledCoursesController {
 
         App.getAppData().reloadUsers();
 
-        User refreshedUser = App.getAppData().getUserStorage().findUserById(studentId);
+        StudentUser refreshed = App.getAppData().getUserStorage().findStudentUserById(studentId);
 
-        // TODO: instanceof checks. could consider a more flexible approach.
-        if (refreshedUser instanceof StudentUser) {
-            student = (StudentUser) refreshedUser;
-            App.setCurrentUser(student);
+        if (refreshed != null) {
+            student = refreshed;
+            App.getSession().setUser(refreshed);
             loadEnrolledCourses();
             statusLabel.setText("Enrolled courses refreshed.");
         } else {

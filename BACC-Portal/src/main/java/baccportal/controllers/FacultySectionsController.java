@@ -6,7 +6,6 @@ import baccportal.model.services.AcademicRecordsService;
 import baccportal.model.services.FacultyService;
 import baccportal.model.users.FacultyUser;
 import baccportal.model.users.StudentUser;
-import baccportal.model.users.User;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -43,10 +42,10 @@ public class FacultySectionsController {
 
     @FXML
     private void initialize() {
-        User user = App.getCurrentUser();
+        var opt = App.getSession().faculty();
 
-        if (user instanceof FacultyUser) {
-            faculty = (FacultyUser) user;
+        if (opt.isPresent()) {
+            faculty = opt.get();
             setupSectionsTable();
             setupStudentsTable();
             loadSections();
@@ -133,10 +132,11 @@ public class FacultySectionsController {
         App.getAppData().reloadSections();
         App.getAppData().reloadUsers();
 
-        User refreshedUser = App.getAppData().getUserStorage().findUserById(facultyId);
+        FacultyUser refreshed = App.getAppData().getUserStorage().findFacultyUserById(facultyId);
 
-        if (refreshedUser instanceof FacultyUser) {
-            faculty = (FacultyUser) refreshedUser;
+        if (refreshed != null) {
+            faculty = refreshed;
+            App.getSession().setUser(refreshed);
         }
 
         loadSections();

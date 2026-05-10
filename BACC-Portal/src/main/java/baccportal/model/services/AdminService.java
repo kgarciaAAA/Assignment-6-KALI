@@ -10,7 +10,6 @@ import baccportal.model.storage.UserStorage;
 import baccportal.model.users.AdminUser;
 import baccportal.model.users.FacultyUser;
 import baccportal.model.users.StudentUser;
-import baccportal.model.users.User;
 
 public class AdminService {
 
@@ -58,12 +57,9 @@ public class AdminService {
     }
 
     public boolean deleteStudent(String userId) {
-        User found = userStorage.findUserById(userId);
-
-        // TODO: instanceof checks. could consider a more flexible approach. no clue how to replace.
-        if (!(found instanceof StudentUser student))
+        StudentUser student = userStorage.findStudentUserById(userId);
+        if (student == null)
             return false;
-        
 
         for (CourseSection section : student.getEnrolledSections())
             section.decrementCurrentCapacity();
@@ -79,10 +75,8 @@ public class AdminService {
     }
 
     public boolean deleteFaculty(String userId) {
-        User found = userStorage.findUserById(userId);
-
-        // TODO: instanceof checks. could consider a more flexible approach. no clue how to replace.
-        if (!(found instanceof FacultyUser faculty))
+        FacultyUser faculty = userStorage.findFacultyUserById(userId);
+        if (faculty == null)
             return false;
 
         unassignSectionsTaughtBy(faculty);
@@ -116,7 +110,7 @@ public class AdminService {
     }
 
     // Pulls every section that belongs to this course out of storage first.
-        // Used to clean up the references the user objects still hold to those sections.
+    // Used to clean up the references the user objects still hold to those sections.
     public boolean deleteCourse(String courseId) {
         if (courseStorage.getCourse(courseId) == null)
             return false;
@@ -137,13 +131,34 @@ public class AdminService {
         return removed;
     }
 
-    public boolean addSection(CourseSection section) {
+    public boolean addSection(CourseSection section, FacultyUser instructor) {
+        if (instructor == null)
+            return false;
+        
         if (courseStorage.getSection(section.getSectionId()) != null) {
             return false;
         }
 
         courseStorage.addSection(section);
+        instructor.addSectionTaught(section);
         persistence.saveSections();
+        persistence.saveUsers();
+        return true;
+    }
+
+    public boolean reassignSection(CourseSection section, FacultyUser instructor) {
+        if (instructor == null)
+            return false;
+
+        if (section.getInstructorName().equals(instructor.getFullName()))
+            return false;
+
+        userStorage.detachSectionFromAllFaculty(section);
+        
+        section.setInstructorName(instructor.getFullName());
+        instructor.addSectionTaught(section);
+        persistence.saveSections();
+        persistence.saveUsers();
         return true;
     }
 
@@ -160,16 +175,10 @@ public class AdminService {
     }
 
     // Helper method to clean up references to a section when it is deleted.
-    // TODO: Far from optimal, but works. We should probably use a more efficient data structure to store these references.
+    // TODO: Wipes from memory, including students and faculty references.
     private void cleanUpSectionReferences(CourseSection section) {
-        for (StudentUser student : userStorage.getStudentsList()) {
-            student.removeEnrolledSection(section);
-            student.removeCompletedSection(section);
-        }
-
-        for (FacultyUser faculty : userStorage.getFacultyList()) {
-            faculty.removeSectionTaught(section);
-        }
+        userStorage.detachSectionFromAllStudents(section);
+        userStorage.detachSectionFromAllFaculty(section);
     }
 
     // Now, when the faculty is removed, we unassign all the sections they taught.

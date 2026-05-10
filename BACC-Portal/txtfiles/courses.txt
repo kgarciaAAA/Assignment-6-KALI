@@ -1,10 +1,40 @@
-12345
-CS-151
+CS-146
+Introduction to Programming
+4.0
+NONE
+----------
+CS-149
+Discrete Structures
 3.0
 NONE
 ----------
-123
+CS-150
+Data Structures
+4.0
 CS-146
+----------
+CS-151
+Object-Oriented Design
+3.0
+CS-150
+----------
+DS-100
+Foundations of Data Science
 3.0
 NONE
+----------
+DS-110
+Applied Data Science
+3.0
+DS-100
+----------
+MATH-229
+Calculus I
+4.0
+NONE
+----------
+MATH-231
+Calculus II
+4.0
+MATH-229
 ----------

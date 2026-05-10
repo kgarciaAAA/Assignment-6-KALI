@@ -5,7 +5,6 @@ import baccportal.model.academics.CourseSection;
 import baccportal.model.services.RegistrationService;
 import baccportal.model.storage.CourseStorage;
 import baccportal.model.users.StudentUser;
-import baccportal.model.users.User;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -36,11 +35,10 @@ public class StudentManageCoursesController {
 
     @FXML
     private void initialize() {
-        User user = App.getCurrentUser();
+        var opt = App.getSession().student();
 
-        // TODO: instanceof checks. could consider a more flexible approach.
-        if (user instanceof StudentUser) {
-            student = (StudentUser) user;
+        if (opt.isPresent()) {
+            student = opt.get();
             setupTable();
             loadSections();
         } else {

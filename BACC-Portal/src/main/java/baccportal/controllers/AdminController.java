@@ -5,7 +5,6 @@ import java.io.IOException;
 import baccportal.App;
 import baccportal.model.storage.UserStorage;
 import baccportal.model.users.AdminUser;
-import baccportal.model.users.User;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,10 +23,10 @@ public class AdminController {
 
     @FXML
     private void initialize() {
-        User user = App.getCurrentUser();
+        var opt = App.getSession().admin();
 
-        if (user instanceof AdminUser) {
-            admin = (AdminUser) user;
+        if (opt.isPresent()) {
+            admin = opt.get();
             welcomeLabel.setText("Welcome, " + admin.getFullName());
             showOverview();
         } else {

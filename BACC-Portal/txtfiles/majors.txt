@@ -1,0 +1,20 @@
+Computer Science
+COMPUTER_SCIENCE
+CS-146, CS-149, CS-150
+CS-151, DS-100, MATH-229
+----------
+Data Science
+DATA_SCIENCE
+DS-100, DS-110, MATH-229
+CS-146, CS-151, MATH-231
+----------
+Mathematics
+MATHEMATICS
+MATH-229, MATH-231
+CS-146, DS-100, CS-149
+----------
+Computational Mathematics
+MATHEMATICS
+MATH-229, MATH-231, CS-146
+CS-150, DS-100
+----------

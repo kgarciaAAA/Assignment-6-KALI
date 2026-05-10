@@ -3,6 +3,7 @@ package baccportal;
 import java.io.IOException;
 
 import baccportal.model.data.AppData;
+import baccportal.model.session.Session;
 import baccportal.model.users.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +14,7 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     private static Scene scene;
-    private static User currentUser;
+    private static final Session session = new Session();
     private static AppData appData;
 
     @Override
@@ -38,12 +39,18 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
-    public static void setCurrentUser(User user) {
-        currentUser = user;
+    public static Session getSession() {
+        return session;
     }
 
+    // Sets the session user
+    public static void setCurrentUser(User user) {
+        session.setUser(user);
+    }
+
+    // Returns the session user
     public static User getCurrentUser() {
-        return currentUser;
+        return session.getUser();
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

@@ -55,9 +55,6 @@
         <Label text="Total Capacity:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
         <TextField fx:id="totalCapacityField" promptText="Total Capacity" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
 
-        <Label text="Current Capacity:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-        <TextField fx:id="currentCapacityField" promptText="Current Capacity" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
-
         <Button text="Add Section" onAction="#handleAddSection" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
     </GridPane>
 

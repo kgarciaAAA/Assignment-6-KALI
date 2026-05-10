@@ -1,5 +1,5 @@
-a@test.com
+portal.admin@bacc.edu
 Admin
 Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
-Admin User
+BACC System Administrator
 ----------

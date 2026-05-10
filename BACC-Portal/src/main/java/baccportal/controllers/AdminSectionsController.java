@@ -176,11 +176,10 @@ public class AdminSectionsController {
         String accessCode = accessCodeField.getText().trim();
         String priceText = priceField.getText().trim();
         String totalCapacityText = totalCapacityField.getText().trim();
-        String currentCapacityText = currentCapacityField.getText().trim();
 
         if (courseId.isBlank() || instructor.isBlank() || sectionId.isBlank()
                 || accessCode.isBlank() || priceText.isBlank()
-                || totalCapacityText.isBlank() || currentCapacityText.isBlank()) {
+                || totalCapacityText.isBlank()) {
             statusLabel.setText("Fill all section fields.");
             return;
         }
@@ -195,15 +194,9 @@ public class AdminSectionsController {
         try {
             double price = Double.parseDouble(priceText);
             int totalCapacity = Integer.parseInt(totalCapacityText);
-            int currentCapacity = Integer.parseInt(currentCapacityText);
 
-            if (price < 0 || totalCapacity < 0 || currentCapacity < 0) {
+            if (price < 0 || totalCapacity < 0) {
                 statusLabel.setText("Price and capacity cannot be negative.");
-                return;
-            }
-
-            if (currentCapacity > totalCapacity) {
-                statusLabel.setText("Current capacity cannot be greater than total capacity.");
                 return;
             }
 
@@ -214,10 +207,10 @@ public class AdminSectionsController {
                     accessCode,
                     price,
                     totalCapacity,
-                    currentCapacity
+                    0
             );
 
-            boolean added = adminService.addSection(section);
+            boolean added = adminService.addSection(section, selectedInstructor);
 
             if (!added) {
                 statusLabel.setText("Section ID already exists.");

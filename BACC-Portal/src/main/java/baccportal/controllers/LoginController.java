@@ -1,9 +1,6 @@
 package baccportal.controllers;
 
 import baccportal.App;
-import baccportal.model.users.AdminUser;
-import baccportal.model.users.FacultyUser;
-import baccportal.model.users.StudentUser;
 import baccportal.model.users.User;
 import baccportal.model.services.AuthService;
 import javafx.fxml.FXML;
@@ -61,14 +58,7 @@ public class LoginController {
 
         try {
             App.setCurrentUser(user);
-            // TODO: Instanceof checks. We should perhaps consider a more flexible approach.
-            if (user instanceof StudentUser) {
-                App.setRoot("studentDashboard");
-            } else if (user instanceof FacultyUser) {
-                App.setRoot("faculty");
-            } else if (user instanceof AdminUser) {
-                App.setRoot("admin");
-            }
+            App.setRoot(App.getSession().rootFxmlAfterLogin(user));
 
         } catch (Exception e) {
             e.printStackTrace();

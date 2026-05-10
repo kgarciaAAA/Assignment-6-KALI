@@ -2,7 +2,6 @@ package baccportal.controllers;
 
 import baccportal.App;
 import baccportal.model.users.StudentUser;
-import baccportal.model.users.User;
 import baccportal.model.utilities.Receipt;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -24,11 +23,10 @@ public class StudentTransactionsController {
 
     @FXML
     private void initialize() {
-        User user = App.getCurrentUser();
+        var opt = App.getSession().student();
 
-    // TODO: instanceof checks. could consider a more flexible approach.
-        if (user instanceof StudentUser) {
-            student = (StudentUser) user;
+        if (opt.isPresent()) {
+            student = opt.get();
             setupTable();
             loadTransactions();
         } else {

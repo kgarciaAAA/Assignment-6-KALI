@@ -1,11 +1,198 @@
-Leon98@gmail.com
-012958956
-cixImwxWF5iMZFzVjKAYQQ==:kL1XyhW6XPEwcIqsor+i3uXWkvRTvTK2duexrNfmKhw=
-Leon
-CS
+taylor.brooks@student.bacc.edu
+100001
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Taylor Brooks
+Computer Science
 COMPUTER_SCIENCE
-320.0
+2130.0
+300001, 300002, 300007
+300003, 300004, 300005, 300008
+100001-400.0-2130.0
+----------
+riley.nguyen@student.bacc.edu
+100002
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Riley Nguyen
+Computer Science
+COMPUTER_SCIENCE
+1985.0
+300001, 300002
+300003, 300004, 300005, 300007
+100002-350.0-1985.0
+----------
+jordan.patel@student.bacc.edu
+100003
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Jordan Patel
+Computer Science
+COMPUTER_SCIENCE
+1755.0
+300001, 300002
+300003, 300004, 300005
 NONE
+----------
+casey.martinez@student.bacc.edu
+100004
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Casey Martinez
+Computer Science
+COMPUTER_SCIENCE
+1640.0
+300001, 300002
+300003, 300004
 NONE
+----------
+morgan.lee@student.bacc.edu
+100005
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Morgan Lee
+Computer Science
+COMPUTER_SCIENCE
+1700.0
+300001, 300002
+300003, 300004, 300005
+NONE
+----------
+alex.kim@student.bacc.edu
+100006
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Alex Kim
+Computer Science
+COMPUTER_SCIENCE
+1820.0
+300001, 300002
+300003, 300004, 300007
+NONE
+----------
+sam.rivera@student.bacc.edu
+100007
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Sam Rivera
+Computer Science
+COMPUTER_SCIENCE
+1795.0
+300001, 300002
+300003, 300004, 300007
+NONE
+----------
+jamie.chen@student.bacc.edu
+100008
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Jamie Chen
+Computer Science
+COMPUTER_SCIENCE
+1760.0
+300001, 300002
+300003, 300004, 300007
+NONE
+----------
+drew.morgan@student.bacc.edu
+100009
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Drew Morgan
+Data Science
+DATA_SCIENCE
+1650.0
+300001, 300005
+300002, 300006, 300007
+100009-500.0-1650.0
+----------
+sky.logan@student.bacc.edu
+100010
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Sky Logan
+Data Science
+DATA_SCIENCE
+1620.0
+300001, 300005
+300002, 300006, 300007
+NONE
+----------
+reese.avery@student.bacc.edu
+100011
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Reese Avery
+Data Science
+DATA_SCIENCE
+1590.0
+300001, 300005
+300002, 300006, 300007
+NONE
+----------
+blake.quinn@student.bacc.edu
+100012
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Blake Quinn
+Data Science
+DATA_SCIENCE
+1585.0
+300001, 300005
+300002, 300006, 300007
+NONE
+----------
+quinn.hayes@student.bacc.edu
+100013
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Quinn Hayes
+Mathematics
+MATHEMATICS
+1325.0
+NONE
+300001, 300005, 300007
+NONE
+----------
+rowan.foster@student.bacc.edu
+100014
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Rowan Foster
+Mathematics
+MATHEMATICS
+1220.0
+NONE
+300001, 300007
+NONE
+----------
+devon.reed@student.bacc.edu
+100015
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Devon Reed
+Mathematics
+MATHEMATICS
+485.0
+NONE
+300001
+NONE
+----------
+cameron.blake@student.bacc.edu
+100016
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Cameron Blake
+Computer Science
+COMPUTER_SCIENCE
+485.0
+NONE
+300001
+NONE
+----------
+sage.diaz@student.bacc.edu
+100017
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+Sage Diaz
+Computer Science
+COMPUTER_SCIENCE
+485.0
+NONE
+300001
+NONE
+----------
+river.walsh@student.bacc.edu
+100018
+Q2IvbkiUnvfTw+T+JarLoQ==:Azs04VoHNDovERgb5DKC5ANjQgmeGerzZuRNAK98ABY=
+River Walsh
+Computer Science
+COMPUTER_SCIENCE
+485.0
+NONE
+300001
 NONE
 ----------

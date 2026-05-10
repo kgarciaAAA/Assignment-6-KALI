@@ -3,7 +3,6 @@ package baccportal.controllers;
 import baccportal.App;
 import baccportal.model.services.PaymentService;
 import baccportal.model.users.StudentUser;
-import baccportal.model.users.User;
 import baccportal.model.utilities.PaymentInfo;
 import baccportal.model.utilities.PaymentType;
 import baccportal.model.utilities.Receipt;
@@ -34,10 +33,10 @@ public class StudentPaymentController {
 
     @FXML
     private void initialize() {
-        User user = App.getCurrentUser();
+        var opt = App.getSession().student();
 
-        if (user instanceof StudentUser) {
-            student = (StudentUser) user;
+        if (opt.isPresent()) {
+            student = opt.get();
             paymentTypeBox.getItems().setAll(PaymentType.CREDIT_CARD, PaymentType.DEBIT_CARD);
             setupCardNumberFormatting();
             setupExpirationFormatting();

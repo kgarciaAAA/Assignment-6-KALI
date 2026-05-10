@@ -170,7 +170,6 @@ public class AdminStudentsController {
                 return;
             }
 
-
             clearAddForm();
             loadStudents();
             statusLabel.setText("Student added successfully.");

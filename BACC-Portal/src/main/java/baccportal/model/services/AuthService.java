@@ -27,6 +27,6 @@ public class AuthService {
     }
 
     public void logout() {
-        App.setCurrentUser(null);
+        App.getSession().clear();
     }
 }

@@ -33,6 +33,7 @@
 /Users/urijonopko/Desktop/College Courses/CS 151/Final Project/Assignment-6-KALI/BACC-Portal/src/main/java/baccportal/model/services/PasswordService.java
 /Users/urijonopko/Desktop/College Courses/CS 151/Final Project/Assignment-6-KALI/BACC-Portal/src/main/java/baccportal/model/services/PaymentService.java
 /Users/urijonopko/Desktop/College Courses/CS 151/Final Project/Assignment-6-KALI/BACC-Portal/src/main/java/baccportal/model/services/RegistrationService.java
+/Users/urijonopko/Desktop/College Courses/CS 151/Final Project/Assignment-6-KALI/BACC-Portal/src/main/java/baccportal/model/session/Session.java
 /Users/urijonopko/Desktop/College Courses/CS 151/Final Project/Assignment-6-KALI/BACC-Portal/src/main/java/baccportal/model/storage/CourseStorage.java
 /Users/urijonopko/Desktop/College Courses/CS 151/Final Project/Assignment-6-KALI/BACC-Portal/src/main/java/baccportal/model/storage/MajorStorage.java
 /Users/urijonopko/Desktop/College Courses/CS 151/Final Project/Assignment-6-KALI/BACC-Portal/src/main/java/baccportal/model/storage/UserStorage.java
