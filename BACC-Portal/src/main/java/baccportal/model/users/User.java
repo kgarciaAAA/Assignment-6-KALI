@@ -8,6 +8,8 @@ public abstract class User {
     private String password;
     private String fullName;
 
+    public abstract String rootFxmlAfterLogin();
+
     //constructor
     public User(String email, String userId, String password, String fullName, boolean isHashed){
         this.email = email;

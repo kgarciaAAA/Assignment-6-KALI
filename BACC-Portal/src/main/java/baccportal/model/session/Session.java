@@ -41,18 +41,4 @@ public final class Session {
         return currentUser instanceof AdminUser a ? a : null;
     }
 
-    // Returns the FXML root name for the dashboard that matches this user's role.
-    // Contains all of the instanceof checks for the user type.
-    public String rootFxmlAfterLogin(User user) {
-        if (user instanceof StudentUser) {
-            return "studentDashboard";
-        }
-        if (user instanceof FacultyUser) {
-            return "faculty";
-        }
-        if (user instanceof AdminUser) {
-            return "admin";
-        }
-        throw new IllegalStateException("Unknown user type for login routing.");
-    }
 }

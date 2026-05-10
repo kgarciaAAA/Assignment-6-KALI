@@ -58,7 +58,7 @@ public class LoginController {
 
         try {
             App.setCurrentUser(user);
-            App.setRoot(App.getSession().rootFxmlAfterLogin(user));
+            App.setRoot(user.rootFxmlAfterLogin());
 
         } catch (Exception e) {
             e.printStackTrace();

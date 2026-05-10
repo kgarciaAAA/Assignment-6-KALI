@@ -68,17 +68,6 @@ public class StudentUser extends User {
         return completedSections.remove(section);
     }
 
-    // TODO: Service already has this method. We should be able to remove this.
-    // public boolean completeSection(CourseSection section) {
-    //     boolean removed = enrolledSections.remove(section);
-
-    //     if (removed) {
-    //         completedSections.add(section);
-    //     }
-
-    //     return removed;
-    // }
-
     // TODO: added exceptions, but could be potentially removed.
     public void incrementBalanceOwed(double amount) {
         if (amount < 0)
@@ -93,5 +82,10 @@ public class StudentUser extends User {
             throw new IllegalArgumentException("Amount must be non-negative.");
         
         balanceOwed -= amount;
+    }
+
+    @Override
+    public String rootFxmlAfterLogin() {
+        return "studentDashboard";
     }
 }

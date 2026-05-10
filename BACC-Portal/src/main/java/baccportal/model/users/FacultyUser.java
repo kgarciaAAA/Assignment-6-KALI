@@ -40,6 +40,9 @@ public class FacultyUser extends User{
         return sectionsTaught.remove(section);
     }
 
-
+    @Override
+    public String rootFxmlAfterLogin() {
+        return "faculty";
+    }
 
 }
