@@ -46,10 +46,9 @@ public class FacultySectionsController {
 
     @FXML
     private void initialize() {
-        var opt = App.getSession().faculty();
+        faculty = App.getSession().faculty();
 
-        if (opt.isPresent()) {
-            faculty = opt.get();
+        if (faculty != null) {
             setupSectionsTable();
             setupStudentsTable();
             setupDropColumn();

@@ -33,10 +33,9 @@ public class StudentPaymentController {
 
     @FXML
     private void initialize() {
-        var opt = App.getSession().student();
+        student = App.getSession().student();
 
-        if (opt.isPresent()) {
-            student = opt.get();
+        if (student != null) {
             paymentTypeBox.getItems().setAll(PaymentType.CREDIT_CARD, PaymentType.DEBIT_CARD);
             setupCardNumberFormatting();
             setupExpirationFormatting();

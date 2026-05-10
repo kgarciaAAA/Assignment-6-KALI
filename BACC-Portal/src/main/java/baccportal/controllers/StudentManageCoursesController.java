@@ -35,10 +35,9 @@ public class StudentManageCoursesController {
 
     @FXML
     private void initialize() {
-        var opt = App.getSession().student();
+        student = App.getSession().student();
 
-        if (opt.isPresent()) {
-            student = opt.get();
+        if (student != null) {
             setupTable();
             loadSections();
         } else {

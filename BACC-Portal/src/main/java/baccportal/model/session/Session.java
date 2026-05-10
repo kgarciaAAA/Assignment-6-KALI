@@ -1,7 +1,5 @@
 package baccportal.model.session;
 
-import java.util.Optional;
-
 import baccportal.model.users.AdminUser;
 import baccportal.model.users.FacultyUser;
 import baccportal.model.users.StudentUser;
@@ -31,25 +29,16 @@ public final class Session {
         return currentUser != null;
     }
 
-    public Optional<StudentUser> student() {
-        if (currentUser instanceof StudentUser s) {
-            return Optional.of(s);
-        }
-        return Optional.empty();
+    public StudentUser student() {
+        return currentUser instanceof StudentUser s ? s : null;
     }
 
-    public Optional<FacultyUser> faculty() {
-        if (currentUser instanceof FacultyUser f) {
-            return Optional.of(f);
-        }
-        return Optional.empty();
+    public FacultyUser faculty() {
+        return currentUser instanceof FacultyUser f ? f : null;
     }
 
-    public Optional<AdminUser> admin() {
-        if (currentUser instanceof AdminUser a) {
-            return Optional.of(a);
-        }
-        return Optional.empty();
+    public AdminUser admin() {
+        return currentUser instanceof AdminUser a ? a : null;
     }
 
     // Returns the FXML root name for the dashboard that matches this user's role.

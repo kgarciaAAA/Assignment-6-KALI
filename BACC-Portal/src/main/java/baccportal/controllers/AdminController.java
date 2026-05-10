@@ -23,10 +23,9 @@ public class AdminController {
 
     @FXML
     private void initialize() {
-        var opt = App.getSession().admin();
+        admin = App.getSession().admin();
 
-        if (opt.isPresent()) {
-            admin = opt.get();
+        if (admin != null) {
             welcomeLabel.setText("Welcome, " + admin.getFullName());
             showOverview();
         } else {
