@@ -1,24 +1,20 @@
 package baccportal.controllers;
 
-import java.util.List;
-
 import baccportal.App;
 import baccportal.model.academics.Course;
-import baccportal.model.academics.CourseSection;
+import baccportal.model.services.AdminService;
 import baccportal.model.storage.CourseStorage;
-import baccportal.model.users.FacultyUser;
-import baccportal.model.users.StudentUser;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
 public class AdminCoursesController {
 
@@ -35,6 +31,7 @@ public class AdminCoursesController {
     @FXML private Label statusLabel;
 
     private final CourseStorage courseStorage = App.getAppData().getCourseStorage();
+    private final AdminService adminService = App.getAppData().getAdminService();
 
     @FXML
     private void initialize() {
@@ -109,15 +106,13 @@ public class AdminCoursesController {
         try {
             double units = Double.parseDouble(unitsText);
 
-            if (courseStorage.getCourse(courseId) != null) {
+            Course course = new Course(courseId, courseName, units);
+            boolean added = adminService.addCourse(course);
+
+            if (!added) {
                 statusLabel.setText("Course ID already exists.");
                 return;
             }
-
-            Course course = new Course(courseId, courseName, units);
-            courseStorage.addCourse(course);
-
-            App.getAppData().saveCourses();
 
             clearAddForm();
             loadCourses();
@@ -142,31 +137,13 @@ public class AdminCoursesController {
             return;
         }
 
-        String courseId = course.getCourseId();
+        boolean removed = adminService.deleteCourse(course.getCourseId());
 
-        List<CourseSection> removedSections = courseStorage.removeSectionsByCourseId(courseId);
-
-        for (CourseSection section : removedSections) {
-            for (StudentUser student : App.getAppData().getUserStorage().getStudentsList()) {
-                student.removeEnrolledSection(section);
-                student.removeCompletedSection(section);
-            }
-
-            for (FacultyUser faculty : App.getAppData().getUserStorage().getFacultyList()) {
-                faculty.removeSectionTaught(section);
-            }
-        }
-
-        boolean removedCourse = courseStorage.removeCourseById(courseId);
-
-        if (!removedCourse) {
+        if (!removed) {
             statusLabel.setText("Course not found.");
             return;
         }
 
-        App.getAppData().saveCourses();
-        App.getAppData().saveSections();
-        App.getAppData().saveUsers();
 
         loadCourses();
         statusLabel.setText("Course and related sections deleted successfully.");

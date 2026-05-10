@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      fx:controller="baccportal.controllers.StudentEnrolledCoursesController">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <Label text="Enrolled Courses"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="enrolledTable" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="sectionIdColumn" text="Section ID"/>
+            <TableColumn fx:id="courseIdColumn" text="Course ID"/>
+            <TableColumn fx:id="courseNameColumn" text="Course Name"/>
+            <TableColumn fx:id="unitsColumn" text="Units"/>
+            <TableColumn fx:id="instructorColumn" text="Instructor"/>
+            <TableColumn fx:id="priceColumn" text="Price"/>
+            <TableColumn fx:id="dropColumn" text="Action"/>
+        </columns>
+    </TableView>
+
+    <Button text="Refresh Enrolled Courses"
+            onAction="#handleRefresh"/>
+
+    <Label fx:id="statusLabel"/>
+
+</VBox>

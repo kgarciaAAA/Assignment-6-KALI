@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="600" prefWidth="800"
+            xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            fx:controller="baccportal.controllers.FacultyDashboardController">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #1f2937;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <Label text="BACC Faculty Portal"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label fx:id="welcomeLabel"
+                   text="Welcome"
+                   style="-fx-font-size: 14px; -fx-text-fill: white;"/>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox prefWidth="210" spacing="12" style="-fx-background-color: #374151;">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Button maxWidth="Infinity" text="Overview" onAction="#showOverview"/>
+            <Button maxWidth="Infinity" text="My Sections" onAction="#showMySections"/>
+            <Button maxWidth="Infinity" text="Change Password" onAction="#showChangePassword"/>
+            <Button maxWidth="Infinity" text="Log out" onAction="#handleLogout"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox fx:id="contentBox" spacing="15">
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
+        </VBox>
+    </center>
+
+</BorderPane>

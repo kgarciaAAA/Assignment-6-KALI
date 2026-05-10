@@ -2,6 +2,7 @@ package baccportal.controllers;
 
 import baccportal.App;
 import baccportal.model.users.User;
+import baccportal.model.services.PasswordService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,6 +24,8 @@ public class ChangePasswordController {
     @FXML private Button confirmToggleButton;
 
     @FXML private Label statusLabel;
+
+    private final PasswordService passwordService = App.getAppData().getPasswordService();
 
     @FXML
     private void initialize() {
@@ -64,7 +67,7 @@ public class ChangePasswordController {
             return;
         }
 
-        if (!user.comparePassword(currentPassword)) {
+        if (!passwordService.verifyPassword(user, currentPassword)) {
             statusLabel.setText("Current password is incorrect.");
             return;
         }
@@ -74,8 +77,8 @@ public class ChangePasswordController {
             return;
         }
 
-        user.setPassword(newPassword);
-        App.getAppData().saveUsers();
+        passwordService.setPassword(user, newPassword);
+        
 
         clearFields();
         statusLabel.setText("Password updated successfully.");

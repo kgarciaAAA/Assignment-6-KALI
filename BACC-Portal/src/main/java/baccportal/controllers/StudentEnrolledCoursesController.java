@@ -15,7 +15,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableCell;
 
 public class StudentEnrolledCoursesController {
 
@@ -32,7 +31,7 @@ public class StudentEnrolledCoursesController {
     @FXML private Label statusLabel;
 
     private StudentUser student;
-    private final RegistrationService registrationService = new RegistrationService();
+    private final RegistrationService registrationService = App.getAppData().getRegistrationService();
 
     @FXML
     private void initialize() {
@@ -150,6 +149,7 @@ public class StudentEnrolledCoursesController {
 
         User refreshedUser = App.getAppData().getUserStorage().findUserById(studentId);
 
+        // TODO: instanceof checks. could consider a more flexible approach.
         if (refreshedUser instanceof StudentUser) {
             student = (StudentUser) refreshedUser;
             App.setCurrentUser(student);
@@ -185,11 +185,6 @@ public class StudentEnrolledCoursesController {
             statusLabel.setText("Could not drop section.");
             return;
         }
-
-        student.adjustBalanceOwed(-section.getPrice());
-
-        App.getAppData().saveUsers();
-        App.getAppData().saveSections();
 
         loadEnrolledCourses();
 

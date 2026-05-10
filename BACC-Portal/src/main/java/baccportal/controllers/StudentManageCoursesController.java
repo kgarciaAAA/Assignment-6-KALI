@@ -2,7 +2,6 @@ package baccportal.controllers;
 
 import baccportal.App;
 import baccportal.model.academics.CourseSection;
-import baccportal.model.services.PaymentService;
 import baccportal.model.services.RegistrationService;
 import baccportal.model.storage.CourseStorage;
 import baccportal.model.users.StudentUser;
@@ -33,14 +32,13 @@ public class StudentManageCoursesController {
 
     private StudentUser student;
     private final CourseStorage courseStorage = App.getAppData().getCourseStorage();
-
-    private final RegistrationService registrationService = new RegistrationService();
-    private final PaymentService paymentService = new PaymentService();
+    private final RegistrationService registrationService = App.getAppData().getRegistrationService();
 
     @FXML
     private void initialize() {
         User user = App.getCurrentUser();
 
+        // TODO: instanceof checks. could consider a more flexible approach.
         if (user instanceof StudentUser) {
             student = (StudentUser) user;
             setupTable();
@@ -102,7 +100,7 @@ public class StudentManageCoursesController {
     private void loadSections() {
         sectionsTable.getItems().clear();
         sectionsTable.getItems().addAll(
-                App.getAppData().getCourseStorage().getAllSections().values()
+                courseStorage.getAllSections().values()
         );
     }
 
@@ -152,11 +150,6 @@ public class StudentManageCoursesController {
             statusLabel.setText("Enrollment failed. Check duplicate enrollment, prerequisites, or capacity.");
             return;
         }
-
-        paymentService.addCharge(student, section.getPrice());
-
-        App.getAppData().saveUsers();
-        App.getAppData().saveSections();
 
         sectionIdField.clear();
         accessCodeField.clear();

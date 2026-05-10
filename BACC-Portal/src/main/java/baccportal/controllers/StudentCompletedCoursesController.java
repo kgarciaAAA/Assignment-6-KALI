@@ -103,6 +103,7 @@ public class StudentCompletedCoursesController {
 
         User refreshedUser = App.getAppData().getUserStorage().findUserById(studentId);
 
+        // TODO: instanceof checks. could consider a more flexible approach.
         if (refreshedUser instanceof StudentUser) {
             student = (StudentUser) refreshedUser;
             App.setCurrentUser(student);

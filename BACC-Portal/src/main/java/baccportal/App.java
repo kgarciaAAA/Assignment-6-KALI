@@ -2,7 +2,7 @@ package baccportal;
 
 import java.io.IOException;
 
-import baccportal.model.storage.AppData;
+import baccportal.model.data.AppData;
 import baccportal.model.users.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,10 +14,11 @@ public class App extends Application {
 
     private static Scene scene;
     private static User currentUser;
-    private static final AppData appData = new AppData();
+    private static AppData appData;
 
     @Override
     public void start(Stage stage) throws IOException {
+        appData = new AppData();
         appData.load();
 
         scene = new Scene(loadFXML("login"), 800, 600);

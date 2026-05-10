@@ -2,20 +2,21 @@ package baccportal.controllers;
 
 import baccportal.App;
 import baccportal.model.academics.CourseSection;
-import baccportal.model.storage.UserStorage;
+import baccportal.model.services.AcademicRecordsService;
+import baccportal.model.services.FacultyService;
 import baccportal.model.users.FacultyUser;
 import baccportal.model.users.StudentUser;
 import baccportal.model.users.User;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
 public class FacultySectionsController {
 
@@ -37,7 +38,8 @@ public class FacultySectionsController {
     @FXML private Label statusLabel;
 
     private FacultyUser faculty;
-    private final UserStorage userStorage = App.getAppData().getUserStorage();
+    private final FacultyService facultyService = App.getAppData().getFacultyService();
+    private final AcademicRecordsService academicRecordsService = App.getAppData().getAcademicRecordsService();
 
     @FXML
     private void initialize() {
@@ -115,17 +117,7 @@ public class FacultySectionsController {
     }
 
     private void loadSections() {
-        sectionsTable.getItems().clear();
-
-        String facultyName = faculty.getFullName().trim();
-
-        for (CourseSection section : App.getAppData().getCourseStorage().getAllSections().values()) {
-            String instructorName = section.getInstructorName().trim();
-
-            if (instructorName.equalsIgnoreCase(facultyName)) {
-                sectionsTable.getItems().add(section);
-            }
-        }
+        sectionsTable.getItems().setAll(facultyService.getSectionsTaughtByFaculty(faculty));
 
         if (sectionsTable.getItems().isEmpty()) {
             statusLabel.setText("No sections assigned.");
@@ -154,6 +146,9 @@ public class FacultySectionsController {
         statusLabel.setText("Sections and students refreshed.");
     }
 
+    /** 
+     * Marks a selected student as completed for a selected section.
+     */
     @FXML
     private void handleMarkSelectedCompleted() {
         if (faculty == null) {
@@ -168,7 +163,7 @@ public class FacultySectionsController {
             return;
         }
 
-        if (!facultyTeachesSection(sectionId)) {
+        if (!facultyService.teachesSection(faculty, sectionId)) {
             statusLabel.setText("You are not assigned to this section.");
             return;
         }
@@ -180,14 +175,7 @@ public class FacultySectionsController {
             return;
         }
 
-        CourseSection targetSection = null;
-
-        for (CourseSection section : selectedStudent.getEnrolledSections()) {
-            if (section.getSectionId().equalsIgnoreCase(sectionId)) {
-                targetSection = section;
-                break;
-            }
-        }
+        CourseSection targetSection = academicRecordsService.findEnrolledSection(selectedStudent, sectionId);
 
         if (targetSection == null) {
             statusLabel.setText("Selected student is not enrolled in this section.");
@@ -202,18 +190,12 @@ public class FacultySectionsController {
             return;
         }
 
-        boolean completed = selectedStudent.completeSection(targetSection);
+        boolean completed = academicRecordsService.completeSection(selectedStudent, targetSection);
 
         if (!completed) {
             statusLabel.setText("Could not mark section completed.");
             return;
         }
-
-        // This is the important line.
-        targetSection.decrementCurrentCapacity();
-
-        App.getAppData().saveUsers();
-        App.getAppData().saveSections();
 
         loadSections();
         handleViewStudents();
@@ -237,30 +219,19 @@ public class FacultySectionsController {
             return;
         }
 
-        if (!facultyTeachesSection(sectionId)) {
+        if (!facultyService.teachesSection(faculty, sectionId)) {
             studentsTable.getItems().clear();
             statusLabel.setText("You are not assigned to this section.");
             return;
         }
 
-        studentsTable.getItems().clear();
+        studentsTable.getItems().setAll(academicRecordsService.getStudentsInSection(sectionId));
 
-        for (StudentUser student : App.getAppData().getUserStorage().getStudentsList()) {
-            for (CourseSection section : student.getEnrolledSections()) {
-                if (section.getSectionId().equalsIgnoreCase(sectionId)) {
-                    studentsTable.getItems().add(student);
-                    break;
-                }
-            }
-        }
-
-        if (studentsTable.getItems().isEmpty()) {
+        if (studentsTable.getItems().isEmpty())
             statusLabel.setText("No students enrolled in this section.");
-        } else {
+        else
             statusLabel.setText("Students loaded.");
-        }
     }
-
 
     private boolean confirmAction(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -271,24 +242,5 @@ public class FacultySectionsController {
         return alert.showAndWait()
                 .filter(response -> response == ButtonType.OK)
                 .isPresent();
-    }
-
-
-
-    private boolean facultyTeachesSection(String sectionId) {
-        String facultyName = faculty.getFullName().trim();
-
-        for (CourseSection section : App.getAppData().getCourseStorage().getAllSections().values()) {
-            String instructorName = section.getInstructorName().trim();
-
-            boolean sameInstructor = instructorName.equalsIgnoreCase(facultyName);
-            boolean sameSection = section.getSectionId().trim().equalsIgnoreCase(sectionId.trim());
-
-            if (sameInstructor && sameSection) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

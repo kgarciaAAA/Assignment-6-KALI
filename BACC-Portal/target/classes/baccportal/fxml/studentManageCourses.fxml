@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      fx:controller="baccportal.controllers.StudentManageCoursesController">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <Label text="Enroll in a Course"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <Label text="Available Sections"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="sectionsTable" prefHeight="250">
+        <columns>
+            <TableColumn fx:id="sectionIdColumn" text="Section ID"/>
+            <TableColumn fx:id="courseIdColumn" text="Course ID"/>
+            <TableColumn fx:id="courseNameColumn" text="Course Name"/>
+            <TableColumn fx:id="unitsColumn" text="Units"/>
+            <TableColumn fx:id="instructorColumn" text="Instructor"/>
+            <TableColumn fx:id="capacityColumn" text="Capacity"/>
+            <TableColumn fx:id="priceColumn" text="Price"/>
+        </columns>
+    </TableView>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Section ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="sectionIdField"
+                   promptText="Enter section ID"
+                   GridPane.rowIndex="0"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="Access Code:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="accessCodeField"
+                   promptText="Enter access code"
+                   GridPane.rowIndex="1"
+                   GridPane.columnIndex="1"/>
+
+        <Button text="Enroll"
+                onAction="#handleEnroll"
+                GridPane.rowIndex="2"
+                GridPane.columnIndex="1"/>
+
+        <Button text="Refresh"
+                onAction="#handleRefresh"
+                GridPane.rowIndex="2"
+                GridPane.columnIndex="2"/>
+    </GridPane>
+
+    <Label fx:id="statusLabel"/>
+
+</VBox>

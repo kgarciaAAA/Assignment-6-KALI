@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      fx:controller="baccportal.controllers.AdminFacultyController">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <Label text="Manage Faculty"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="facultyTable" prefHeight="250">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID"/>
+            <TableColumn fx:id="nameColumn" text="Name"/>
+            <TableColumn fx:id="emailColumn" text="Email"/>
+            <TableColumn fx:id="departmentColumn" text="Department"/>
+            <TableColumn fx:id="deleteColumn" text="Action"/>
+        </columns>
+    </TableView>
+
+    <Label text="Add New Faculty"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Email:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="emailField" promptText="Email" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Faculty ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="idField" promptText="Faculty ID" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Password:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <PasswordField fx:id="passwordField" promptText="Password" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Full Name:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="nameField" promptText="Full Name" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Department:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="departmentBox" promptText="Select Department" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Button text="Add Faculty" onAction="#handleAddFaculty" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <Label fx:id="statusLabel"/>
+
+</VBox>

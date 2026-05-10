@@ -2,7 +2,7 @@ package baccportal.model.academics;
 
 public class CourseSection {
     private final Course course;
-    private final String instructorName;
+    private String instructorName;
     private final String sectionId;
     private final String accessCode;
     private final double price;
@@ -41,6 +41,10 @@ public class CourseSection {
     public double getPrice() {
         return price;
     }
+    
+    public boolean isAtCapacity() {
+        return currentCapacity == totalCapacity;
+    }
 
     public int getTotalCapacity() {
         return totalCapacity;
@@ -50,13 +54,26 @@ public class CourseSection {
         return currentCapacity;
     }
 
-    //controlled updates
+    //TODO: added exceptions, but could be potentially removed.  
+    // added control to prevent section from being over capacity
     public void incrementCurrentCapacity(){
+        if (isAtCapacity())
+            throw new IllegalStateException("Section is at full capacity.");
+        
         currentCapacity++;
     }
+    
+    //TODO: same as above. Could be potentially removed.
+    // free up space in section
     public void decrementCurrentCapacity() {
-        if (currentCapacity > 0) {
-            currentCapacity--;
-        }
+        if (currentCapacity <= 0)
+            throw new IllegalStateException("Section is at minimum capacity.");
+        
+        currentCapacity--;
+    }
+
+    // Used when the assigned faculty member is removed and the section needs to be reassigned.
+    public void setInstructorName(String instructorName) {
+        this.instructorName = instructorName;
     }
 }

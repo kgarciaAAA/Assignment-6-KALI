@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      fx:controller="baccportal.controllers.AdminStudentsController">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <Label text="Manage Students"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="studentTable" prefHeight="250">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID"/>
+            <TableColumn fx:id="nameColumn" text="Name"/>
+            <TableColumn fx:id="emailColumn" text="Email"/>
+            <TableColumn fx:id="balanceColumn" text="Balance"/>
+            <TableColumn fx:id="deleteColumn" text="Action"/>
+        </columns>
+    </TableView>
+
+    <Button text="Refresh Students"
+            onAction="#handleRefresh"/>
+
+    <Label text="Add New Student"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Email:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="emailField" promptText="Email" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Student ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="idField" promptText="Student ID" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Password:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <PasswordField fx:id="passwordField" promptText="Password" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Full Name:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="nameField" promptText="Full Name" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Major:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField fx:id="majorField" promptText="Major Name" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="Department:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="departmentBox" promptText="Select Department" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+        <Label text="Balance:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <TextField fx:id="balanceField" promptText="Balance Owed" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+        <Button text="Add Student" onAction="#handleAddStudent" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <Label fx:id="statusLabel"/>
+
+</VBox>

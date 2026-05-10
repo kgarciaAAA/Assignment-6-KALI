@@ -1,12 +1,18 @@
-package baccportal.model.storage;
+package baccportal.model.data;
 
 import java.io.IOException;
 
-import baccportal.model.data.CourseFileHandler;
-import baccportal.model.data.SectionFileHandler;
-import baccportal.model.data.UserFileHandler;
+import baccportal.model.services.AcademicRecordsService;
+import baccportal.model.services.AdminService;
+import baccportal.model.services.AuthService;
+import baccportal.model.services.FacultyService;
+import baccportal.model.services.PasswordService;
+import baccportal.model.services.PaymentService;
+import baccportal.model.services.RegistrationService;
+import baccportal.model.storage.CourseStorage;
+import baccportal.model.storage.UserStorage;
 
-public class AppData {
+public class AppData implements PersistencePort {
 
     private final UserStorage userStorage;
     private final CourseStorage courseStorage;
@@ -15,6 +21,14 @@ public class AppData {
     private final CourseFileHandler courseFileHandler;
     private final SectionFileHandler sectionFileHandler;
 
+    private final AdminService adminService;
+    private final AcademicRecordsService academicRecordsService;
+    private final FacultyService facultyService;
+    private final PasswordService passwordService;
+    private final AuthService authService;
+    private final PaymentService paymentService;
+    private final RegistrationService registrationService;
+
     public AppData() {
         this.userStorage = new UserStorage();
         this.courseStorage = new CourseStorage();
@@ -22,6 +36,15 @@ public class AppData {
         this.userFileHandler = new UserFileHandler();
         this.courseFileHandler = new CourseFileHandler();
         this.sectionFileHandler = new SectionFileHandler();
+
+        // Services that impact persisted state, get this as a dependency.
+        this.adminService = new AdminService(userStorage, courseStorage, this);
+        this.academicRecordsService = new AcademicRecordsService(userStorage, this);
+        this.facultyService = new FacultyService();
+        this.passwordService = new PasswordService(this);
+        this.authService = new AuthService(userStorage, passwordService);
+        this.paymentService = new PaymentService(this);
+        this.registrationService = new RegistrationService(paymentService, this);
     }
 
     public void load() {
@@ -93,6 +116,7 @@ public class AppData {
         }
     }
 
+    @Override
     public void saveUsers() {
         try {
             userFileHandler.writeAdminUsersToFile(userStorage);
@@ -104,6 +128,7 @@ public class AppData {
         }
     }
 
+    @Override
     public void saveCourses() {
         try {
             courseFileHandler.writeCoursesToFile(courseStorage);
@@ -113,6 +138,7 @@ public class AppData {
         }
     }
 
+    @Override
     public void saveSections() {
         try {
             sectionFileHandler.writeSectionsToFile(courseStorage);
@@ -128,5 +154,33 @@ public class AppData {
 
     public CourseStorage getCourseStorage() {
         return courseStorage;
+    }
+
+    public AdminService getAdminService() {
+        return adminService;
+    }
+
+    public AcademicRecordsService getAcademicRecordsService() {
+        return academicRecordsService;
+    }
+
+    public FacultyService getFacultyService() {
+        return facultyService;
+    }
+
+    public AuthService getAuthService() {
+        return authService;
+    }
+
+    public PasswordService getPasswordService() {
+        return passwordService;
+    }
+
+    public PaymentService getPaymentService() {
+        return paymentService;
+    }
+
+    public RegistrationService getRegistrationService() {
+        return registrationService;
     }
 }

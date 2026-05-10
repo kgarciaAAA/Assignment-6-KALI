@@ -3,9 +3,9 @@ package baccportal.controllers;
 import baccportal.App;
 import baccportal.model.academics.Course;
 import baccportal.model.academics.CourseSection;
+import baccportal.model.services.AdminService;
 import baccportal.model.storage.CourseStorage;
 import baccportal.model.users.FacultyUser;
-import baccportal.model.users.StudentUser;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -36,6 +36,7 @@ public class AdminSectionsController {
     @FXML private Label statusLabel;
 
     private final CourseStorage courseStorage = App.getAppData().getCourseStorage();
+    private final AdminService adminService = App.getAppData().getAdminService();
 
     @FXML
     private void initialize() {
@@ -191,11 +192,6 @@ public class AdminSectionsController {
             return;
         }
 
-        if (courseStorage.getSection(sectionId) != null) {
-            statusLabel.setText("Section ID already exists.");
-            return;
-        }
-
         try {
             double price = Double.parseDouble(priceText);
             int totalCapacity = Integer.parseInt(totalCapacityText);
@@ -221,8 +217,12 @@ public class AdminSectionsController {
                     currentCapacity
             );
 
-            courseStorage.addSection(section);
-            App.getAppData().saveSections();
+            boolean added = adminService.addSection(section);
+
+            if (!added) {
+                statusLabel.setText("Section ID already exists.");
+                return;
+            }
 
             clearAddForm();
             loadSections();
@@ -246,24 +246,14 @@ public class AdminSectionsController {
             return;
         }
 
-        CourseSection removedSection = courseStorage.removeSectionById(section.getSectionId());
+        boolean removed = adminService.deleteSection(section.getSectionId());
 
-        if (removedSection == null) {
+        if (!removed) {
             statusLabel.setText("Section not found.");
             return;
         }
 
-        for (StudentUser student : App.getAppData().getUserStorage().getStudentsList()) {
-            student.removeEnrolledSection(removedSection);
-            student.removeCompletedSection(removedSection);
-        }
-
-        for (FacultyUser faculty : App.getAppData().getUserStorage().getFacultyList()) {
-            faculty.removeSectionTaught(removedSection);
-        }
-
-        App.getAppData().saveSections();
-        App.getAppData().saveUsers();
+        
 
         loadSections();
         statusLabel.setText("Section deleted successfully.");

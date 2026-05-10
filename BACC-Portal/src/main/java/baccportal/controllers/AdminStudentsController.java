@@ -4,7 +4,6 @@ import baccportal.App;
 import baccportal.model.academics.Department;
 import baccportal.model.academics.Major;
 import baccportal.model.services.AdminService;
-import baccportal.model.storage.UserStorage;
 import baccportal.model.users.StudentUser;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -30,8 +29,7 @@ public class AdminStudentsController {
 
     @FXML private Label statusLabel;
 
-    private final UserStorage userStorage = App.getAppData().getUserStorage();
-    private final AdminService adminService = new AdminService(userStorage);
+    private final AdminService adminService = App.getAppData().getAdminService();
 
     @FXML
     private void initialize() {
@@ -172,8 +170,6 @@ public class AdminStudentsController {
                 return;
             }
 
-            App.getAppData().saveUsers();
-            App.getAppData().reloadUsers();
 
             clearAddForm();
             loadStudents();
@@ -205,8 +201,6 @@ public class AdminStudentsController {
             return;
         }
 
-        App.getAppData().saveUsers();
-        App.getAppData().reloadUsers();
 
         loadStudents();
         statusLabel.setText("Student deleted successfully.");

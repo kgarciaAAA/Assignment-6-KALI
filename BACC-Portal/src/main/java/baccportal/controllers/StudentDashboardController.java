@@ -122,7 +122,7 @@ public class StudentDashboardController {
 
     @FXML
     private void handleLogout() throws IOException {
-        App.setCurrentUser(null);
+        App.getAppData().getAuthService().logout();
         App.setRoot("login");
     }
 }

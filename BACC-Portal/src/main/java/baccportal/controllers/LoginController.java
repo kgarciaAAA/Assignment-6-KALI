@@ -5,6 +5,7 @@ import baccportal.model.users.AdminUser;
 import baccportal.model.users.FacultyUser;
 import baccportal.model.users.StudentUser;
 import baccportal.model.users.User;
+import baccportal.model.services.AuthService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,9 +21,8 @@ public class LoginController {
     @FXML private Label statusLabel;
 
     private boolean passwordVisible = false;
-
-
-
+    private final AuthService authService = App.getAppData().getAuthService();
+    
     @FXML
     private void initialize() {
         visiblePasswordField.textProperty().bindBidirectional(passwordField.textProperty());
@@ -43,7 +43,6 @@ public class LoginController {
 
     @FXML
     private void handleLogin() {
-        App.getAppData().reloadUsers();
 
         String id = userIdField.getText().trim();
         String password = passwordField.getText();
@@ -53,16 +52,16 @@ public class LoginController {
             return;
         }
 
-        User user = App.getAppData().getUserStorage().findUserById(id);
+        User user = authService.login(id, password);
 
-        if (user == null || !user.comparePassword(password)) {
+        if (user == null) {
             statusLabel.setText("Invalid login.");
             return;
         }
 
         try {
             App.setCurrentUser(user);
-
+            // TODO: Instanceof checks. We should perhaps consider a more flexible approach.
             if (user instanceof StudentUser) {
                 App.setRoot("studentDashboard");
             } else if (user instanceof FacultyUser) {

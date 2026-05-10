@@ -48,7 +48,11 @@ public class StudentUser extends User {
         completedSections.add(section);
     }
 
+    // TODO: added exception, but could be potentially removed.
     public void addEnrolledSection(CourseSection section) {
+        if (enrolledSections.contains(section))
+            throw new IllegalStateException("Student is already enrolled in this section.");
+        
         enrolledSections.add(section);
     }
 
@@ -64,17 +68,30 @@ public class StudentUser extends User {
         return completedSections.remove(section);
     }
 
-    public boolean completeSection(CourseSection section) {
-        boolean removed = enrolledSections.remove(section);
+    // TODO: Service already has this method. We should be able to remove this.
+    // public boolean completeSection(CourseSection section) {
+    //     boolean removed = enrolledSections.remove(section);
 
-        if (removed) {
-            completedSections.add(section);
-        }
+    //     if (removed) {
+    //         completedSections.add(section);
+    //     }
 
-        return removed;
+    //     return removed;
+    // }
+
+    // TODO: added exceptions, but could be potentially removed.
+    public void incrementBalanceOwed(double amount) {
+        if (amount < 0)
+            throw new IllegalArgumentException("Amount must be non-negative.");
+        
+        balanceOwed += amount;
     }
 
-    public void adjustBalanceOwed(double amount) {
-        this.balanceOwed += amount;
+    // TODO: added exceptions, but could be potentially removed.
+    public void decrementBalanceOwed(double amount) {
+        if (amount < 0)
+            throw new IllegalArgumentException("Amount must be non-negative.");
+        
+        balanceOwed -= amount;
     }
 }

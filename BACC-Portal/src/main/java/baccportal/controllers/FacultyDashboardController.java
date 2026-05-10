@@ -18,7 +18,6 @@ public class FacultyDashboardController {
     @FXML private VBox contentBox;
 
     private FacultyUser faculty;
-
     @FXML
     private void initialize() {
         User user = App.getCurrentUser();
@@ -103,7 +102,7 @@ public class FacultyDashboardController {
 
     @FXML
     private void handleLogout() throws IOException {
-        App.setCurrentUser(null);
+        App.getAppData().getAuthService().logout();
         App.setRoot("login");
     }
 }

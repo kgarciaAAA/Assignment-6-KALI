@@ -30,7 +30,7 @@ public class StudentPaymentController {
     @FXML private Label statusLabel;
 
     private StudentUser student;
-    private final PaymentService paymentService = new PaymentService();
+    private final PaymentService paymentService = App.getAppData().getPaymentService();
 
     @FXML
     private void initialize() {
@@ -96,7 +96,6 @@ public class StudentPaymentController {
 
             Receipt receipt = paymentService.processPayment(student, paymentInfo, amount);
 
-            App.getAppData().saveUsers();
 
             clearForm();
             updateSummary();

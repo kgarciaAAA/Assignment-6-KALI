@@ -26,6 +26,7 @@ public class StudentTransactionsController {
     private void initialize() {
         User user = App.getCurrentUser();
 
+    // TODO: instanceof checks. could consider a more flexible approach.
         if (user instanceof StudentUser) {
             student = (StudentUser) user;
             setupTable();

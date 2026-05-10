@@ -3,10 +3,10 @@ package baccportal.model.users;
 import baccportal.model.utilities.PasswordUtil;
 
 public abstract class User {
-    protected String email;
-    protected String userId;
-    protected String password;
-    protected String fullName;
+    private String email;
+    private String userId;
+    private String password;
+    private String fullName;
 
     //constructor
     public User(String email, String userId, String password, String fullName, boolean isHashed){

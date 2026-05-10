@@ -5,7 +5,7 @@ import java.util.List;
 import baccportal.model.academics.CourseSection;
 import baccportal.model.users.FacultyUser;
 
-public class FacultyService {
+public class FacultyService {   
     public CourseSection findSectionById(FacultyUser user, String sectionId) {
         List<CourseSection> taughtList = user.getSectionsTaught();
         for (CourseSection section : taughtList) {
@@ -23,4 +23,14 @@ public class FacultyService {
         }
         return user.removeSectionTaught(section);
     }
+
+    public List<CourseSection> getSectionsTaughtByFaculty(FacultyUser user) {
+        return user.getSectionsTaught();
+    }
+
+    public boolean teachesSection(FacultyUser user, String sectionId) {
+        return findSectionById(user, sectionId) != null;
+    }
+
+    
 }

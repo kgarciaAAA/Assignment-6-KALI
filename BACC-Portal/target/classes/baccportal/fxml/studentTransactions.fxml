@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      fx:controller="baccportal.controllers.StudentTransactionsController">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <Label text="Transaction History"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="transactionTable" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="receiptIdColumn" text="Receipt ID"/>
+            <TableColumn fx:id="paidColumn" text="Paid"/>
+            <TableColumn fx:id="remainingBalanceColumn" text="Remaining Balance"/>
+        </columns>
+    </TableView>
+
+    <Label fx:id="statusLabel"/>
+
+</VBox>
