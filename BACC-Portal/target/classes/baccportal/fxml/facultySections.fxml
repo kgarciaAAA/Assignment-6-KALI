@@ -51,6 +51,7 @@
             <TableColumn fx:id="studentIdColumn" text="Student ID"/>
             <TableColumn fx:id="studentNameColumn" text="Name"/>
             <TableColumn fx:id="studentEmailColumn" text="Email"/>
+            <TableColumn fx:id="dropColumn" text="Drop"/>
         </columns>
     </TableView>
 

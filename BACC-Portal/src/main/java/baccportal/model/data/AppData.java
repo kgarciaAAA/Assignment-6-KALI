@@ -38,13 +38,13 @@ public class AppData implements PersistencePort {
         this.sectionFileHandler = new SectionFileHandler();
 
         // Services that impact persisted state, get this as a dependency.
-        this.adminService = new AdminService(userStorage, courseStorage, this);
-        this.academicRecordsService = new AcademicRecordsService(userStorage, courseStorage, this);
+        this.paymentService = new PaymentService(this);
+        this.registrationService = new RegistrationService(paymentService, this);
+        this.academicRecordsService = new AcademicRecordsService(userStorage, this);
         this.facultyService = new FacultyService();
         this.passwordService = new PasswordService(this);
         this.authService = new AuthService(userStorage, passwordService);
-        this.paymentService = new PaymentService(this);
-        this.registrationService = new RegistrationService(paymentService, this);
+        this.adminService = new AdminService(userStorage, courseStorage, this);
     }
 
     public void load() {

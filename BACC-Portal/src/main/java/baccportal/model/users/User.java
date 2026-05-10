@@ -48,7 +48,8 @@ public abstract class User {
     public int hashCode() {
         return userId == null ? 0 : userId.toLowerCase().hashCode();
     }
-    public void setPassword(String newPassword) {
-        this.password = PasswordUtil.hashPassword(newPassword);
+    
+    public void setPassword(String hashedPassword) {
+        this.password = hashedPassword;
     }
 }

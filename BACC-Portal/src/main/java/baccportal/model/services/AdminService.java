@@ -146,7 +146,12 @@ public class AdminService {
         return true;
     }
 
-    public boolean reassignSection(CourseSection section, FacultyUser instructor) {
+    public boolean reassignSection(String sectionId, FacultyUser instructor) {
+        CourseSection section = courseStorage.getSection(sectionId);
+        
+        if (section == null) 
+            return false;
+
         if (instructor == null)
             return false;
 

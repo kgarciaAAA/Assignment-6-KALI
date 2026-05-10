@@ -247,14 +247,13 @@ public class AdminSectionsController {
             return;
         }
 
-        CourseSection section = courseStorage.getSection(sectionId);
 
-        if (section == null) {
-            statusLabel.setText("Section ID does not exist.");
+        boolean reassigned = adminService.reassignSection(sectionId, selectedInstructor);
+
+        if (!reassigned) {
+            statusLabel.setText("Section ID does not exist or instructor is the same.");
             return;
         }
-
-        section.setInstructorName(selectedInstructor.getFullName());
 
         loadSections();
 

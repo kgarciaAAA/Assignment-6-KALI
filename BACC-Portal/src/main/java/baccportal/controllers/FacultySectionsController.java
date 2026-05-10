@@ -4,6 +4,7 @@ import baccportal.App;
 import baccportal.model.academics.CourseSection;
 import baccportal.model.services.AcademicRecordsService;
 import baccportal.model.services.FacultyService;
+import baccportal.model.services.RegistrationService;
 import baccportal.model.users.FacultyUser;
 import baccportal.model.users.StudentUser;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -41,6 +42,7 @@ public class FacultySectionsController {
     private FacultyUser faculty;
     private final FacultyService facultyService = App.getAppData().getFacultyService();
     private final AcademicRecordsService academicRecordsService = App.getAppData().getAcademicRecordsService();
+    private final RegistrationService registrationService = App.getAppData().getRegistrationService();
 
     @FXML
     private void initialize() {
@@ -264,7 +266,7 @@ public class FacultySectionsController {
             return;
         }
 
-        boolean dropped = academicRecordsService.dropSection(student, section);
+        boolean dropped = registrationService.drop(student, section);
 
         if (!dropped) {
             statusLabel.setText("Could not drop student from section.");
