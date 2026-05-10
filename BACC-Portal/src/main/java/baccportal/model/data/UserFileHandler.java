@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import baccportal.model.academics.CourseSection;
 import baccportal.model.academics.Department;
-import baccportal.model.academics.Major;
 import baccportal.model.storage.CourseStorage;
 import baccportal.model.storage.UserStorage;
 import baccportal.model.users.AdminUser;
@@ -25,7 +24,6 @@ public class UserFileHandler {
                 String fullName = snr.nextLine();
                 String majorName = snr.nextLine();
                 Department department = Department.stringToDepartment(snr.nextLine());
-                Major major = new Major(majorName, department);
                 double balanceOwed = Double.parseDouble(snr.nextLine());
                 String completedSectionsString = snr.nextLine();
                 String[] completedIds = completedSectionsString.split(",");
@@ -33,7 +31,7 @@ public class UserFileHandler {
                 String[] enrolledIds = enrolledSectionsString.split(",");
                 String receiptInfoString = snr.nextLine();
                 String[] receiptInfoArr = receiptInfoString.split(",");
-                StudentUser user = new StudentUser(email, userId, password, fullName, true, major, balanceOwed);
+                StudentUser user = new StudentUser(email, userId, password, fullName, true, majorName, department,balanceOwed);
                 
                 if (!completedIds[0].trim().equalsIgnoreCase("NONE")) {
                     for (String id : completedIds) {
@@ -133,8 +131,8 @@ public class UserFileHandler {
                     out.println("Undeclared");
                     out.println("NONE");
                 } else {
-                    out.println(user.getMajor().getMajorName());
-                    out.println(user.getMajor().getDepartment());
+                    out.println(user.getMajor());
+                    out.println(user.getDepartment());
                 }
 
                 out.println(user.getBalanceOwed());

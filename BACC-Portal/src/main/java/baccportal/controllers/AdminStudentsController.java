@@ -1,7 +1,6 @@
 package baccportal.controllers;
 
 import baccportal.model.academics.Department;
-import baccportal.model.academics.Major;
 import baccportal.model.data.AppData;
 import baccportal.model.services.AdminService;
 import baccportal.model.users.StudentUser;
@@ -157,7 +156,6 @@ public class AdminStudentsController {
             }
 
             double balance = Double.parseDouble(balanceText);
-            Major major = new Major(majorName, department);
 
             StudentUser student = new StudentUser(
                     email,
@@ -165,7 +163,8 @@ public class AdminStudentsController {
                     password,
                     fullName,
                     false,
-                    major,
+                    majorName,
+                    department,
                     balance
             );
 

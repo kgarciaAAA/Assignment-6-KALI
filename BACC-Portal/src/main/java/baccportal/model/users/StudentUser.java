@@ -4,28 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import baccportal.model.academics.CourseSection;
-import baccportal.model.academics.Major;
+import baccportal.model.academics.Department;
 import baccportal.model.utilities.Receipt;
 
 public class StudentUser extends User {
-    private final Major major;
+    private final String major;
+    private final Department department;
     private double balanceOwed;
     private final List<CourseSection> completedSections;
     private final List<CourseSection> enrolledSections;
     private final List<Receipt> transactionHistory;
 
     public StudentUser(String email, String userId, String password, String fullName,
-                       boolean isHashed, Major major, double balanceOwed) {
+                       boolean isHashed, String major, Department department, double balanceOwed) {
         super(email, userId, password, fullName, isHashed);
         this.major = major;
+        this.department = department;
         this.balanceOwed = balanceOwed;
         this.completedSections = new ArrayList<>();
         this.enrolledSections = new ArrayList<>();
         this.transactionHistory = new ArrayList<>();
     }
 
-    public Major getMajor() {
+    public String getMajor() {
         return major;
+    }
+
+    public Department getDepartment() {
+        return department;
     }
 
     public double getBalanceOwed() {
