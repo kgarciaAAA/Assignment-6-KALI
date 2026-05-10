@@ -38,7 +38,7 @@ public class Course {
             return false;
         } else {
             Course other = (Course) o;
-            return this.courseId.equals(other.courseId);
+            return this.courseId.equalsIgnoreCase(other.courseId);
         }
     }
 

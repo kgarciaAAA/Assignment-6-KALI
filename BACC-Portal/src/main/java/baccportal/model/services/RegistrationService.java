@@ -44,7 +44,6 @@ public class RegistrationService {
             section.decrementCurrentCapacity();
             paymentService.processRefund(user, section.getPrice());
 
-            persistence.saveUsers();
             persistence.saveSections();
         }
 

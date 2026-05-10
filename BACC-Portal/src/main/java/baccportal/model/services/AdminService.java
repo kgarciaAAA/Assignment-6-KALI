@@ -115,20 +115,25 @@ public class AdminService {
         return true;
     }
 
-    public boolean deleteCourse(String courseId) {
-        // Pulls every section that belongs to this course out of storage first.
+    // Pulls every section that belongs to this course out of storage first.
         // Used to clean up the references the user objects still hold to those sections.
+    public boolean deleteCourse(String courseId) {
+        if (courseStorage.getCourse(courseId) == null)
+            return false;
+        
         List<CourseSection> removedSections = courseStorage.removeSectionsByCourseId(courseId);
 
         for (CourseSection section : removedSections)
             cleanUpSectionReferences(section);
         
-
         boolean removed = courseStorage.removeCourseById(courseId);
 
-        persistence.saveCourses();
-        persistence.saveSections();
-        persistence.saveUsers();
+        if (removed || !removedSections.isEmpty()) {
+            persistence.saveCourses();
+            persistence.saveSections();
+            persistence.saveUsers();
+        }
+
         return removed;
     }
 
