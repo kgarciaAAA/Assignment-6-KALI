@@ -1,8 +1,10 @@
 package baccportal.model.storage;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
-
+import java.util.Map;
+import java.util.Locale;
 import baccportal.model.academics.CourseSection;
 import baccportal.model.users.AdminUser;
 import baccportal.model.users.FacultyUser;
@@ -10,47 +12,51 @@ import baccportal.model.users.StudentUser;
 import baccportal.model.users.User;
 
 public class UserStorage {
-    private final List<StudentUser> studentsList;
-    private final List<FacultyUser> facultyList;
-    private final List<AdminUser> adminList;
+    private final Map<String, StudentUser> students;
+    private final Map<String, FacultyUser> faculty;
+    private final Map<String, AdminUser> admins;
+
+    // Ensures that user IDs are always stored in a consistent format.
+    private static String consistentUserID(String userId) {
+        // Using Locale.ENGLISH to ensure consistent case conversion.
+        return userId.toLowerCase(Locale.ENGLISH);
+    }
 
     //constructor
     public UserStorage() {
-        studentsList = new ArrayList<>();
-        facultyList = new ArrayList<>();
-        adminList = new ArrayList<>();
+        students = new LinkedHashMap<>();
+        faculty = new LinkedHashMap<>();
+        admins = new LinkedHashMap<>();
     }
 
     //getters
     public List<StudentUser> getStudentsList() {
-        return List.copyOf(studentsList);
+        return List.copyOf(students.values());
     }
 
     public List<FacultyUser> getFacultyList() {
-        return List.copyOf(facultyList);
+        return List.copyOf(faculty.values());
     }
 
     public List<AdminUser> getAdminList() {
-        return List.copyOf(adminList);
+        return List.copyOf(admins.values());
     }
 
     public boolean exists(User user) {
-        for (StudentUser student : studentsList)
-            if (student.equals(user)) return true;
-
-        for (FacultyUser faculty : facultyList)
-            if (faculty.equals(user)) return true;
-
-        for (AdminUser admin : adminList)
-            if (admin.equals(user)) return true;
-
-        return false;
+        String id = user.getUserId();
+        if (id == null) {
+            return false;
+        }
+        String key = consistentUserID(id);
+        return students.containsKey(key)
+                || faculty.containsKey(key)
+                || admins.containsKey(key);
     }
 
     public List<FacultyUser> findFacultyUsersByName(String name) {
         List<FacultyUser> foundUsers = new ArrayList<>();
-        for(FacultyUser user : facultyList) {
-            if (user.getFullName().equalsIgnoreCase(name)){
+        for (FacultyUser user : faculty.values()) {
+            if (user.getFullName().equalsIgnoreCase(name)) {
                 foundUsers.add(user);
             }
         }
@@ -58,92 +64,73 @@ public class UserStorage {
     }
 
     public User findUserById(String userId) {
-        for (StudentUser student : studentsList) {
-            if (student.getUserId().equalsIgnoreCase(userId)) {
-                return student;
-            }
-        }
+        String key = consistentUserID(userId);
 
-        for (FacultyUser faculty : facultyList) {
-            if (faculty.getUserId().equalsIgnoreCase(userId)) {
-                return faculty;
-            }
-        }
-
-        for (AdminUser admin : adminList) {
-            if (admin.getUserId().equalsIgnoreCase(userId)) {
-                return admin;
-            }
-        }
-
-        return null;
+        StudentUser student = students.get(key);
+        if (student != null) 
+            return student;
+        
+        FacultyUser facultyUser = faculty.get(key);
+        if (facultyUser != null) 
+            return facultyUser;
+        
+        return admins.get(key);
     }
 
     // Guranteed to return a student user with this id, or null if none.
     public StudentUser findStudentUserById(String userId) {
-        for (StudentUser student : studentsList) {
-            if (student.getUserId().equalsIgnoreCase(userId)) 
-                return student;
-        }
-
-        return null;
+        return students.get(consistentUserID(userId));
     }
 
     // Guranteed to return a faculty user with this id, or null if none.
     public FacultyUser findFacultyUserById(String userId) {
-        for (FacultyUser faculty : facultyList) {
-            if (faculty.getUserId().equalsIgnoreCase(userId))
-                return faculty;
-        }
-        
-        return null;
+        return faculty.get(consistentUserID(userId));
     }
 
     public boolean removeStudentById(String userId) {
-        return studentsList.removeIf(student -> student.getUserId().equalsIgnoreCase(userId));
+        return students.remove(consistentUserID(userId)) != null;
     }
 
     public boolean removeFacultyById(String userId) {
-        return facultyList.removeIf(faculty -> faculty.getUserId().equalsIgnoreCase(userId));
+        return faculty.remove(consistentUserID(userId)) != null;
     }
 
     // TODO: Moved from AdminService to UserStorage
     public void detachSectionFromAllFaculty(CourseSection section) {
-        for (FacultyUser faculty : facultyList) {
+        for (FacultyUser faculty : faculty.values()) {
             faculty.removeSectionTaught(section);
         }
     }
     // TODO: Moved from AdminService to UserStorage
     public void detachSectionFromAllStudents(CourseSection section) {
-        for (StudentUser student : studentsList) {
+        for (StudentUser student : students.values()) {
             student.removeEnrolledSection(section);
             student.removeCompletedSection(section);
         }
     }
 
     public boolean removeAdminById(String userId) {
-        return adminList.removeIf(admin -> admin.getUserId().equalsIgnoreCase(userId));
+        return admins.remove(consistentUserID(userId)) != null;
     }
 
     //controlled updates
     public void addStudentUser(StudentUser user) {
-        studentsList.add(user);
+        students.put(consistentUserID(user.getUserId()), user);
     }
 
     public void addFacultyUser(FacultyUser user) {
-        facultyList.add(user);
+        faculty.put(consistentUserID(user.getUserId()), user);
     }
 
     public void addAdminUser(AdminUser user) {
-        adminList.add(user);
+        admins.put(consistentUserID(user.getUserId()), user);
     }
 
     public void clearUsers() {
-        studentsList.clear();
-        facultyList.clear();
-        adminList.clear();
+        students.clear();
+        faculty.clear();
+        admins.clear();
     }
 }
-
 
 
