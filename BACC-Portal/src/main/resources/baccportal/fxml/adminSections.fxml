@@ -35,7 +35,10 @@
 
     <GridPane hgap="10" vgap="10">
         <Label text="Course ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <TextField fx:id="courseIdField" promptText="Existing Course ID" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <TextField fx:id="courseIdField"
+                   promptText="Existing Course ID"
+                   GridPane.rowIndex="0"
+                   GridPane.columnIndex="1"/>
 
         <Label text="Instructor:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
         <ComboBox fx:id="instructorBox"
@@ -44,18 +47,55 @@
                   GridPane.columnIndex="1"/>
 
         <Label text="Section ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <TextField fx:id="sectionIdField" promptText="Section ID" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <TextField fx:id="sectionIdField"
+                   promptText="Section ID"
+                   GridPane.rowIndex="2"
+                   GridPane.columnIndex="1"/>
 
         <Label text="Access Code:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <TextField fx:id="accessCodeField" promptText="Access Code" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <TextField fx:id="accessCodeField"
+                   promptText="Access Code"
+                   GridPane.rowIndex="3"
+                   GridPane.columnIndex="1"/>
 
         <Label text="Price:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-        <TextField fx:id="priceField" promptText="Price" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        <TextField fx:id="priceField"
+                   promptText="Price"
+                   GridPane.rowIndex="4"
+                   GridPane.columnIndex="1"/>
 
         <Label text="Total Capacity:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-        <TextField fx:id="totalCapacityField" promptText="Total Capacity" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+        <TextField fx:id="totalCapacityField"
+                   promptText="Total Capacity"
+                   GridPane.rowIndex="5"
+                   GridPane.columnIndex="1"/>
 
-        <Button text="Add Section" onAction="#handleAddSection" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+        <Button text="Add Section"
+                onAction="#handleAddSection"
+                GridPane.rowIndex="6"
+                GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <Label text="Reassign Faculty"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Section ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="reassignSectionIdField"
+                   promptText="Existing Section ID"
+                   GridPane.rowIndex="0"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="New Instructor:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="reassignInstructorBox"
+                  promptText="Select New Instructor"
+                  GridPane.rowIndex="1"
+                  GridPane.columnIndex="1"/>
+
+        <Button text="Reassign Faculty"
+                onAction="#handleReassignFaculty"
+                GridPane.rowIndex="2"
+                GridPane.columnIndex="1"/>
     </GridPane>
 
     <Label fx:id="statusLabel"/>

@@ -31,7 +31,9 @@ public class AdminSectionsController {
     @FXML private TextField accessCodeField;
     @FXML private TextField priceField;
     @FXML private TextField totalCapacityField;
-    @FXML private TextField currentCapacityField;
+
+    @FXML private TextField reassignSectionIdField;
+    @FXML private ComboBox<FacultyUser> reassignInstructorBox;
 
     @FXML private Label statusLabel;
 
@@ -42,7 +44,7 @@ public class AdminSectionsController {
     private void initialize() {
         setupTable();
         setupDeleteColumn();
-        setupInstructorBox();
+        setupInstructorBoxes();
         loadSections();
     }
 
@@ -105,7 +107,7 @@ public class AdminSectionsController {
 
             {
                 deleteButton.setOnAction(e -> {
-                    CourseSection section = getTableView().getItems().get(getIndex());
+                    CourseSection section = getTableRow().getItem();
                     deleteSection(section);
                 });
 
@@ -121,7 +123,7 @@ public class AdminSectionsController {
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
 
-                if (empty) {
+                if (empty || getTableRow() == null || getTableRow().getItem() == null) {
                     setGraphic(null);
                 } else {
                     setGraphic(deleteButton);
@@ -130,12 +132,21 @@ public class AdminSectionsController {
         });
     }
 
-    private void setupInstructorBox() {
+    private void setupInstructorBoxes() {
         instructorBox.getItems().setAll(
                 App.getAppData().getUserStorage().getFacultyList()
         );
 
-        instructorBox.setCellFactory(listView -> new ListCell<>() {
+        reassignInstructorBox.getItems().setAll(
+                App.getAppData().getUserStorage().getFacultyList()
+        );
+
+        setupFacultyComboBox(instructorBox);
+        setupFacultyComboBox(reassignInstructorBox);
+    }
+
+    private void setupFacultyComboBox(ComboBox<FacultyUser> comboBox) {
+        comboBox.setCellFactory(listView -> new ListCell<>() {
             @Override
             protected void updateItem(FacultyUser faculty, boolean empty) {
                 super.updateItem(faculty, empty);
@@ -148,7 +159,7 @@ public class AdminSectionsController {
             }
         });
 
-        instructorBox.setButtonCell(new ListCell<>() {
+        comboBox.setButtonCell(new ListCell<>() {
             @Override
             protected void updateItem(FacultyUser faculty, boolean empty) {
                 super.updateItem(faculty, empty);
@@ -195,8 +206,8 @@ public class AdminSectionsController {
             double price = Double.parseDouble(priceText);
             int totalCapacity = Integer.parseInt(totalCapacityText);
 
-            if (price < 0 || totalCapacity < 0) {
-                statusLabel.setText("Price and capacity cannot be negative.");
+            if (price < 0 || totalCapacity <= 0) {
+                statusLabel.setText("Price cannot be negative. Capacity must be greater than zero.");
                 return;
             }
 
@@ -222,8 +233,35 @@ public class AdminSectionsController {
             statusLabel.setText("Section added successfully.");
 
         } catch (NumberFormatException e) {
-            statusLabel.setText("Price must be a number. Capacity must be whole numbers.");
+            statusLabel.setText("Price must be a number. Capacity must be a whole number.");
         }
+    }
+
+    @FXML
+    private void handleReassignFaculty() {
+        String sectionId = reassignSectionIdField.getText().trim();
+        FacultyUser selectedInstructor = reassignInstructorBox.getValue();
+
+        if (sectionId.isBlank() || selectedInstructor == null) {
+            statusLabel.setText("Enter a section ID and select a faculty member.");
+            return;
+        }
+
+        CourseSection section = courseStorage.getSection(sectionId);
+
+        if (section == null) {
+            statusLabel.setText("Section ID does not exist.");
+            return;
+        }
+
+        section.setInstructorName(selectedInstructor.getFullName());
+
+        loadSections();
+
+        reassignSectionIdField.clear();
+        reassignInstructorBox.setValue(null);
+
+        statusLabel.setText("Faculty reassigned successfully.");
     }
 
     private void deleteSection(CourseSection section) {
@@ -245,8 +283,6 @@ public class AdminSectionsController {
             statusLabel.setText("Section not found.");
             return;
         }
-
-        
 
         loadSections();
         statusLabel.setText("Section deleted successfully.");
@@ -270,7 +306,6 @@ public class AdminSectionsController {
         accessCodeField.clear();
         priceField.clear();
         totalCapacityField.clear();
-        currentCapacityField.clear();
     }
 }
 

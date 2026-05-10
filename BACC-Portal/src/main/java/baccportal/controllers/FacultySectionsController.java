@@ -10,6 +10,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -33,6 +34,7 @@ public class FacultySectionsController {
     @FXML private TableColumn<StudentUser, String> studentIdColumn;
     @FXML private TableColumn<StudentUser, String> studentNameColumn;
     @FXML private TableColumn<StudentUser, String> studentEmailColumn;
+    @FXML private TableColumn<StudentUser, Void> dropColumn;
 
     @FXML private Label statusLabel;
 
@@ -48,6 +50,7 @@ public class FacultySectionsController {
             faculty = opt.get();
             setupSectionsTable();
             setupStudentsTable();
+            setupDropColumn();
             loadSections();
         } else {
             statusLabel.setText("No faculty user is currently logged in.");
@@ -75,12 +78,12 @@ public class FacultySectionsController {
                 )
         );
 
-        priceColumn.setCellValueFactory(data ->
-                new SimpleDoubleProperty(data.getValue().getPrice())
-        );
-
         unitsColumn.setCellValueFactory(data ->
                 new SimpleDoubleProperty(data.getValue().getCourse().getUnitAmount())
+        );
+
+        priceColumn.setCellValueFactory(data ->
+                new SimpleDoubleProperty(data.getValue().getPrice())
         );
 
         priceColumn.setCellFactory(column -> new TableCell<>() {
@@ -115,8 +118,47 @@ public class FacultySectionsController {
         studentsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
+    private void setupDropColumn() {
+        dropColumn.setPrefWidth(90);
+        dropColumn.setMinWidth(80);
+        dropColumn.setMaxWidth(110);
+        dropColumn.setResizable(false);
+
+        dropColumn.setCellFactory(column -> new TableCell<>() {
+            private final Button dropButton = new Button("Drop");
+
+            {
+                dropButton.setOnAction(e -> {
+                    StudentUser student = getTableView().getItems().get(getIndex());
+                    dropStudent(student);
+                });
+
+                dropButton.setStyle(
+                        "-fx-background-color: #dc2626;" +
+                                "-fx-text-fill: white;" +
+                                "-fx-font-weight: bold;" +
+                                "-fx-background-radius: 6;" +
+                                "-fx-padding: 5 12 5 12;"
+                );
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(dropButton);
+                }
+            }
+        });
+    }
+
     private void loadSections() {
-        sectionsTable.getItems().setAll(facultyService.getSectionsTaughtByFaculty(faculty));
+        sectionsTable.getItems().setAll(
+                facultyService.getSectionsTaughtByFaculty(faculty)
+        );
 
         if (sectionsTable.getItems().isEmpty()) {
             statusLabel.setText("No sections assigned.");
@@ -132,7 +174,8 @@ public class FacultySectionsController {
         App.getAppData().reloadSections();
         App.getAppData().reloadUsers();
 
-        FacultyUser refreshed = App.getAppData().getUserStorage().findFacultyUserById(facultyId);
+        FacultyUser refreshed =
+                App.getAppData().getUserStorage().findFacultyUserById(facultyId);
 
         if (refreshed != null) {
             faculty = refreshed;
@@ -144,63 +187,6 @@ public class FacultySectionsController {
         sectionIdField.clear();
 
         statusLabel.setText("Sections and students refreshed.");
-    }
-
-    /** 
-     * Marks a selected student as completed for a selected section.
-     */
-    @FXML
-    private void handleMarkSelectedCompleted() {
-        if (faculty == null) {
-            statusLabel.setText("No faculty user is currently logged in.");
-            return;
-        }
-
-        String sectionId = sectionIdField.getText().trim();
-
-        if (sectionId.isBlank()) {
-            statusLabel.setText("Enter a section ID first.");
-            return;
-        }
-
-        if (!facultyService.teachesSection(faculty, sectionId)) {
-            statusLabel.setText("You are not assigned to this section.");
-            return;
-        }
-
-        StudentUser selectedStudent = studentsTable.getSelectionModel().getSelectedItem();
-
-        if (selectedStudent == null) {
-            statusLabel.setText("Select a student from the table.");
-            return;
-        }
-
-        CourseSection targetSection = academicRecordsService.findEnrolledSection(selectedStudent, sectionId);
-
-        if (targetSection == null) {
-            statusLabel.setText("Selected student is not enrolled in this section.");
-            return;
-        }
-
-        if (!confirmAction(
-                "Mark Completed",
-                "Mark " + selectedStudent.getFullName()
-                        + " as completed for section " + targetSection.getSectionId() + "?"
-        )) {
-            return;
-        }
-
-        boolean completed = academicRecordsService.completeSection(selectedStudent, targetSection);
-
-        if (!completed) {
-            statusLabel.setText("Could not mark section completed.");
-            return;
-        }
-
-        loadSections();
-        handleViewStudents();
-
-        statusLabel.setText("Student marked completed.");
     }
 
     @FXML
@@ -225,12 +211,129 @@ public class FacultySectionsController {
             return;
         }
 
-        studentsTable.getItems().setAll(academicRecordsService.getStudentsInSection(sectionId));
+        studentsTable.getItems().setAll(
+                academicRecordsService.getStudentsInSection(sectionId)
+        );
 
-        if (studentsTable.getItems().isEmpty())
+        if (studentsTable.getItems().isEmpty()) {
             statusLabel.setText("No students enrolled in this section.");
-        else
+        } else {
             statusLabel.setText("Students loaded.");
+        }
+    }
+
+    private void dropStudent(StudentUser student) {
+        if (faculty == null) {
+            statusLabel.setText("No faculty user is currently logged in.");
+            return;
+        }
+
+        if (student == null) {
+            statusLabel.setText("No student selected.");
+            return;
+        }
+
+        String sectionId = sectionIdField.getText().trim();
+
+        if (sectionId.isBlank()) {
+            statusLabel.setText("Enter a section ID first.");
+            return;
+        }
+
+        if (!facultyService.teachesSection(faculty, sectionId)) {
+            statusLabel.setText("You are not assigned to this section.");
+            return;
+        }
+
+        CourseSection section =
+                academicRecordsService.findEnrolledSection(student, sectionId);
+
+        if (section == null) {
+            statusLabel.setText("Student is not enrolled in this section.");
+            return;
+        }
+
+        if (!confirmAction(
+                "Drop Student",
+                "Are you sure you want to drop "
+                        + student.getFullName()
+                        + " from "
+                        + section.getCourse().getCourseName()
+                        + " (" + section.getSectionId() + ")?"
+        )) {
+            return;
+        }
+
+        boolean dropped = academicRecordsService.dropSection(student, section);
+
+        if (!dropped) {
+            statusLabel.setText("Could not drop student from section.");
+            return;
+        }
+
+        loadSections();
+        handleViewStudents();
+
+        statusLabel.setText("Student dropped successfully.");
+    }
+
+    @FXML
+    private void handleMarkSelectedCompleted() {
+        if (faculty == null) {
+            statusLabel.setText("No faculty user is currently logged in.");
+            return;
+        }
+
+        String sectionId = sectionIdField.getText().trim();
+
+        if (sectionId.isBlank()) {
+            statusLabel.setText("Enter a section ID first.");
+            return;
+        }
+
+        if (!facultyService.teachesSection(faculty, sectionId)) {
+            statusLabel.setText("You are not assigned to this section.");
+            return;
+        }
+
+        StudentUser selectedStudent =
+                studentsTable.getSelectionModel().getSelectedItem();
+
+        if (selectedStudent == null) {
+            statusLabel.setText("Select a student from the table.");
+            return;
+        }
+
+        CourseSection targetSection =
+                academicRecordsService.findEnrolledSection(selectedStudent, sectionId);
+
+        if (targetSection == null) {
+            statusLabel.setText("Selected student is not enrolled in this section.");
+            return;
+        }
+
+        if (!confirmAction(
+                "Mark Completed",
+                "Mark " + selectedStudent.getFullName()
+                        + " as completed for section "
+                        + targetSection.getSectionId()
+                        + "?"
+        )) {
+            return;
+        }
+
+        boolean completed =
+                academicRecordsService.completeSection(selectedStudent, targetSection);
+
+        if (!completed) {
+            statusLabel.setText("Could not mark section completed.");
+            return;
+        }
+
+        loadSections();
+        handleViewStudents();
+
+        statusLabel.setText("Student marked completed.");
     }
 
     private boolean confirmAction(String title, String message) {
