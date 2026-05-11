@@ -30,10 +30,6 @@ public abstract class User {
     public String getFullName(){return this.fullName;}
 
     //methods
-    public boolean comparePassword(String password) {
-        return PasswordUtil.verifyPassword(password, this.password);
-    }
-
     @Override
     public boolean equals(Object o) { 
         if (this == o) {
