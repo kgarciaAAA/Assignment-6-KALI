@@ -54,7 +54,6 @@ public class CourseSection {
         return currentCapacity;
     }
 
-    //TODO: added exceptions, but could be potentially removed.  
     // added control to prevent section from being over capacity
     public void incrementCurrentCapacity(){
         if (isAtCapacity())
@@ -63,7 +62,6 @@ public class CourseSection {
         currentCapacity++;
     }
     
-    //TODO: same as above. Could be potentially removed.
     // free up space in section
     public void decrementCurrentCapacity() {
         if (currentCapacity <= 0)

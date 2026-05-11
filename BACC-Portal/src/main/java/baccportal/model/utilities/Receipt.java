@@ -1,10 +1,13 @@
 package baccportal.model.utilities;
 
 public class Receipt {
-    private static int nextId = 100000; //have this replaced with data from a file
+    // Seeded to 100000 so new receipt ids stay six digits. The data-loading
+    // constructor below pushes this past any id read from disk on startup.
+    private static int nextId = 100000;
     private final int receiptId;
     private final double totalPaid;
-    private final double remainingBalance; //stores the remaining balance of the student at the time the receipt was processed
+    // Remaining balance of the student at the time the receipt was processed.
+    private final double remainingBalance;
 
     //constructors
     public Receipt(double totalPaid, double remainingBalance) { //new receipt

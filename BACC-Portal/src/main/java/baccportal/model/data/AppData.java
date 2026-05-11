@@ -48,6 +48,7 @@ public class AppData implements PersistencePort {
         this.adminService = new AdminService(userStorage, courseStorage, this);
     }
 
+    // Missing or malformed files will leave that storage empty, without aborting startup
     public void load() {
         try {
             courseFileHandler.readCoursesFromFile(courseStorage);
@@ -58,9 +59,7 @@ public class AppData implements PersistencePort {
 
         try {
             sectionFileHandler.readSectionsFromFile(courseStorage);
-            System.out.println("Sections file loaded.");
-        } catch (Exception e) {
-            System.out.println("Could not load sections.txt: " + e.getMessage());
+        } catch (Exception ignored) {
         }
 
         loadUsersOnly();
@@ -76,22 +75,22 @@ public class AppData implements PersistencePort {
         try {
             userFileHandler.readAdminUsersFromFile(userStorage);
             System.out.println("Admin file loaded.");
-        } catch (Exception e) {
-            System.out.println("Could not load admin.txt: " + e.getMessage());
+        } catch (Exception ignored) {
+            System.out.println("Could not load admin.txt");
         }
 
         try {
             userFileHandler.readStudentUsersFromFile(userStorage, courseStorage);
             System.out.println("Students file loaded.");
-        } catch (Exception e) {
-            System.out.println("Could not load students.txt: " + e.getMessage());
+        } catch (Exception ignored) {
+            System.out.println("Could not load students.txt");
         }
 
         try {
             userFileHandler.readFacultyUsersFromFile(userStorage, courseStorage);
             System.out.println("Faculty file loaded.");
-        } catch (Exception e) {
-            System.out.println("Could not load faculty.txt: " + e.getMessage());
+        } catch (Exception ignored) {
+            System.out.println("Could not load faculty.txt");
         }
     }
 
@@ -100,8 +99,7 @@ public class AppData implements PersistencePort {
             courseStorage.clearSections();
             sectionFileHandler.readSectionsFromFile(courseStorage);
             System.out.println("Sections reloaded.");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
             System.out.println("Error reloading sections.");
         }
     }
@@ -111,8 +109,7 @@ public class AppData implements PersistencePort {
             userStorage.clearUsers();
             loadUsersOnly();
             System.out.println("Users reloaded.");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
             System.out.println("Error reloading users.");
         }
     }
@@ -123,8 +120,7 @@ public class AppData implements PersistencePort {
             userFileHandler.writeAdminUsersToFile(userStorage);
             userFileHandler.writeStudentUserToFile(userStorage);
             userFileHandler.writeFacultyUsersToFile(userStorage);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
             System.out.println("Error saving user data to text files.");
         }
     }

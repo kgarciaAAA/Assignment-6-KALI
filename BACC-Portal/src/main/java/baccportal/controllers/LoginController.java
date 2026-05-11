@@ -63,7 +63,6 @@ public class LoginController {
         try {
             App.setRoot(user.rootFxmlAfterLogin());
         } catch (Exception e) {
-            e.printStackTrace();
             statusLabel.setText("Error loading screen.");
         }
     }

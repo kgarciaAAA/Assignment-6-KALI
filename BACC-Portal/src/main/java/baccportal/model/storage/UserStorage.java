@@ -77,12 +77,12 @@ public class UserStorage {
         return admins.get(key);
     }
 
-    // Guranteed to return a student user with this id, or null if none.
+    // Guaranteed to return a student user with this id, or null if none.
     public StudentUser findStudentUserById(String userId) {
         return students.get(consistentUserID(userId));
     }
 
-    // Guranteed to return a faculty user with this id, or null if none.
+    // Guaranteed to return a faculty user with this id, or null if none.
     public FacultyUser findFacultyUserById(String userId) {
         return faculty.get(consistentUserID(userId));
     }
@@ -95,13 +95,12 @@ public class UserStorage {
         return faculty.remove(consistentUserID(userId)) != null;
     }
 
-    // TODO: Moved from AdminService to UserStorage
     public void detachSectionFromAllFaculty(CourseSection section) {
         for (FacultyUser faculty : faculty.values()) {
             faculty.removeSectionTaught(section);
         }
     }
-    // TODO: Moved from AdminService to UserStorage
+
     public void detachSectionFromAllStudents(CourseSection section) {
         for (StudentUser student : students.values()) {
             student.removeEnrolledSection(section);

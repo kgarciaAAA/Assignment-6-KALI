@@ -54,7 +54,6 @@ public class StudentUser extends User {
         completedSections.add(section);
     }
 
-    // TODO: added exception, but could be potentially removed.
     public void addEnrolledSection(CourseSection section) {
         if (enrolledSections.contains(section))
             throw new IllegalStateException("Student is already enrolled in this section.");
@@ -74,7 +73,6 @@ public class StudentUser extends User {
         return completedSections.remove(section);
     }
 
-    // TODO: added exceptions, but could be potentially removed.
     public void incrementBalanceOwed(double amount) {
         if (amount < 0)
             throw new IllegalArgumentException("Amount must be non-negative.");
@@ -82,7 +80,6 @@ public class StudentUser extends User {
         balanceOwed += amount;
     }
 
-    // TODO: added exceptions, but could be potentially removed.
     public void decrementBalanceOwed(double amount) {
         if (amount < 0)
             throw new IllegalArgumentException("Amount must be non-negative.");

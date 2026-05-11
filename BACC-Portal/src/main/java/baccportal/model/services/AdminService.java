@@ -13,7 +13,7 @@ import baccportal.model.users.StudentUser;
 
 public class AdminService {
 
-    private static final String unassigned_faculty = "TBD";
+    private static final String UNASSIGNED_FACULTY = "TBD";
 
     private final UserStorage userStorage;
     private final CourseStorage courseStorage;
@@ -179,18 +179,18 @@ public class AdminService {
         return true;
     }
 
-    // Helper method to clean up references to a section when it is deleted.
-    // TODO: Wipes from memory, including students and faculty references.
+    // Wipes references to a section from every student and faculty user
+    // before the section itself is removed from storage.
     private void cleanUpSectionReferences(CourseSection section) {
         userStorage.detachSectionFromAllStudents(section);
         userStorage.detachSectionFromAllFaculty(section);
     }
 
-    // Now, when the faculty is removed, we unassign all the sections they taught.
-    // TODO: Coould just delete the sections instead. 
+    // When a faculty user is removed, their sections are left in place
+    // with an "unassigned" instructor so admins can reassign them later.
     private void unassignSectionsTaughtBy(FacultyUser faculty) {
         for (CourseSection section : faculty.getSectionsTaught()) {
-            section.setInstructorName(unassigned_faculty);
+            section.setInstructorName(UNASSIGNED_FACULTY);
         }
     }
 }

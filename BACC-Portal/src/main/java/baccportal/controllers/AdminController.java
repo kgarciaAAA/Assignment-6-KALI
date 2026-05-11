@@ -126,7 +126,6 @@ public class AdminController {
             contentBox.getChildren().add(page);
 
         } catch (IOException e) {
-            e.printStackTrace();
             contentBox.getChildren().clear();
             contentBox.getChildren().add(new Label("Error loading page: " + fxmlName));
         }
