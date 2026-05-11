@@ -1,11 +1,10 @@
 package baccportal.model;
 
-import baccportal.model.academics.Course;
-import baccportal.model.academics.CourseSection;
 import baccportal.model.academics.Department;
+import baccportal.model.session.Session;
+import baccportal.model.users.AdminUser;
 import baccportal.model.users.FacultyUser;
 import baccportal.model.users.StudentUser;
-import baccportal.model.utilities.Receipt;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,20 +12,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class SessionTest {
 
     @Test
-    void coursePrerequisitesListCannotBeModifiedFromOutside() {
-        Course cs46a = new Course("CS46A", "Introduction to Programming", 3.0);
-        Course cs151 = new Course("CS151", "Object-Oriented Design", 3.0);
-        cs151.addCoursePrerequisites(cs46a);
+    void newSessionStartsLoggedOut() {
+        Session session = new Session();
 
-        assertThrows(UnsupportedOperationException.class,
-                () -> cs151.getCoursePrerequisites().add(new Course("CS47", "Another Course", 3.0)));
-
-        assertEquals(1, cs151.getCoursePrerequisites().size());
-        assertTrue(cs151.getCoursePrerequisites().contains(cs46a));
+        assertFalse(session.isLoggedIn());
+        assertNull(session.getUser());
+        assertNull(session.student());
+        assertNull(session.faculty());
+        assertNull(session.admin());
     }
 
     @Test
-    void studentListsCannotBeModifiedFromOutside() {
+    void studentReturnsCurrentUserWhenCurrentUserIsStudent() {
+        Session session = new Session();
+
         StudentUser student = new StudentUser(
                 "student@sjsu.edu",
                 "S1001",
@@ -38,25 +37,19 @@ class SessionTest {
                 0.0
         );
 
-        Course course = new Course("CS151", "Object-Oriented Design", 3.0);
-        CourseSection section = new CourseSection(course, "Dr. Test", "SEC-001", "ABC123", 750.0, 30, 0);
-        Receipt receipt = new Receipt(100.0, 200.0);
+        session.setUser(student);
 
-        student.addCompletedSection(section);
-        student.addEnrolledSection(section);
-        student.addTransaction(receipt);
-
-        assertThrows(UnsupportedOperationException.class, () -> student.getCompletedSections().clear());
-        assertThrows(UnsupportedOperationException.class, () -> student.getEnrolledSections().clear());
-        assertThrows(UnsupportedOperationException.class, () -> student.getTransactionHistory().clear());
-
-        assertEquals(1, student.getCompletedSections().size());
-        assertEquals(1, student.getEnrolledSections().size());
-        assertEquals(1, student.getTransactionHistory().size());
+        assertTrue(session.isLoggedIn());
+        assertSame(student, session.getUser());
+        assertSame(student, session.student());
+        assertNull(session.faculty());
+        assertNull(session.admin());
     }
 
     @Test
-    void facultySectionsListCannotBeModifiedFromOutside() {
+    void facultyReturnsCurrentUserWhenCurrentUserIsFaculty() {
+        Session session = new Session();
+
         FacultyUser faculty = new FacultyUser(
                 "faculty@sjsu.edu",
                 "F1001",
@@ -66,86 +59,56 @@ class SessionTest {
                 Department.COMPUTER_SCIENCE
         );
 
-        Course course = new Course("CS151", "Object-Oriented Design", 3.0);
-        CourseSection section = new CourseSection(course, "Test Faculty", "SEC-001", "ABC123", 750.0, 30, 0);
-        faculty.addSectionTaught(section);
+        session.setUser(faculty);
 
-        assertThrows(UnsupportedOperationException.class, () -> faculty.getSectionsTaught().clear());
-        assertEquals(1, faculty.getSectionsTaught().size());
+        assertTrue(session.isLoggedIn());
+        assertSame(faculty, session.getUser());
+        assertSame(faculty, session.faculty());
+        assertNull(session.student());
+        assertNull(session.admin());
     }
 
     @Test
-    void studentCanRemoveEnrolledSection() {
-        StudentUser student = new StudentUser(
-                "student@sjsu.edu",
-                "S1001",
+    void adminReturnsCurrentUserWhenCurrentUserIsAdmin() {
+        Session session = new Session();
+
+        AdminUser admin = new AdminUser(
+                "admin@sjsu.edu",
+                "A1001",
                 "password123",
-                "Test Student",
-                false,
-                "Computer Science",
-                Department.COMPUTER_SCIENCE,
-                0.0
+                "Test Admin",
+                false
         );
 
-        Course course = new Course("CS151", "Object-Oriented Design", 3.0);
-        CourseSection section = new CourseSection(course, "Dr. Test", "SEC-001", "ABC123", 750.0, 30, 0);
+        session.setUser(admin);
 
-        student.addEnrolledSection(section);
-
-        boolean removed = student.removeEnrolledSection(section);
-
-        assertTrue(removed);
-        assertFalse(student.getEnrolledSections().contains(section));
+        assertTrue(session.isLoggedIn());
+        assertSame(admin, session.getUser());
+        assertSame(admin, session.admin());
+        assertNull(session.student());
+        assertNull(session.faculty());
     }
 
     @Test
-    void studentCanRemoveCompletedSection() {
-        StudentUser student = new StudentUser(
-                "student@sjsu.edu",
-                "S1001",
+    void clearRemovesCurrentUser() {
+        Session session = new Session();
+
+        AdminUser admin = new AdminUser(
+                "admin@sjsu.edu",
+                "A1001",
                 "password123",
-                "Test Student",
-                false,
-                "Computer Science",
-                Department.COMPUTER_SCIENCE,
-                0.0
+                "Test Admin",
+                false
         );
 
-        Course course = new Course("CS151", "Object-Oriented Design", 3.0);
-        CourseSection section = new CourseSection(course, "Dr. Test", "SEC-001", "ABC123", 750.0, 30, 0);
+        session.setUser(admin);
+        session.clear();
 
-        student.addCompletedSection(section);
-
-        boolean removed = student.removeCompletedSection(section);
-
-        assertTrue(removed);
-        assertFalse(student.getCompletedSections().contains(section));
-    }
-
-    @Test
-    void coursesAreEqualWhenCourseIdsMatchIgnoringCase() {
-        Course first = new Course("CS151", "Object-Oriented Design", 3.0);
-        Course second = new Course("cs151", "Different Name Same ID", 4.0);
-
-        assertEquals(first, second);
-        assertEquals(first.hashCode(), second.hashCode());
-    }
-
-    @Test
-    void courseSectionCapacityCannotGoBelowZero() {
-        Course course = new Course("CS151", "Object-Oriented Design", 3.0);
-        CourseSection section = new CourseSection(course, "Dr. Test", "SEC-001", "ABC123", 750.0, 30, 0);
-
-        assertThrows(IllegalStateException.class, section::decrementCurrentCapacity);
-        assertEquals(0, section.getCurrentCapacity());
-    }
-
-    @Test
-    void courseSectionCapacityCannotGoAboveTotalCapacity() {
-        Course course = new Course("CS151", "Object-Oriented Design", 3.0);
-        CourseSection section = new CourseSection(course, "Dr. Test", "SEC-001", "ABC123", 750.0, 1, 1);
-
-        assertThrows(IllegalStateException.class, section::incrementCurrentCapacity);
-        assertEquals(1, section.getCurrentCapacity());
+        assertFalse(session.isLoggedIn());
+        assertNull(session.getUser());
+        assertNull(session.student());
+        assertNull(session.faculty());
+        assertNull(session.admin());
     }
 }
+
