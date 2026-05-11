@@ -54,12 +54,14 @@ public class AppData implements PersistencePort {
             courseFileHandler.readCoursesFromFile(courseStorage);
             System.out.println("Courses file loaded.");
         } catch (Exception e) {
-            System.out.println("Could not load courses.txt: " + e.getMessage());
+            System.out.println("Could not load courses.txt");
         }
 
         try {
             sectionFileHandler.readSectionsFromFile(courseStorage);
+            System.out.println("Sections file loaded.");
         } catch (Exception ignored) {
+            System.out.println("Could not load sections.txt");
         }
 
         loadUsersOnly();
@@ -129,8 +131,7 @@ public class AppData implements PersistencePort {
     public void saveCourses() {
         try {
             courseFileHandler.writeCoursesToFile(courseStorage);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
             System.out.println("Error saving course data to text files.");
         }
     }
@@ -139,8 +140,7 @@ public class AppData implements PersistencePort {
     public void saveSections() {
         try {
             sectionFileHandler.writeSectionsToFile(courseStorage);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
             System.out.println("Error saving section data to text files.");
         }
     }

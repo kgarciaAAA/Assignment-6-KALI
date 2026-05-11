@@ -49,7 +49,7 @@ public class CourseFileHandler {
                 if (preRequisite != null) {
                     course.addCoursePrerequisites(preRequisite);
                 } else {
-                    throw new IllegalArgumentException("Could not find Course Prerequisite with courseId: " + courseId);
+                    System.out.println("Could not find Course Prerequisite with courseId: " + courseId);
                 }
             }
         }
